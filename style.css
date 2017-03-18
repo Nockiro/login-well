@@ -1,16 +1,16 @@
 /* body font color and background, also scrollbar color*/
 body {
-	background-color:#454545; 
-	color: #dbdbdb;
+	background-color: #d6e4b4; 
+	color: #104701;
 	
 	/* no scrollbar */
     overflow:hidden;
 	
 	/* But IF.. */
-	scrollbar-arrow-color: #1e1e1e; 
-	scrollbar-base-color: #585858;
-	scrollbar-highlight-color : #1e1e1e; 
-	scrollbar-shadow-color : #1e1e1e;
+	scrollbar-arrow-color: #585858; 
+	scrollbar-base-color: #1e1e1e;
+	scrollbar-highlight-color : #585858; 
+	scrollbar-shadow-color : #585858;
 	scrollbar-track-color: #0C0C0C;
 }
 
@@ -29,26 +29,26 @@ a:link {
 
 /* visited link */
 a:visited {
-    color: lightgreen;
+    color: darkgreen;
 }
 
 /* mouse over link */
 a:hover {
-    color: hotpink;
+    color: #ba0044;
     animation: blink 2s;
 }
 
 /* selected link */
 a:active {
-    color: white;
+    color: #ba0044;
 }
 
 /* button */
 
 input, select, textarea {
-	background-color: #4F4F4F !important;
-	color: #C0C0C0 !important;
-	border: solid 1px #7f7f7f !important;
+	background-color: #d6e4b4 !important;
+	color: #025207 !important;
+	border: solid 1px #118702 !important;
 	padding: 4px !important;
 }
 
@@ -59,61 +59,3 @@ table {
 	text-align: center;
 }
 
-/* logo image and copyright scrolling text*/
-
-#logo, #copyright {
-    animation: fade_weich 3s;
-    animation-iteration-count: infinite;
-}
-
-/* all splitters (also the server splitter from hobbies) 
-hr {
-    animation: fade_weich 3s;
-    animation-iteration-count: infinite;
-}*/
-
-
-/* navigation splitter */
-#nav {
-    display: block;
-    border: 0px;
-	height: 10px;
-	width: 95%;
-	background-image: url(../img/Laserstrahl_klein.png);
-	background-repeat: no-repeat;
-	background-size: contain;
-	animation: fade_weich 2s; 
-	transition: 1s;
-}
-
-#navpage:hover + #nav {
-	margin-left: 80%;
-}
-
-
-@keyframes fade_weich {
-    0% {
-        opacity: 1;
-    }
-    30% {
-        opacity: 0;
-    }
-    100% {
-        opacity: 1;
-    }
-}
-
-@keyframes fade_weich_weniger {
-    0% {
-        opacity: 0;
-    }
-    10% {
-        opacity: 1;
-    }
-    50% {
-        opacity: 0;
-    }
-    100% {
-        opacity: 0;
-    }
-}
