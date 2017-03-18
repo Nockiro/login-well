@@ -1,0 +1,119 @@
+/* body font color and background, also scrollbar color*/
+body {
+	background-color:#454545; 
+	color: #dbdbdb;
+	
+	/* no scrollbar */
+    overflow:hidden;
+	
+	/* But IF.. */
+	scrollbar-arrow-color: #1e1e1e; 
+	scrollbar-base-color: #585858;
+	scrollbar-highlight-color : #1e1e1e; 
+	scrollbar-shadow-color : #1e1e1e;
+	scrollbar-track-color: #0C0C0C;
+}
+
+
+/* all links */
+a {
+    font-size: 24px
+}
+
+/* unvisited link */
+a:link {
+    color: #ff3333;
+	/* no underlined stuff and stuff */
+	text-decoration: none;
+}
+
+/* visited link */
+a:visited {
+    color: lightgreen;
+}
+
+/* mouse over link */
+a:hover {
+    color: hotpink;
+    animation: blink 2s;
+}
+
+/* selected link */
+a:active {
+    color: white;
+}
+
+/* button */
+
+input, select, textarea {
+	background-color: #4F4F4F !important;
+	color: #C0C0C0 !important;
+	border: solid 1px #7f7f7f !important;
+	padding: 4px !important;
+}
+
+/* All tables shall fit the whole screen size */
+table {
+	min-width: 100%;
+	min-height: 100%;
+	text-align: center;
+}
+
+/* logo image and copyright scrolling text*/
+
+#logo, #copyright {
+    animation: fade_weich 3s;
+    animation-iteration-count: infinite;
+}
+
+/* all splitters (also the server splitter from hobbies) 
+hr {
+    animation: fade_weich 3s;
+    animation-iteration-count: infinite;
+}*/
+
+
+/* navigation splitter */
+#nav {
+    display: block;
+    border: 0px;
+	height: 10px;
+	width: 95%;
+	background-image: url(../img/Laserstrahl_klein.png);
+	background-repeat: no-repeat;
+	background-size: contain;
+	animation: fade_weich 2s; 
+	transition: 1s;
+}
+
+#navpage:hover + #nav {
+	margin-left: 80%;
+}
+
+
+@keyframes fade_weich {
+    0% {
+        opacity: 1;
+    }
+    30% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+@keyframes fade_weich_weniger {
+    0% {
+        opacity: 0;
+    }
+    10% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 0;
+    }
+}
