@@ -24,5 +24,5 @@ setcookie(session_name(), '', time() - 42000, $params["path"], $params["domain"]
 session_destroy();
 
 setcookie("img", $zzahl);
-header('Location: index.php?loggedout=true');
+header('Location: index.php?cp=logout');
 ?>

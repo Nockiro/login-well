@@ -1,6 +1,5 @@
 <?php
-include_once 'core/dbconnect.php';
-include_once 'core/functions.php';
+include_once '../core/functions.php';
 
 if ((isset($_REQUEST['ID']) && isset($_REQUEST['Aktivierungscode'])) || (isset($_POST['ID']) && isset($_POST['Aktivierungscode']))) {
 
@@ -63,7 +62,7 @@ if ((isset($_REQUEST['ID']) && isset($_REQUEST['Aktivierungscode'])) || (isset($
                 <link rel="stylesheet" href="style.css" />
             </head>
             <body>
-                <div style="width:600px" class="wmfg_layout_0">
+                <div style="width:600px">
 
                     <form method="post" action="<?php echo esc_url($_SERVER['PHP_SELF']); ?>">
 

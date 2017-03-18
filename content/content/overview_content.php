@@ -1,10 +1,17 @@
 <?php
-include_once 'core/functions.php';
-ini_set("display_errors", "0");
 sec_session_start();
 
 $usercount = get_usercount($mysqli);
+
+if (isset($_GET['msg'])) {
+    if (filter_input(INPUT_GET, 'msg') === "Success") {
+        $lastcard = get_lastcard($mysqli);
+    } else {
+        echo '<p class="error">' . get_errormsg(filter_input(INPUT_GET, 'msg')) . '</p>';
+    }
+}
 ?>
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -15,7 +22,9 @@ $usercount = get_usercount($mysqli);
     </head>
     <body>
         <?php if (login_check($mysqli)) : ?>
-            <p><?php echo htmlentities($_SESSION['username']); ?>, you are already logged in.!</p>
+            <h2 align="right">Loginer - Welcome</h2>
+            <p>Welcome <?php echo htmlentities($_SESSION['username']); ?>!</p>
+            <p>Last Logout-Picture: <img src="account/getCard.php?img=<?php echo ($lastcard != -1 ? $lastcard : "nocard"); ?>" width="76" height="105"> </p>
             <p>Would you like to <a href="logout.php">logout</a>?</p>
         <?php else : ?>
             <h2 align="right">Loginer - Log In</h2>
@@ -44,7 +53,7 @@ $usercount = get_usercount($mysqli);
                 </form>
 
             </div>
-            <p>If you don't have a login, please <a href="register.php">register</a>.</p>
+            <p>If you don't have a login, please <a href=" <?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>?cp=register">register</a>.</p>
             <p>There <?php echo ($usercount > 1 ? "are" : "is") ?> currently <?php echo $usercount . ($usercount > 1 ? " Users" : " User"); ?> registered.</p>	
         <?php endif; ?>
     </body>

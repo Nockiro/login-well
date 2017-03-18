@@ -1,7 +1,5 @@
 <?php
 
-include_once 'dbconnect.php';
-
 $error_msg = "";
 if (isset($_POST['username'], $_POST['email'], $_POST['p'])) {
     // Bereinige und überprüfe die Daten
@@ -94,8 +92,7 @@ if (isset($_POST['username'], $_POST['email'], $_POST['p'])) {
 
         echo mail($email, $mailtitle, $mailtext, $header);
 
-        printf($query);
-        header('Location: ./register_success.php');
+        header('Location: ../account/register_success.php');
     }
 }
 ?>

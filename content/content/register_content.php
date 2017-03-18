@@ -1,5 +1,5 @@
 <?php
-include_once 'core/functions.php';
+include_once 'core/register.inc.php';
 ?>
 <!DOCTYPE html>
 <html>
@@ -61,10 +61,10 @@ include_once 'core/functions.php';
 
                     <li>
                         <input type="button" value="Register" onclick="return regformhash(this.form,
-                                this.form.username,
-                                this.form.email,
-                                this.form.password,
-                                this.form.confirmpwd);" />
+                                        this.form.username,
+                                        this.form.email,
+                                        this.form.password,
+                                        this.form.confirmpwd);" />
                     </li>
 
                 </ul>
@@ -73,6 +73,6 @@ include_once 'core/functions.php';
 
         </div>
 
-        <p>Return to the <a href="login.php">login page</a>.</p>
+        <p>Return to the <a href="index.php?cp">main page</a>.</p>
     </body>
 </html>
