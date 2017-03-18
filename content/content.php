@@ -15,4 +15,6 @@ if (file_exists(file_build_path(dirname(__DIR__), "content", pagefunctions, strt
 if (file_build_path(dirname(__DIR__), "content", "content", strtolower($currentpage) . "_content.php"))
     include (file_build_path(dirname(__DIR__), "content", "content", strtolower($currentpage) . "_content.php"));
 
+echo "<hr/>";
+include_once(file_build_path(dirname(__DIR__), "internal", "revInfo.php"));
 ?>
