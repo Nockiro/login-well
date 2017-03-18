@@ -11,7 +11,6 @@ At later times, we will use version names and tags.
 
 ## Issues
 Please add explaining labels to all issues.
-Standard label should be "not confirmed" followed by "bug" or "feature request"
 
 ----
 # Log in well
@@ -24,3 +23,6 @@ Wir mergen den Entwicklungsbranch (dev) nur mit dem Master Branch, wenn wir sich
 Nutzt **feature branches** um **neue Features** oder **Issues** (wenn sie vorraussichtlich einiger Commits bedürfen oder mehr als eine Person an einem Problem arbeiten soll) und mergt die mit dem Entwicklungsbranch wenn alles nach Plan läuft.  
 
 Später sollten wir auch Tags bzw. Versionsnummern nutzen, wie bei jeder normalen Software auch
+
+## Issues
+Bitte erklärende Labels zu allen Issues hinzufügen.
