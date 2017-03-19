@@ -1,6 +1,6 @@
 <?php
-include_once 'core/functions.php';
 ini_set("display_errors", "E_ALL");
+include_once 'core/functions.php';
 
 sec_session_start();
 
@@ -8,9 +8,6 @@ $lastcard = -1;
 
 if (isset($_GET["cp"])) {
     $currentpage = htmlspecialchars($_GET["cp"]);
-    $_SESSION["cp"] = $currentpage;
-} else if (isset($_SESSION["cp"])) {
-    $currentpage = htmlspecialchars($_SESSION["cp"]);
 } else {
     $currentpage = CONST_DefaultPage;
 }
@@ -18,12 +15,11 @@ if (isset($_GET["cp"])) {
 <!DOCTYPE html>
 <html>
     <head>
-        <meta charset="UTF-8">
-        <title>Loginer: Welcome</title>
-        <link rel="stylesheet" href="style.css" />
+        <?php include ("content/header.php"); //add head of html ?>
 
     </head>
     <body>
+        <?php include ("content/head.php"); //add head content of page ?>
 
         <?php include ("content/content.php"); //add page content ?>
 

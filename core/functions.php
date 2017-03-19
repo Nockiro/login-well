@@ -2,15 +2,16 @@
 
 include_once 'dbconnect.php';
 include_once 'extensions.php';
-define("SECURE", FALSE);
-define("CONST_DefaultPage", "overview");
+include_once 'constants.php';
 
-function sec_session_start()
-{
+
+/* session handling */
+
+function sec_session_start() {
     $session_name = 'sec_session_id'; // vergib einen Sessionnamen
-    $secure       = SECURE;
+    $secure = SECURE;
     // Damit wird verhindert, dass JavaScript auf die session id zugreifen kann.
-    $httponly     = true;
+    $httponly = true;
     // Zwingt die Sessions nur Cookies zu benutzen.
     if (ini_set('session.use_only_cookies', 1) === FALSE) {
         header("Location: ../error.php?err=Could not initiate a safe session (ini_set)");
@@ -25,8 +26,7 @@ function sec_session_start()
     session_regenerate_id(); // Erneuert die Session, löscht die alte. 
 }
 
-function login($email, $password, $mysqli)
-{
+function login($email, $password, $mysqli) {
     // Das Benutzen vorbereiteter Statements verhindert SQL-Injektion.
     if ($query = $mysqli->prepare("SELECT id, username, password, salt FROM members WHERE email = ? LIMIT 1")) {
         $query->bind_param('s', $email); // Bind "$email" to parameter.
@@ -35,11 +35,11 @@ function login($email, $password, $mysqli)
         // hole Variablen von result.
         $query->bind_result($user_id, $username, $db_password, $salt);
         $query->fetch();
-        
+
         // hash das Passwort mit dem eindeutigen salt.
         $password = hash('sha512', $password . $salt);
         if ($query->num_rows == 1) {
-			
+
             // Wenn es den Benutzer gibt, dann wird überprüft ob das Konto
             // blockiert ist durch zu viele Login-Versuche             
             if (checkbrute($user_id, $mysqli) == true) {
@@ -53,10 +53,10 @@ function login($email, $password, $mysqli)
                     // Benutzer angegebenen übereinstimmt.
                     if ($db_password == $password) {
                         // Hole den user-agent string des Benutzers.
-                        $user_browser             = $_SERVER['HTTP_USER_AGENT'];
+                        $user_browser = $_SERVER['HTTP_USER_AGENT'];
                         // Schutz gegen XSS
-                        $_SESSION['user_id']      = htmlspecialchars($user_id);
-                        $_SESSION['username']     = htmlspecialchars($username);
+                        $_SESSION['user_id'] = htmlspecialchars($user_id);
+                        $_SESSION['username'] = htmlspecialchars($username);
                         $_SESSION['login_string'] = hash('sha512', $password . $user_browser);
                         // Login erfolgreich.
                         return "Success";
@@ -78,51 +78,49 @@ function login($email, $password, $mysqli)
             return "E002";
         }
     } else {
-		return "E000";
-	}
+        return "E000";
+    }
 }
 
-function checkbrute($user_id, $mysqli)
-{
+function checkbrute($user_id, $mysqli) {
     // Hole den aktuellen Zeitstempel 
     $now = time();
-    
+
     // Alle Login-Versuche der letzten zwei Stunden werden gezählt.
     $valid_attempts = $now - (2 * 60 * 60);
-    
+
     if ($query = $mysqli->prepare("SELECT time 
                              FROM login_attempts <code><pre>
                              WHERE user_id = ? 
                             AND time > '$valid_attempts'")) {
         $query->bind_param('i', $user_id);
-        
+
         // Führe die vorbereitete Abfrage aus. 
         $query->execute();
         $query->store_result();
-        
+
         // Wenn es mehr als 5 fehlgeschlagene Versuche gab 
         return ($query->num_rows > 5);
     }
 }
 
-function login_check($mysqli)
-{
+function login_check($mysqli) {
     // Überprüfe, ob alle Session-Variablen gesetzt sind 
     if (isset($_SESSION['user_id'], $_SESSION['username'], $_SESSION['login_string'])) {
-        
-        $user_id      = $_SESSION['user_id'];
+
+        $user_id = $_SESSION['user_id'];
         $login_string = $_SESSION['login_string'];
-        $username     = $_SESSION['username'];
-        
+        $username = $_SESSION['username'];
+
         // Hole den user-agent string des Benutzers.
         $user_browser = $_SERVER['HTTP_USER_AGENT'];
-        
+
         if ($query = $mysqli->query("SELECT password 
                                       FROM members 
                                       WHERE id = $user_id LIMIT 1")) {
-            
-            
-			// Wenn Benutzer gefunden
+
+
+            // Wenn Benutzer gefunden
             if ($query->num_rows == 1) {
                 $password = $query->fetch_row()[0];
                 $login_check = hash('sha512', $password . $user_browser); // ist es der, der es sein sollte?
@@ -130,27 +128,26 @@ function login_check($mysqli)
             }
         }
     }
-	
-	// wenn oben nicht true, dann hier false und nicht eingeloggt
-	return false;
+
+    // wenn oben nicht true, dann hier false und nicht eingeloggt
+    return false;
 }
 
-function save_card($mysqli, $imgnum)
-{
+function save_card($mysqli, $imgnum) {
     $result = $mysqli->query("UPDATE `members` SET `last_card` = '" . $imgnum . "' WHERE `id` = " . $_SESSION['user_id'] . ";");
 }
 
-function get_lastcard($mysqli)
-{
+function get_lastcard($mysqli) {
     if ($result = $mysqli->query("SELECT last_card FROM members WHERE id =  " . $_SESSION['user_id'] . ";", MYSQLI_USE_RESULT)) {
-        
+
         $value = $result->fetch_array(MYSQLI_NUM);
         return is_array($value) ? $value[0] : "";
     }
 }
 
-function get_errormsg($errcode)
-{
+/* html stuff */
+
+function get_errormsg($errcode) {
     switch ($errcode) {
         case "E000":
             return "Couldn't execute query. Is there a valid database?";
@@ -165,18 +162,24 @@ function get_errormsg($errcode)
     }
 }
 
-function get_usercount($mysqli)
-{
+function get_usercount($mysqli) {
     if ($result = $mysqli->query("SELECT id FROM members")) {
         return $result->num_rows;
     }
 }
 
-function is_validated($user_id, $mysqli)
-{
+function is_validated($user_id, $mysqli) {
     if ($result = $mysqli->query("SELECT verified FROM members WHERE id = $user_id;", MYSQLI_USE_RESULT)) {
         $row = $result->fetch_row();
         return $row[0];
     }
 }
+
+function useOwnHeader() {
+    // possibilitz to overwrite the global header setting:
+    ob_clean();
+    // manually include header:
+    include (file_build_path("content", "header.php")); //add head content of page 
+}
+
 ?>

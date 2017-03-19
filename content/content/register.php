@@ -13,7 +13,6 @@ include_once 'core/register.inc.php';
     <body>
         <!-- Anmeldeformular für die Ausgabe, wenn die POST-Variablen nicht gesetzt sind
         oder wenn das Anmelde-Skript einen Fehler verursacht hat. -->
-        <h2 align="right">Loginer - Register</h2>
         <?php
         if (!empty($error_msg)) {
             echo $error_msg;
