@@ -1,7 +1,8 @@
+
 /* body font color and background, also scrollbar color*/
 body {
-    background-color: #f7fbee; 
-    color: #104701;
+    background-color:  #f7fbee; 
+    color: #264472;
 
     /* no scrollbar */
     overflow:hidden;
@@ -22,14 +23,14 @@ a {
 
 /* unvisited link */
 a:link {
-    color: #64002d;
+    color: #722644;
     /* no underlined stuff and stuff */
     text-decoration: none;
 }
 
 /* visited link */
 a:visited {
-    color: darkgreen;
+    color: #4C89E5;
 }
 
 /* mouse over link */
@@ -42,6 +43,15 @@ a:hover {
 a:active {
     color: #ba0044;
 }
+
+div.content{
+    border: 4px solid #a3dca3; 
+    border-radius: 8px; 
+    padding: 4px; 
+    background-color: #a7ec8f;
+    margin-top:6px;
+}
+
 
 /* button */
 
@@ -63,9 +73,18 @@ table {
     margin: 0;
     padding: 0;
     overflow: hidden;
-    background-color: #7db100;
+    background-color: #264472;
     border-radius: 11px;
+    color: #6FA0EA;
 }
+
+#header a {
+    color: #A8C6F2;
+}
+#header a:hover {
+    color: #A8C6F2;
+}
+
 
 #header li {
     font-size: 24px;
