@@ -1,17 +1,17 @@
 /* body font color and background, also scrollbar color*/
 body {
-	background-color: #d6e4b4; 
-	color: #104701;
-	
-	/* no scrollbar */
+    background-color: #f7fbee; 
+    color: #104701;
+
+    /* no scrollbar */
     overflow:hidden;
-	
-	/* But IF.. */
-	scrollbar-arrow-color: #585858; 
-	scrollbar-base-color: #1e1e1e;
-	scrollbar-highlight-color : #585858; 
-	scrollbar-shadow-color : #585858;
-	scrollbar-track-color: #0C0C0C;
+
+    /* But IF.. */
+    scrollbar-arrow-color: #585858; 
+    scrollbar-base-color: #1e1e1e;
+    scrollbar-highlight-color : #585858; 
+    scrollbar-shadow-color : #585858;
+    scrollbar-track-color: #0C0C0C;
 }
 
 
@@ -22,9 +22,9 @@ a {
 
 /* unvisited link */
 a:link {
-    color: #ff3333;
-	/* no underlined stuff and stuff */
-	text-decoration: none;
+    color: #64002d;
+    /* no underlined stuff and stuff */
+    text-decoration: none;
 }
 
 /* visited link */
@@ -46,16 +46,42 @@ a:active {
 /* button */
 
 input, select, textarea {
-	background-color: #d6e4b4 !important;
-	color: #025207 !important;
-	border: solid 1px #118702 !important;
-	padding: 4px !important;
+    background-color: #d6e4b4 !important;
+    color: #025207 !important;
+    border: solid 1px #118702 !important;
+    padding: 4px !important;
 }
 
-/* All tables shall fit the whole screen size */
+/* All tables shall fit the whole screen size to the left */
 table {
-	min-width: 100%;
-	min-height: 100%;
-	text-align: center;
+    min-width: 100%;
+    text-align: center;
 }
 
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #7db100;
+    border-radius: 11px;
+}
+
+li {
+    font-size: 24px;
+    float: left;
+    border-right: 1px solid #bbb;
+    text-align: center;
+    text-decoration: none;
+    display: block;
+    padding: 14px 16px;
+}
+
+/* say explicitly that the links have to have this padding! */
+li a{
+    padding: 14px 16px;
+}
+
+li a:hover {
+    background-color: #bedc76;
+}

@@ -20,25 +20,16 @@ if (isset($_GET['msg'])) {
     <div style="width:600px">
 
         <form method="post" action="account/process_login.php" name = "login_form">
-
-            <ul>
-
-                <li>
-                    <label for="pass_id">E-Mail</label>
-                    <input type="text" name="email" id="email" value="" />
-                </li>
-
-                <li>
-                    <label for="pass_id">Password</label>
-                    <input type="password" name="password" id="password" value="" />
-                </li>
-
-                <li>
-                    <input type="button" onclick="formhash(this.form, this.form.password);" value="Login" />
-                </li>
-
-            </ul>
-
+            <table>
+                    <td>
+                        <label for="pass_id">E-Mail</label>
+                        <input type="text" name="email" id="email" value="" /></td>
+                    <td>
+                        <label for="pass_id">Password</label>
+                        <input type="password" name="password" id="password" value="" /></td>
+                    <td>
+                        <input type="button" onclick="formhash(this.form, this.form.password);" value="Login" /></td>
+            </table>
         </form>
 
     </div>
