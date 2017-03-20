@@ -39,11 +39,6 @@ if (isset($_POST['username'], $_POST['email'], $_POST['p'])) {
         $error_msg .= '<p class="error">Database error</p>';
     }
 
-    // Noch zu tun: 
-    // Wir müssen uns noch um den Fall kümmern, wo der Benutzer keine
-    // Berechtigung für die Anmeldung hat indem wir überprüfen welche Art 
-    // von Benutzer versucht diese Operation durchzuführen.
-
     if (empty($error_msg)) {
         // Erstelle ein zufälliges Salt
         $random_salt = hash('sha512', uniqid(openssl_random_pseudo_bytes(16), TRUE));
