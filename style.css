@@ -73,28 +73,33 @@ form {
 /* The side navigation menu (See: https://www.w3schools.com/howto/howto_js_sidenav.asp)*/
 .sidenav {
     min-height: 82%; /* 100% Full-height */
-    width: 0; /* 0 width - change this with JavaScript */
+    width: 200px; /* 200px width - change this with JavaScript */
     position: fixed; /* Stay in place */
     z-index: 1; /* Stay on top */
     top: 0;
     left: 0;
     background-color: #111; /* Black*/
     overflow-x: hidden; /* Disable horizontal scroll */
-    padding-top: 60px; /* Place content 60px from the top */
+    padding-top: 8px; /* Place content 60px from the top */
     transition: 0.5s; /* 0.5 second transition effect to slide in the sidenav */
     margin-top: 80px;
     border-radius:10px;
     border: 2px solid #a3dca3; 
     background-color: #a7ec8f;
 }
+
 /* The navigation menu links */
 .sidenav a {
-    padding: 8px 8px 8px 32px;
+    padding: 8px 8px 8px 8px;
     text-decoration: none;
     font-size: 25px;
     color: #818181;
     display: block;
     transition: 0.3s
+}
+
+.smallerLinks a {
+    font-size: 18px;
 }
 
 /* When you mouse over the navigation links, change their color */
@@ -110,6 +115,10 @@ form {
     margin-left: 50px;
 }
 
+#logo {
+    transition: 0.5s; /* 0.5 second transition effect to slide out the sidenav */    
+}
+
 #main {
     transition: 0.5s; /* 0.5 second transition effect to slide out the sidenav */
 }
@@ -118,7 +127,8 @@ form {
 /* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
 @media screen and (max-height: 450px) {
     .sidenav {padding-top: 15px;}
-    .sidenav a {font-size: 18px;}
+    /* important for not getting an overwrite while opening/closing the navbar, see navigation.js */
+    .sidenav a {font-size: 18px !important;}
 }
 /* button */
 
@@ -144,7 +154,7 @@ table {
         border-bottom: 1px solid #bbb;
         border-right: none;
     }
-    
+
 }
 
 #header ul {
