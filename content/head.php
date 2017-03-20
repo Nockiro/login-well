@@ -30,10 +30,12 @@ else if (file_exists(file_build_path("..", "core", "functions.php")))
 
 <div id="sidebar" style="width: 200px;" class="sidenav">
     <a href="javascript:void(0)" class="closebtn" id="navaction" onclick="closeNav();">&times;</a>
-    <a href="#">About</a>
+    <img src="img/logo.png" height="100">
+	<a href="#">About</a>
     <a href="#">Services</a>
     <a href="#">Clients</a>
     <a href="#">Contact</a>
+	<br>Last Logout-Picture: <br> <img src="account/getCard.php?img=<?php echo ($lastcard != -1 ? $lastcard : "nocard"); ?>" width="76" height="105">
 </div>
 
 <?php
