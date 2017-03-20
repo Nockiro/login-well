@@ -21,10 +21,10 @@ if (isset($_GET["cp"])) {
     <body>
         <?php include ("content/head.php"); //add head content of page  ?>
 
-        
+
         <!-- in case we need to do something with _all_ content, we put it in a div with id main 
             For example, we need to get the content 250px to the left for the sidebar -->
-        <div id="main" style="margin-left:200px;">
+        <div id="main">
             <?php
             if (isset($_GET['msg'])) {
                 $message = filter_input(INPUT_GET, 'msg');
@@ -46,7 +46,6 @@ if (isset($_GET["cp"])) {
                 }
             }
             ?>
-
             <?php include ("content/content.php"); //add page content ?>
         </div>
     </body>

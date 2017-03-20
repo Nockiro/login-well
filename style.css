@@ -4,8 +4,6 @@ body {
     background-color:  #f7fbee; 
     color: #264472;
 
-    /* no scrollbar */
-    overflow:hidden;
 
     /* But IF.. */
     scrollbar-arrow-color: #585858; 
@@ -15,6 +13,9 @@ body {
     scrollbar-track-color: #0C0C0C;
 }
 
+h1, h2, h3, h4 {
+    margin: auto;
+}
 
 /* all links */
 a {
@@ -75,7 +76,7 @@ form {
     min-height: 82%; /* 100% Full-height */
     width: 200px; /* 200px width - change this with JavaScript */
     position: fixed; /* Stay in place */
-    z-index: 1; /* Stay on top */
+    /*z-index: 1; /* Stay on top */
     top: 0;
     left: 0;
     background-color: #111; /* Black*/
@@ -120,6 +121,8 @@ form {
 }
 
 #main {
+    margin-top: 80px;
+    margin-left: 206px;
     transition: 0.5s; /* 0.5 second transition effect to slide out the sidenav */
 }
 
@@ -157,6 +160,12 @@ table {
 
 }
 
+#header {
+    z-index: 100;
+    position: fixed;
+    top: 8px;
+    width: 100%;
+}
 #header ul {
     list-style-type: none;
     margin: 0;
