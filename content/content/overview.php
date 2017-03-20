@@ -3,13 +3,6 @@ sec_session_start();
 
 $usercount = get_usercount($mysqli);
 
-if (isset($_GET['msg'])) {
-    if (filter_input(INPUT_GET, 'msg') === "Success") {
-        $lastcard = get_lastcard($mysqli);
-    } else {
-        echo '<p class="error">' . get_errormsg(filter_input(INPUT_GET, 'msg')) . '</p>';
-    }
-}
 ?>
 
 <?php if (login_check($mysqli)) : ?>

@@ -4,6 +4,11 @@
 * @param string $segments,... unlimited number of path segments
 * @return string Path
 */
+
+function startsWith($strProve, $ProveFor) {
+	return 0 === strpos($strProve, $ProveFor);
+}
+
 function file_build_path(...$segments) {
     return join(DIRECTORY_SEPARATOR, $segments);
 }

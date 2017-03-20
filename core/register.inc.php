@@ -1,4 +1,5 @@
 <?php
+
 $error_msg = "";
 if (isset($_POST['username'], $_POST['email'], $_POST['p'])) {
     // Bereinige und überprüfe die Daten
@@ -54,15 +55,14 @@ if (isset($_POST['username'], $_POST['email'], $_POST['p'])) {
         if ($insert_stmt = $mysqli->prepare("INSERT INTO members (username, email, password, salt, verified) VALUES (?, ?, ?, ?, 0)")) {
             $insert_stmt->bind_param('ssss', $username, $email, $password, $random_salt);
             // Führe die vorbereitete Anfrage aus.
-            if (!$insert_stmt->execute()) {
-                header('Location: ../error.php?err=Registration failure: INSERT');
-            }
+            if (!$insert_stmt->execute())
+                $error_msg .= '<p class="error">Insertion error.</p>';
         }
         $Erstellt = date("Y-m-d H:i:s");
         $Aktivierungscode = rand(1, 99999999);
         $ID = mysqli_insert_id($mysqli);
         $result = $mysqli->query("INSERT INTO email_ver (user_id, Aktivierungscode, Erstellt, EMail, Aktiviert) VALUES ('$username','$Aktivierungscode', '$Erstellt', '$email', 'Nein')", MYSQLI_USE_RESULT);
-        $mailtext = urlencode('<html>
+        $mailtext = htmlspecialchars('<html>
 											<head>
 												<title>Aktivierung ihres Accounts</title>
 											</head>
@@ -80,7 +80,7 @@ if (isset($_POST['username'], $_POST['email'], $_POST['p'])) {
 											</html>
 											');
 
-        $mailtitle = urlencode("Account activation");
+        $mailtitle = "Account activation";
 
         $header = "MIME-Version: 1.0\r\n";
         $header .= "Content-type: text/html; charset=iso-8859-1\r\n";

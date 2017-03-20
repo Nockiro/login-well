@@ -52,6 +52,14 @@ div.content{
     margin-top:6px;
 }
 
+div.error {
+    background-color: #ec8f8f !important;
+}
+
+div.info {
+    background-color: #b7e2ff !important;
+}
+
 form {
     display: table-caption;
 }

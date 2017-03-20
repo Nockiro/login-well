@@ -147,7 +147,8 @@ function get_lastcard($mysqli) {
 
 /* html stuff */
 
-function get_errormsg($errcode) {
+/* Start with E? Is error. I? Information */
+function get_msg($errcode) {
     switch ($errcode) {
         case "E000":
             return "Couldn't execute query. Is there a valid database?";
@@ -159,6 +160,10 @@ function get_errormsg($errcode) {
             return "Your account is locked due to five wrong login attempts!";
         case "E004":
             return "Your account is locked due to an unactivated e-mail-adress!";
+        case "E005":
+            return "The activation code is not valid. Maybe you already activated your account?";
+        case "I001":
+            return "Thank you for your registration. The activation process is done.";
     }
 }
 
