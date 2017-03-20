@@ -1,5 +1,4 @@
 <?php
-
 $error_msg = "";
 if (isset($_POST['username'], $_POST['email'], $_POST['p'])) {
     // Bereinige und überprüfe die Daten

@@ -30,11 +30,13 @@ include_once 'core/register.inc.php';
                 </ul>
             </li>
             <li>Das Passwort und die Bestätigung müssen exakt übereinstimmen.</li>
+            <li>Der Mailversand zu Anbietern der United Internet (web.de, gmx.de) funktioniert derzeit nicht.</li>
         </ul>
 
         <div style="width:600px">
 
-            <form method="post" action="<?php echo esc_url($_SERVER['PHP_SELF']); ?>">
+            
+            <form method="post" action="<?php echo esc_url($_SERVER['REQUEST_URI']); ?>">
 
                 <ul>
 
@@ -55,7 +57,7 @@ include_once 'core/register.inc.php';
 
                     <li>
                         <label for="text_id">Confirm Password</label>
-                        <input type="password" name="confirmpwd" id="confirmpwd" value="" />
+                        <input type="password" name="confirm_password" id="confirmpwd" value="" />
                     </li>
 
                     <li>
@@ -63,7 +65,7 @@ include_once 'core/register.inc.php';
                                         this.form.username,
                                         this.form.email,
                                         this.form.password,
-                                        this.form.confirmpwd);" />
+                                        this.form.confirm_password);" />
                     </li>
 
                 </ul>
