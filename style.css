@@ -58,7 +58,7 @@ table {
     text-align: center;
 }
 
-ul {
+#header ul {
     list-style-type: none;
     margin: 0;
     padding: 0;
@@ -67,7 +67,7 @@ ul {
     border-radius: 11px;
 }
 
-li {
+#header li {
     font-size: 24px;
     float: left;
     border-right: 1px solid #bbb;
@@ -78,10 +78,10 @@ li {
 }
 
 /* say explicitly that the links have to have this padding! */
-li a{
+#header li a{
     padding: 14px 16px;
 }
 
-li a:hover {
+#header li a:hover {
     background-color: #bedc76;
 }
