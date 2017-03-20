@@ -6,9 +6,18 @@ $usercount = get_usercount($mysqli);
 ?>
 
 <?php if (login_check($mysqli)) : ?>
-    <p>Welcome <?php echo htmlentities($_SESSION['username']); ?>!</p>
-    <p>Last Logout-Picture: <img src="account/getCard.php?img=<?php echo ($lastcard != -1 ? $lastcard : "nocard"); ?>" width="76" height="105"> </p>
-    <p>Would you like to <a href="logout.php">logout</a>?</p>
+	<div style="float:left">
+		<div class="content">
+			<img src="img/logo.png" height="100">
+		</div>
+	</div>
+	<div style="float:right">
+		<div class="content">
+			<p>Welcome <?php echo htmlentities($_SESSION['username']); ?>! 
+			Last Logout-Picture: <img src="account/getCard.php?img=<?php echo ($lastcard != -1 ? $lastcard : "nocard"); ?>" width="76" height="105">
+			Would you like to <a href="logout.php">logout</a>?</p>
+		</div>
+	</div>
 <?php else : ?>
     <div class="content">
         <form method="post" action="account/process_login.php" name="login_form">
