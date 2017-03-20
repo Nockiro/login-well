@@ -1,0 +1,122 @@
+
+/* body font color and background, also scrollbar color*/
+body {
+    background-color:  #f7fbee; 
+    color: #264472;
+
+    /* no scrollbar */
+    overflow:hidden;
+
+    /* But IF.. */
+    scrollbar-arrow-color: #585858; 
+    scrollbar-base-color: #1e1e1e;
+    scrollbar-highlight-color : #585858; 
+    scrollbar-shadow-color : #585858;
+    scrollbar-track-color: #0C0C0C;
+}
+
+
+/* all links */
+a {
+    font-size: 24px
+}
+
+/* unvisited link */
+a:link {
+    color: #722644;
+    /* no underlined stuff and stuff */
+    text-decoration: none;
+}
+
+/* visited link */
+a:visited {
+    color: #4C89E5;
+}
+
+/* mouse over link */
+a:hover {
+    color: #ba0044;
+    animation: blink 2s;
+}
+
+/* selected link */
+a:active {
+    color: #ba0044;
+}
+
+div.content{
+    border: 4px solid #a3dca3; 
+    border-radius: 8px; 
+    padding: 4px; 
+    background-color: #a7ec8f;
+    margin-top:6px;
+}
+
+form {
+    display: table-caption;
+}
+
+
+/* button */
+
+input, select, textarea {
+    background-color: #d6e4b4 !important;
+    color: #025207 !important;
+    border: solid 1px #118702 !important;
+    padding: 4px !important;
+}
+
+/* All tables shall fit the whole screen size to the left */
+table {
+    min-width: 100%;
+    text-align: center;
+}
+@media only screen and (max-device-width: 480px) {
+    #header ul {
+        display: grid !important;
+    }
+    #header li {
+        padding: 3px 16px !important;
+        text-align: left !important;
+        border-bottom: 1px solid #bbb;
+        border-right: none;
+    }
+    
+}
+
+#header ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #264472;
+    border-radius: 11px;
+    color: #6FA0EA;
+}
+
+#header a {
+    color: #A8C6F2;
+}
+#header a:hover {
+    color: #A8C6F2;
+}
+
+
+#header li {
+    font-size: 24px;
+    float: left;
+    border-right: 1px solid #bbb;
+    text-align: center;
+    text-decoration: none;
+    display: block;
+    padding: 14px 16px;
+}
+
+/* say explicitly that the links have to have this padding! */
+#header li a{
+    padding: 14px 16px;
+}
+
+#header li a:hover {
+    background-color: #bedc76;
+}

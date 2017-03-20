@@ -1,12 +1,27 @@
+<?php
+ini_set("display_errors", "E_ALL");
+include_once 'core/functions.php';
+
+sec_session_start();
+
+$lastcard = -1;
+
+if (isset($_GET["cp"])) {
+    $currentpage = htmlspecialchars($_GET["cp"]);
+} else {
+    $currentpage = CONST_DefaultPage;
+}
+?>
 <!DOCTYPE html>
-<?php include "core/dbconnect.php"; ?>
 <html>
     <head>
-        <meta charset="UTF-8">
-        <title>Login well :-)</title>
+        <?php include ("content/header.php"); //add head of html ?>
+
     </head>
     <body>
-        <h1>LOG IN WELL</h1> <br>
-        We are <strong>really</strong> profesional.
+        <?php include ("content/head.php"); //add head content of page ?>
+
+        <?php include ("content/content.php"); //add page content ?>
+
     </body>
 </html>
