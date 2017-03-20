@@ -11,6 +11,7 @@ else if (file_exists(file_build_path("..", "core", "functions.php")))
         <li><?php echo CONST_PROJNAME ?> - <?php echo constant::GetPageTitle($currentpage); ?></li>
         <li><a href="/index.php">Home</a></li>
 
+
         <?php if (login_check($mysqli)) : ?>
             <li style="float:right;"><a href="/logout.php">Logout</a></li>
             <li style="float:right;"><a href="/index.php?cp=profile"><?php echo htmlentities($_SESSION['username']); ?></a></li>
@@ -20,10 +21,20 @@ else if (file_exists(file_build_path("..", "core", "functions.php")))
             <head>
                 <script type="text/JavaScript" src="js/sha512.js"></script> 
                 <script type="text/JavaScript" src="js/forms.js"></script> 
+                <script type="text/JavaScript" src="js/navigation.js"></script> 
             </head>
         <?php endif; ?>
     </ul>
     <hr/>
+</div>
+
+
+<div id="sidebar" style="width: 200px;" class="sidenav">
+    <a href="javascript:void(0)" class="closebtn" id="navaction" onclick="closeNav();">&times;</a>
+    <a href="#">About</a>
+    <a href="#">Services</a>
+    <a href="#">Clients</a>
+    <a href="#">Contact</a>
 </div>
 <?php
 if (file_build_path(dirname(__DIR__), "content", "head", strtolower($currentpage) . ".php"))
