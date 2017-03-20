@@ -126,13 +126,6 @@ form {
     transition: 0.5s; /* 0.5 second transition effect to slide out the sidenav */
 }
 
-
-/* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
-@media screen and (max-height: 450px) {
-    .sidenav {padding-top: 15px;}
-    /* important for not getting an overwrite while opening/closing the navbar, see navigation.js */
-    .sidenav a {font-size: 18px !important;}
-}
 /* button */
 
 input, select, textarea {
@@ -147,7 +140,10 @@ table {
     min-width: 100%;
     text-align: center;
 }
-@media only screen and (max-device-width: 480px) {
+
+/* On smaller screens, where height is less than 480px, change the style of the sidenav and header nav. (less padding and a smaller font size)
+   if you are editing this, have also a look on navigation.js */
+@media only screen and (max-device-width: 600px) {
     #header ul {
         display: grid !important;
     }
@@ -157,6 +153,10 @@ table {
         border-bottom: 1px solid #bbb;
         border-right: none;
     }
+    
+    .sidenav {padding-top: 15px;}
+    /* important for not getting an overwrite while opening/closing the navbar, see navigation.js */
+    .sidenav a {font-size: 18px !important;}
 
 }
 

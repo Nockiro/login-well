@@ -27,7 +27,6 @@ else if (file_exists(file_build_path("..", "core", "functions.php")))
     <hr/>
 </div>
 
-
 <div id="sidebar" class="sidenav">
     <a href="javascript:void(0)" class="closebtn" id="navaction" onclick="closeNav();">&times;</a>
     <center>
@@ -44,6 +43,11 @@ else if (file_exists(file_build_path("..", "core", "functions.php")))
         <img src="account/getCard.php?img=<?php echo ($lastcard != -1 ? $lastcard : "nocard"); ?>" width="76" height="105">
     </span>
 </div>
+
+<!-- after the navigation bar has been load(ed?), prepare for closing on too damn small devices or check for resizing -->
+<script type="text/javascript">
+    window.onload = initializeNavBar;
+</script>
 
 <?php
 if (file_build_path(dirname(__DIR__), "content", "head", strtolower($currentpage) . ".php"))
