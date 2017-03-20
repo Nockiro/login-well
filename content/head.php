@@ -21,7 +21,6 @@ else if (file_exists(file_build_path("..", "core", "functions.php")))
             <head>
                 <script type="text/JavaScript" src="js/sha512.js"></script> 
                 <script type="text/JavaScript" src="js/forms.js"></script> 
-                <script type="text/JavaScript" src="js/navigation.js"></script> 
             </head>
         <?php endif; ?>
     </ul>
@@ -36,6 +35,7 @@ else if (file_exists(file_build_path("..", "core", "functions.php")))
     <a href="#">Clients</a>
     <a href="#">Contact</a>
 </div>
+
 <?php
 if (file_build_path(dirname(__DIR__), "content", "head", strtolower($currentpage) . ".php"))
     include (file_build_path(dirname(__DIR__), "content", "head", strtolower($currentpage) . ".php"));
