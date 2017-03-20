@@ -18,17 +18,17 @@ if (isset($_GET['msg'])) {
     <p>Would you like to <a href="logout.php">logout</a>?</p>
 <?php else : ?>
     <div class="content">
-        <form method="post" action="account/process_login.php" name = "login_form">
-            <table>
-                <td>
-                    <label for="pass_id">E-Mail</label>
-                    <input type="text" name="email" id="email" value="" /></td>
-                <td>
-                    <label for="pass_id">Password</label>
-                    <input type="password" name="password" id="password" value="" /></td>
-                <td>
-                    <input type="button" onclick="formhash(this.form, this.form.password);" value="Login" /></td>
-            </table>
+        <form method="post" action="account/process_login.php" name="login_form">
+            <div>
+                <label for="email">E-Mail</label>
+                <input type="text" name="email" id="email" value="" /></div>
+
+            <div>
+                <label for="password">Password</label>
+                <input type="password" name="password" id="password" value="" /></div>
+
+            <div>
+                <input type="button" onclick="formhash(this.form, this.form.password);" value="Login" /></div>
         </form>
 
     </div>
