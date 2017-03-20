@@ -30,7 +30,7 @@ else if (file_exists(file_build_path("..", "core", "functions.php")))
 
 <div id="sidebar" style="width: 200px;" class="sidenav">
     <a href="javascript:void(0)" class="closebtn" id="navaction" onclick="closeNav();">&times;</a>
-    <img src="img/logo.png" height="100">
+    <img src="img/Logo.png" height="100">
 	<a href="#">About</a>
     <a href="#">Services</a>
     <a href="#">Clients</a>
