@@ -84,9 +84,10 @@ if (isset($_POST['username'], $_POST['email'], $_POST['p'])) {
         $header .= "Reply-To: support@rudifamily.de\r\n";
         $header .= "X-Mailer: PHP " . phpversion();
 
-        echo mail($email, $mailtitle, $mailtext, $header);
-
-        header('Location: /index.php?cp=register_success');
+        if (mail($email, $mailtitle, $mailtext, $header))
+            header('Location: /index.php?cp=register_success');
+        else
+            header('Location: /index.php?cp=register_failed');
     }
 }
 ?>

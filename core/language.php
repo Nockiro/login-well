@@ -7,6 +7,7 @@ class language {
         "logout" => "Logout",
         "register" => "Registrierung",
         "register_success" => "Registrierung erfolgreich",
+        "register_failed" => "Registrierung fehlgeschlagen",
     );
 
     public static function GetPageTitle($key) {
