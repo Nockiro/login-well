@@ -15,7 +15,7 @@ if (isset($_GET["cp"])) {
 <!DOCTYPE html>
 <html>
     <head>
-        <?php include ("content/header.php"); //add head of html  ?>
+        <?php include ("content/htmlhead.php"); //add head of html  ?>
 
     </head>
     <body>
