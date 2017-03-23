@@ -86,7 +86,7 @@ if (isset($_POST['username'], $_POST['email'], $_POST['p'])) {
 
         echo mail($email, $mailtitle, $mailtext, $header);
 
-        header('Location: ../account/register_success.php');
+        header('Location: /index.php?cp=register_success');
     }
 }
 ?>

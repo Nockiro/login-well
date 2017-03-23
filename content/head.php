@@ -8,7 +8,7 @@ else if (file_exists(file_build_path("..", "core", "functions.php")))
 ?>
 <div id="header">
     <ul>
-        <li><?php echo CONST_PROJNAME ?> - <?php echo constant::GetPageTitle($currentpage); ?></li>
+        <li><?php echo CONST_PROJNAME ?> - <?php echo language::GetPageTitle($currentpage); ?></li>
         <li><a href="/index.php">Home</a></li>
 
 

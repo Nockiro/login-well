@@ -6,7 +6,7 @@ sec_session_start();
 
 $lastcard = -1;
 
-if (isset($_GET["cp"])) {
+if (isset($_GET["cp"]) && !empy($_GET["cp"])) {
     $currentpage = htmlspecialchars($_GET["cp"]);
 } else {
     $currentpage = CONST_DefaultPage;

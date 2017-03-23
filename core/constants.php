@@ -3,22 +3,10 @@
 define("SECURE", FALSE);
 define("CONST_PROJNAME", "LoginWell");
 define("CONST_DefaultPage", "overview");
+include_once("language.php");
 
 class constant {
-
-    private static $pages = array(
-        "overview" => "Übersicht",
-        "logout" => "Logout",
-        "register" => "Registrierung",
-    );
-
-    public static function GetPageTitle($key) {
-        if ($key === "")
-            return "Willkommen!";
-        else
-            return @self::$pages[$key];
-    }
-
+// to be used
 }
 
 ?>
