@@ -173,7 +173,7 @@ table {
     overflow: hidden;
     background-color: #264472;
     border-radius: 11px;
-    color: #6FA0EA;
+    color: #A8C6F2;
 }
 
 #header a {
@@ -200,5 +200,5 @@ table {
 }
 
 #header li a:hover {
-    background-color: #bedc76;
+    background-color: #6fa0d7;
 }
