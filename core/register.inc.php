@@ -57,7 +57,7 @@ if (isset($_POST['username'], $_POST['email'], $_POST['p'])) {
         $Aktivierungscode = rand(1, 99999999);
         $ID = mysqli_insert_id($mysqli);
         $result = $mysqli->query("INSERT INTO email_ver (user_id, Aktivierungscode, Erstellt, EMail, Aktiviert) VALUES ('$username','$Aktivierungscode', '$Erstellt', '$email', 'Nein')", MYSQLI_USE_RESULT);
-        $mailtext = htmlspecialchars('<html>
+        $mailtext = '<html>
 											<head>
 												<title>Aktivierung ihres Accounts</title>
 											</head>
@@ -65,7 +65,7 @@ if (isset($_POST['username'], $_POST['email'], $_POST['p'])) {
 											<body>
 											<p>Hallo ' . $username . ',</p>
 											<p>um die Registrierung abzuschließen, klicke bitte auf den folgenden Link:</p><br>
-											<p>' . (isset($_SERVER['HTTPS']) ? "https" : "http") . "://$_SERVER[HTTP_HOST]" . dirname($_SERVER[REQUEST_URI]) . '/activate.php?ID=' . $ID . '&Aktivierungscode=' . $Aktivierungscode . '</p>
+											<p>' . (isset($_SERVER['HTTPS']) ? "https" : "http") . "://$_SERVER[HTTP_HOST]" . dirname($_SERVER[REQUEST_URI]) . 'account/activate.php?ID=' . $ID . '&Aktivierungscode=' . $Aktivierungscode . '</p>
 											<p>Sollten sie den Link nicht benutzen können, rufen Sie ' . (isset($_SERVER['HTTPS']) ? "https" : "http") . "://$_SERVER[HTTP_HOST]" . dirname($_SERVER[REQUEST_URI]) . '/activate.php auf und gib folgendes ein:</p>
 											<p>ID: ' . $ID . '
 											<p>Activation-Code: ' . $Aktivierungscode . '</p>
@@ -73,15 +73,15 @@ if (isset($_POST['username'], $_POST['email'], $_POST['p'])) {
 											<p>Dein Loginer-Team</p>
 											</body>
 											</html>
-											');
+											';
 
         $mailtitle = "Account activation";
 
         $header = "MIME-Version: 1.0\r\n";
-        $header .= "Content-type: text/html; charset=iso-8859-1\r\n";
+        $header .= "Content-Type: text/html; charset=utf-8\r\n";
 
-        $header .= "From: Loginer <notify@mfbot.de>\r\n";
-        $header .= "Reply-To: support@mfbot.de\r\n";
+        $header .= "From: LoginWell <loginwell@rudifamily.de>\r\n";
+        $header .= "Reply-To: support@rudifamily.de\r\n";
         $header .= "X-Mailer: PHP " . phpversion();
 
         echo mail($email, $mailtitle, $mailtext, $header);
