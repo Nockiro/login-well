@@ -39,10 +39,10 @@ if (isset($_GET["cp"]) && !empty($_GET["cp"])) {
                     else if (startsWith($message, "E"))
                         $class = "error";
 
-                    $message = get_msg(filter_input(INPUT_GET, 'msg'));
+                    $message = language::get_msg(filter_input(INPUT_GET, 'msg'));
                     /* if there is actually a message with this error/information code, show it - otherwise, don't */
                     if (!empty($message))
-                        echo '<div class="content ' . $class . ' ">' . get_msg(filter_input(INPUT_GET, 'msg')) . '</div>';
+                        echo '<div class="content ' . $class . ' ">' . language::get_msg(filter_input(INPUT_GET, 'msg')) . '</div>';
                 }
             }
             ?>

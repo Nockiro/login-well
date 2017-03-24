@@ -3,10 +3,10 @@
     <center>
         <img src="img/Logo.png" height="100px" id="logo">
         <span style="font-size:x-large;">
-            <a href="#">About</a>
-            <a href="#">Services</a>
-            <a href="#">Clients</a>
-            <a href="#">Contact</a>
+            <a href="/?cp">Home</a>
+            <a href="/?cp=profile">Profile</a>
+            <a href="/?cp=settings">Settings</a>
+            <a href="/?cp=about">About</a>
         </span>
     </center>
     <span id="logoutpic" style="padding: 8px 0px 0px 8px; display: inline-block;">
