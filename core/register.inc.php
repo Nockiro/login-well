@@ -66,7 +66,7 @@ if (isset($_POST['username'], $_POST['email'], $_POST['p'])) {
 											<p>Hallo ' . $username . ',</p>
 											<p>um die Registrierung abzuschließen, klicke bitte auf den folgenden Link:</p><br>
 											<p>' . (isset($_SERVER['HTTPS']) ? "https" : "http") . "://$_SERVER[HTTP_HOST]" . dirname($_SERVER[REQUEST_URI]) . 'account/activate.php?ID=' . $ID . '&Aktivierungscode=' . $Aktivierungscode . '</p>
-											<p>Sollten sie den Link nicht benutzen können, rufen Sie ' . (isset($_SERVER['HTTPS']) ? "https" : "http") . "://$_SERVER[HTTP_HOST]" . dirname($_SERVER[REQUEST_URI]) . '/activate.php auf und gib folgendes ein:</p>
+											<p>Sollten sie den Link nicht benutzen können, rufen Sie ' . (isset($_SERVER['HTTPS']) ? "https" : "http") . "://$_SERVER[HTTP_HOST]" . dirname($_SERVER[REQUEST_URI]) . 'activate.php auf und gib folgendes ein:</p>
 											<p>ID: ' . $ID . '
 											<p>Activation-Code: ' . $Aktivierungscode . '</p>
 											<p>Mit freundlichen Grüßen,</p>
