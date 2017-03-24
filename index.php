@@ -4,8 +4,6 @@ include_once 'core/functions.php';
 
 sec_session_start();
 
-$lastcard = -1;
-
 if (isset($_GET["cp"]) && !empty($_GET["cp"])) {
     $currentpage = htmlspecialchars($_GET["cp"]);
 } else {
@@ -29,10 +27,7 @@ if (isset($_GET["cp"]) && !empty($_GET["cp"])) {
             if (isset($_GET['msg'])) {
                 $message = filter_input(INPUT_GET, 'msg');
 
-                if ($message === "Success") {
-                    $lastcard = get_lastcard($mysqli);
-                } else {
-
+                if ($message !== "Success") {
                     /* in addition to the content class, which generates standard output, add the info/error class for overwriting background color */
                     if (startsWith($message, "I"))
                         $class = "info";

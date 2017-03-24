@@ -9,10 +9,12 @@
             <a href="/?cp=about">About</a>
         </span>
     </center>
+    <?php if (login_check($mysqli)) : ?>
     <span id="logoutpic" style="padding: 8px 0px 0px 8px; display: inline-block;">
         Last Logout-Picture: <br/><br/>
-        <img src="account/getCard.php?img=<?php echo ($lastcard != -1 ? $lastcard : "nocard"); ?>" width="76" height="105">
+        <img src="account/getCard.php?img=<?php echo ($_SESSION["sec_card"] != -1 ? $_SESSION["sec_card"] : "nocard"); ?>" width="76" height="105">
     </span>
+    <?php endif; ?>
 </div>
 
 <!-- after the navigation bar has been load(ed?), prepare for closing on too damn small devices or check for resizing -->
