@@ -164,7 +164,7 @@ table {
     z-index: 100;
     position: fixed;
     top: 8px;
-    width: 100%;
+    width: 99%;
 }
 #header ul {
     list-style-type: none;
