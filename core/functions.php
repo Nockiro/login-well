@@ -4,6 +4,23 @@ include_once 'dbconnect.php';
 include_once 'extensions.php';
 include_once 'constants.php';
 
+/* database handling */
+
+function check_for_dbupdate($mysqli) {
+    if (isset($_GET["msg"]) && filter_input(INPUT_GET, 'msg') == "EI001")
+        return;
+
+    $sql = "SELECT `value` FROM `internal_settings` WHERE `setting` = \"version\"";
+    $version = 0;
+    if ($query = $mysqli->query($sql)) {
+        // Wenn Version gefunden
+        if ($query->num_rows == 1)
+            $version = $query->fetch_row()[0];
+    }
+
+    if ($version != DATABASE_VER)
+        header('Location: ../index.php?msg=EI001');
+}
 
 /* session handling */
 
@@ -146,7 +163,6 @@ function get_lastcard($mysqli) {
 }
 
 /* html stuff */
-
 
 function get_usercount($mysqli) {
     if ($result = $mysqli->query("SELECT id FROM members")) {

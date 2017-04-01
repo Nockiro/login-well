@@ -4,6 +4,13 @@
 * @param string $segments,... unlimited number of path segments
 * @return string Path
 */
+function str_insert($str, $search, $insert) {
+    $index = strpos($str, $search);
+    if($index === false) {
+        return $str;
+    }
+    return substr_replace($str, $search.$insert, $index, strlen($search));
+}
 
 function startsWith($strProve, $ProveFor) {
 	return 0 === strpos($strProve, $ProveFor);

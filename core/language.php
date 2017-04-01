@@ -10,6 +10,11 @@ class language {
         "register_failed" => "Registrierung fehlgeschlagen",
     );
 
+    private static $roles = array(
+        "1" => "User",
+        "2" => "Administrator"
+    );
+    
     public static function GetPageTitle($key) {
         if ($key === "")
             return "Willkommen!";
@@ -33,10 +38,14 @@ class language {
                 return "Your account is locked due to an unactivated e-mail-adress!";
             case "E005":
                 return "The activation code is not valid. Maybe you already activated your account?";
+            case "EI001":
+                return 'Your database version is outdated, it may be necessary to update the structure.<br/>Try <a href="/internal/updateDatabase.php">updating</a>!';
             case "E404":
                 return "Your previous tried page could not be found.";
             case "I001":
                 return "Thank you for your registration. The activation process is done.";
+            case "II002":
+                return "Database has been updated successfully!";
         }
     }
 
