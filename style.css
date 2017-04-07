@@ -67,6 +67,10 @@ div.info {
     background-color: #b7e2ff !important;
 }
 
+div.warn {
+	background-color: #f2ee7e !important;
+}
+
 form {
     display: table-caption;
 }

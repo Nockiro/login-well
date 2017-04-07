@@ -87,6 +87,7 @@ CREATE TABLE IF NOT EXISTS `members` (
   `username` varchar(30) NOT NULL,
   `email` varchar(50) NOT NULL,
   `password` char(128) NOT NULL,
+  `registered` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   `salt` char(128) NOT NULL,
   `role` INT(2) NOT NULL DEFAULT '1',
   `last_card` int(2) NOT NULL,

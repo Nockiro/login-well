@@ -45,12 +45,12 @@ function sec_session_start() {
 
 function login($email, $password, $mysqli) {
     // Das Benutzen vorbereiteter Statements verhindert SQL-Injektion.
-    if ($query = $mysqli->prepare("SELECT id, username, password, salt FROM members WHERE email = ? LIMIT 1")) {
+    if ($query = $mysqli->prepare("SELECT id, username, password, salt, email, role, verified FROM members WHERE email = ? LIMIT 1")) {
         $query->bind_param('s', $email); // Bind "$email" to parameter.
         $query->execute(); // Führe die vorbereitete Anfrage aus.
         $query->store_result();
         // hole Variablen von result.
-        $query->bind_result($user_id, $username, $db_password, $salt);
+        $query->bind_result($user_id, $username, $db_password, $salt, $email, $role, $verified);
         $query->fetch();
 
         // hash das Passwort mit dem eindeutigen salt.
@@ -75,6 +75,9 @@ function login($email, $password, $mysqli) {
                         $_SESSION['user_id'] = htmlspecialchars($user_id);
                         $_SESSION['username'] = htmlspecialchars($username);
                         $_SESSION['login_string'] = hash('sha512', $password . $user_browser);
+                        $_SESSION['email'] = htmlspecialchars($email);
+                        $_SESSION['role'] = htmlspecialchars($role);
+                        $_SESSION['verified'] = htmlspecialchars($verified);
                         // Login erfolgreich.
                         return "Success";
                     } else {
@@ -97,6 +100,11 @@ function login($email, $password, $mysqli) {
     } else {
         return "E000";
     }
+}
+
+function deleteAccount($user_id, $mysqli) {
+	
+	
 }
 
 function checkbrute($user_id, $mysqli) {
