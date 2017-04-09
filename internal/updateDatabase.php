@@ -24,7 +24,7 @@ if (($result = fwrite($fp, $database_content)))
 fclose($fp);
 
 function update_db_version($mysqli, $ver) {
-    $mysqli->query("UPDATE internal_settings SET value = '$ver' WHERE setting = 'version'");    
+    $mysqli->query("UPDATE internal_settings SET value = '$ver' WHERE setting = 'version'");
 }
 
 function recreate_database($mysqli) {
@@ -147,15 +147,15 @@ CREATE TABLE IF NOT EXISTS `visits` (
 -- Constraints der Tabelle `ratings`
 --
 ALTER TABLE `ratings`
-  ADD CONSTRAINT `ratings_ibfk_2` FOREIGN KEY (`uid`) REFERENCES `members` (`id`),
-  ADD CONSTRAINT `ratings_ibfk_1` FOREIGN KEY (`pid`) REFERENCES `pages` (`pid`);
+  ADD CONSTRAINT `ratings_ibfk_2` FOREIGN KEY (`uid`) REFERENCES `members` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `ratings_ibfk_1` FOREIGN KEY (`pid`) REFERENCES `pages` (`pid`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints der Tabelle `visits`
 --
 ALTER TABLE `visits`
-  ADD CONSTRAINT `visits_ibfk_1` FOREIGN KEY (`uid`) REFERENCES `members` (`id`),
-  ADD CONSTRAINT `visits_ibfk_2` FOREIGN KEY (`pid`) REFERENCES `pages` (`pid`);
+  ADD CONSTRAINT `visits_ibfk_1` FOREIGN KEY (`uid`) REFERENCES `members` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `visits_ibfk_2` FOREIGN KEY (`pid`) REFERENCES `pages` (`pid`) ON DELETE CASCADE ON UPDATE CASCADE;
 SET FOREIGN_KEY_CHECKS=1;
 --
 -- Tabellenstruktur für Tabelle `internal_settings`

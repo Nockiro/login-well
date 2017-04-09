@@ -35,9 +35,8 @@ if (isset($_POST['username'], $_POST['email'], $_POST['p'])) {
             // Ein Benutzer mit dieser E-Mail-Adresse existiert schon
             $error_msg .= '<p class="error">A user with this email address already exists.</p>';
         }
-    } else {
+    } else
         $error_msg .= '<p class="error">Database error</p>';
-    }
 
     if (empty($error_msg)) {
         // Erstelle ein zufälliges Salt

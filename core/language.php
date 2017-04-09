@@ -8,13 +8,19 @@ class language {
         "register" => "Registrierung",
         "register_success" => "Registrierung erfolgreich",
         "register_failed" => "Registrierung fehlgeschlagen",
+        "profile" => "Profil",
+        "account_deletion" => "Account löschen",
+        "settings" => "Einstellungen",
     );
-
     private static $roles = array(
         "1" => "User",
         "2" => "Administrator"
     );
-    
+
+    public static function GetRoleTitle($key) {
+        return @self::$roles[$key];
+    }
+
     public static function GetPageTitle($key) {
         if ($key === "")
             return "Willkommen!";
@@ -22,7 +28,7 @@ class language {
             return @self::$pages[$key];
     }
 
-    /* Start with E? Is error. I? Information */
+    /* Start with E? Is error. I? Information _I? Internal */
 
     public static function get_msg($errcode) {
         switch ($errcode) {
@@ -42,9 +48,13 @@ class language {
                 return 'Your database version is outdated, it may be necessary to update the structure.<br/>Try <a href="/internal/updateDatabase.php">updating</a>!';
             case "E404":
                 return "Your previous tried page could not be found.";
+            case "E999":
+                return "Account couldn't be deleted.";
             case "I001":
                 return "Thank you for your registration. The activation process is done.";
-            case "II002":
+            case "I999":
+                return "Account has been deleted.";
+            case "II001":
                 return "Database has been updated successfully!";
         }
     }

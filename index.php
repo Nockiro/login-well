@@ -26,19 +26,34 @@ if (isset($_GET["cp"]) && !empty($_GET["cp"])) {
         <div id="main">
             <?php
             if (isset($_GET['msg'])) {
-                $message = filter_input(INPUT_GET, 'msg');
 
-                if ($message !== "Success") {
-                    /* in addition to the content class, which generates standard output, add the info/error class for overwriting background color */
-                    if (startsWith($message, "I"))
-                        $class = "info";
-                    else if (startsWith($message, "E"))
-                        $class = "error";
+                // checking for more than one message
+                $query = explode('&', $_SERVER['QUERY_STRING']);
+                $messages = array();
 
-                    $message = language::get_msg(filter_input(INPUT_GET, 'msg'));
-                    /* if there is actually a message with this error/information code, show it - otherwise, don't */
-                    if (!empty($message))
-                        echo '<div class="content ' . $class . ' ">' . language::get_msg(filter_input(INPUT_GET, 'msg')) . '</div>';
+                // get all msg params manually
+                foreach ($query as $param) {
+                    list($name, $value) = explode('=', $param, 2);
+                    if (urldecode($name) == "msg")
+                        array_push($messages, urldecode($value));
+                }
+
+                foreach ($messages as $message) {
+
+                    $message = htmlspecialchars($message);
+                    
+                    if ($message !== "Success") {
+                        /* in addition to the content class, which generates standard output, add the info/error class for overwriting background color */
+                        if (startsWith($message, "I"))
+                            $class = "info";
+                        else if (startsWith($message, "E"))
+                            $class = "error";
+
+                        $message = language::get_msg($message);
+                        /* if there is actually a message with this error/information code, show it - otherwise, don't */
+                        if (!empty($message))
+                            echo '<div class="content ' . $class . ' ">' . $message . '</div>';
+                    }
                 }
             }
             ?>
