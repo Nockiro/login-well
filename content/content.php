@@ -11,7 +11,7 @@ if (file_exists(file_build_path(dirname(__DIR__), "content", pagefunctions, strt
     include (file_build_path(dirname(__DIR__), "content", pagefunctions, strtolower($currentpage) . ".php"));
 
 /* if user is not logged in or not allowed to see the requested page, redirect him to main page with 401 */
-if (!login_check($mysqli) && ($currentpage != "overview" && $currentpage != "about")) {
+if (!login_check($mysqli) && !constant::GetPermittedNotLoggedInPage($currentpage)) {
     header('Location: /index.php?msg=E401');
     return;
 }
