@@ -44,6 +44,8 @@ class language {
                 return "Your account is locked due to an unactivated e-mail-adress!";
             case "E005":
                 return "The activation code is not valid. Maybe you already activated your account?";
+            case "E401":
+                return "Unauthorized. You're not logged in and/or not permitted to request this page.";
             case "EI001":
                 return 'Your database version is outdated, it may be necessary to update the structure.<br/>Try <a href="/internal/updateDatabase.php">updating</a>!';
             case "E404":
