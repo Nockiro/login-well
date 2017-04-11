@@ -1,6 +1,10 @@
 <?php
 /* includes the script which takes care of the submitted form */
 include_once 'core/account_change.inc.php';
+
+if (!empty($error_msg)) {
+    echo $error_msg;
+}
 ?>
 
 <style type="text/css">
@@ -83,7 +87,8 @@ include_once 'core/account_change.inc.php';
                         this.form.username,
                         this.form.mail,
                         this.form.password,
-                        this.form.confirm_password);"  />
+                        this.form.confirm_password,
+                        false);"  />
 
     </form>
     <a href="/index.php?cp=account_deletion">

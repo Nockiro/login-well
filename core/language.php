@@ -52,6 +52,8 @@ class language {
                 return "Your previous tried page could not be found.";
             case "E999":
                 return "Account couldn't be deleted.";
+            case "EWTF":
+                return "Something weird happened. Please contact the website administrator if possible.";
             case "I001":
                 return "Thank you for your registration. The activation process is done.";
             case "I999":

@@ -9,14 +9,14 @@ if (isset($_POST['username'], $_POST['email'], $_POST['p'])) {
 
     if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
         // keine gültige E-Mail
-        $error_msg .= '<p class="error">The email address you entered is not valid</p>';
+        $error_msg .= '<div class="content error">The email address you entered is not valid</div>';
     }
 
     $password = filter_input(INPUT_POST, 'p', FILTER_SANITIZE_STRING);
     if (strlen($password) != 128) {
         // Das gehashte Passwort sollte 128 Zeichen lang sein.
         // Wenn nicht, dann ist etwas sehr seltsames passiert
-        $error_msg .= '<p class="error">Invalid password configuration.</p>';
+        $error_msg .= '<div class="content error">Invalid password configuration.</div>';
     }
 
     // Benutzername und Passwort wurde auf der Benutzer-Seite schon überprüft.
@@ -33,10 +33,10 @@ if (isset($_POST['username'], $_POST['email'], $_POST['p'])) {
 
         if ($stmt->num_rows == 1) {
             // Ein Benutzer mit dieser E-Mail-Adresse existiert schon
-            $error_msg .= '<p class="error">A user with this email address already exists.</p>';
+            $error_msg .= '<div class="content error">A user with this email address already exists.</div>';
         }
     } else
-        $error_msg .= '<p class="error">Database error</p>';
+        $error_msg .= '<div class="content error">Database error</div>';
 
     if (empty($error_msg)) {
         // Erstelle ein zufälliges Salt
@@ -50,7 +50,7 @@ if (isset($_POST['username'], $_POST['email'], $_POST['p'])) {
             $insert_stmt->bind_param('ssss', $username, $email, $password, $random_salt);
             // Führe die vorbereitete Anfrage aus.
             if (!$insert_stmt->execute())
-                $error_msg .= '<p class="error">Insertion error.</p>';
+                $error_msg .= '<div class="content error">Insertion error.</div>';
         }
         $Erstellt = date("Y-m-d H:i:s");
         $Aktivierungscode = rand(1, 99999999);
