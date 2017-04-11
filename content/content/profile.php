@@ -80,10 +80,10 @@ include_once 'core/account_change.inc.php';
         </table>
         <br/>
         <input type="submit" value="&Auml;nderungen &uuml;bernehmen" onclick="return regformhash(this.form,
-                            this.form.username,
-                            this.form.mail,
-                            this.form.password,
-                            this.form.confirm_password);"  />
+                        this.form.username,
+                        this.form.mail,
+                        this.form.password,
+                        this.form.confirm_password);"  />
 
     </form>
     <a href="/index.php?cp=account_deletion">

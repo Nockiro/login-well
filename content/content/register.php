@@ -29,22 +29,22 @@ if (!empty($error_msg)) {
     <form method="post" action="<?php echo esc_url($_SERVER['REQUEST_URI']); ?>">
 
         <div>
-            <label for="pass_id">Username</label>
+            <label for="username">Username</label>
             <input type="text" name="username" id="username" value="" />
         </div>
 
         <div>
-            <label for="text_id">E-Mail</label>
+            <label for="email">E-Mail</label>
             <input type="text" name="email" id="email" value="" />
         </div>
 
         <div>
-            <label for="pass_id">Password</label>
+            <label for="password">Password</label>
             <input type="password" name="password" id="password" value="" />
         </div>
 
         <div>
-            <label for="text_id">Confirm Password</label>
+            <label for="confirm_password">Confirm Password</label>
             <input type="password" name="confirm_password" id="confirmpwd" value="" />
         </div>
 
