@@ -1,4 +1,6 @@
 <?php
+/* preparing the environment */
+date_default_timezone_set('Europe/Berlin');
 
 include_once 'dbconnect.php';
 include_once 'extensions.php';

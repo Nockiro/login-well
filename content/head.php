@@ -29,9 +29,9 @@ else if (file_exists(file_build_path("..", "core", "functions.php")))
 
 <?php
 // include navigation bar
-if (file_build_path(dirname(__DIR__), "content", "sidebar.php"))
+if (file_exists(file_build_path(dirname(__DIR__), "content", "sidebar.php")))
     include (file_build_path(dirname(__DIR__), "content", "sidebar.php"));
 
-if (file_build_path(dirname(__DIR__), "content", "head", strtolower($currentpage) . ".php"))
+if (file_exists(file_build_path(dirname(__DIR__), "content", "head", strtolower($currentpage) . ".php")))
     include (file_build_path(dirname(__DIR__), "content", "head", strtolower($currentpage) . ".php"));
 ?>
