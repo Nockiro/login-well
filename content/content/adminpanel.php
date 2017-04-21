@@ -2,7 +2,6 @@
 /* check for unauthorized access */
 if (!getAdminPrivs($mysqli))
     header('Location: /index.php?msg=E401');
-
 ?>
 <div class="content warn">
     <h3>Achtung..</h3>
@@ -14,7 +13,7 @@ if (!getAdminPrivs($mysqli))
 </div>
 
 <?php
-/* After warning: Make sure the database is current*/
+/* After warning: Make sure the database is current */
 check_for_dbupdate($mysqli);
 
 
@@ -22,14 +21,31 @@ check_for_dbupdate($mysqli);
 if (isset($_GET["action"]))
     $action = htmlspecialchars($_GET["action"]);
 
-if ($action == "switchbr")
-    header('Location: /index.php?cp=adminpanel&msg=W000');
-
 if ($action == "forcepull") {
     echo '<div class="content info">';
     echo '<h4>Resultat..</h4>';
     echo '<hr/>';
     include(file_build_path(dirname(__DIR__), "..", "internal", "updateGit.php"));
+    echo '</div>';
+}
+
+if ($action == "switchbranch") {
+    $branch = split(' ', htmlspecialchars($_POST["branch"]))[0];
+    echo '<div class="content info">';
+    echo "<h4>Versuche, auf $branch zu switchen..</h4>";
+    echo '<hr/>';
+    echo shell_exec("git stash save --include-untracked --keep-index 2>&1");
+    echo "<br/>";
+    flush();
+    ob_flush();
+    echo shell_exec("git checkout $branch 2>&1");
+    echo "<br/>";
+    flush();
+    ob_flush();
+    echo shell_exec("git stash drop 2>&1");
+    echo "<br/>";
+    flush();
+    ob_flush();
     echo '</div>';
 }
 ?>
@@ -71,18 +87,18 @@ $allbranches = split("\n  ", shell_exec("git branch -a"));
         <p><b>Geschrieben von:</b>  <a href="https://github.com/<?php echo $hc_author; ?>"><?php echo $hc_author; ?></a> (<?php echo $hc_mail; ?>)</p>
         <p><b>Commit-Datum:</b> <?php echo $hc_date; ?></p>
     </div>
+    <form name='switchbranch' method="post" action="/index.php?cp=adminpanel&action=switchbranch">
+        <select name='branch'>
+            <?php foreach ($allbranches as $option) { ?>
+                <option value="<?php echo $option ?>"><?php echo $option ?></option>
+            <?php } ?>
+        </select>
 
-    <select>
-        <?php foreach ($allbranches as $option) { ?>
-        <option value="<?php echo $option ?>"><?php echo $option ?></option>
-        <?php } ?>
-    </select>
+        <input type="submit" name="submit" style="background-color: #ec8f8f !important" value="Switch to chosen branch (!)">
+    </form>
+    <br/> 
 
-    <a href="/index.php?cp=adminpanel&amp;action=switchbr">
-        <input type="button" style="background-color: #ec8f8f !important" value="Switch to chosen branch (!)">
-    </a> <br/> 
-
-    <a href="/index.php?cp=adminpanel&amp;action=forcepull">
+    <a href="/index.php?cp=adminpanel&action=forcepull">
         <input type="button" style="margin-top: 6px; background-color: #f2ee7e !important" value="Force pull again">
     </a>
 </div>
