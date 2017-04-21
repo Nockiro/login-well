@@ -20,9 +20,17 @@ if (isset($_GET["action"]))
 
 if ($action == "switchbr")
     header('Location: /index.php?cp=adminpanel&msg=W000');
+
+if ($action == "forcepull") {
+    echo '<div class="content info">';
+    echo '<h4>Output</h4>';
+    echo '<hr/>';
+    include(file_build_path(dirname(__DIR__), "internal", "updateGit.php"));
+    echo '</div>';
+}
 ?>
 
-<div class="content info">
+<div class="content">
     <h3>Aktuelles System</h3>
     <hr><ul>
         <li>
@@ -51,7 +59,7 @@ $allbranches = split("\n  ", shell_exec("git branch -a"));
     <hr>
     <div class="content">
 
-        <h4>Informationen Ã¼ber das aktuelle Spiegelbild</h4>
+        <h4>Informationen über das aktuelle Spiegelbild</h4>
         <hr>
         <b>Aktueller Branch:</b> 
         <a href="https://github.com/nockiro/login-well/tree/<?php echo $head_branch; ?>"><?php echo $head_branch; ?>        </a> 
