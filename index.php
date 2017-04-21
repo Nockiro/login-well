@@ -2,7 +2,6 @@
 ini_set("display_errors", "E_ALL");
 include_once 'core/functions.php';
 
-check_for_dbupdate($mysqli);
 sec_session_start();
 
 if (isset($_GET["cp"]) && !empty($_GET["cp"])) {

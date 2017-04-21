@@ -2,6 +2,7 @@
 /* check for unauthorized access */
 if (!getAdminPrivs($mysqli))
     header('Location: /index.php?msg=E401');
+
 ?>
 <div class="content warn">
     <h3>Achtung..</h3>
@@ -13,8 +14,11 @@ if (!getAdminPrivs($mysqli))
 </div>
 
 <?php
-/* after warning: Check for actions */
+/* After warning: Make sure the database is current*/
+check_for_dbupdate($mysqli);
 
+
+/* After warning: Check for actions */
 if (isset($_GET["action"]))
     $action = htmlspecialchars($_GET["action"]);
 
@@ -23,9 +27,9 @@ if ($action == "switchbr")
 
 if ($action == "forcepull") {
     echo '<div class="content info">';
-    echo '<h4>Output</h4>';
+    echo '<h4>Resultat..</h4>';
     echo '<hr/>';
-    include(file_build_path(dirname(__DIR__), "internal", "updateGit.php"));
+    include(file_build_path(dirname(__DIR__), "..", "internal", "updateGit.php"));
     echo '</div>';
 }
 ?>
@@ -59,7 +63,7 @@ $allbranches = split("\n  ", shell_exec("git branch -a"));
     <hr>
     <div class="content">
 
-        <h4>Informationen über das aktuelle Spiegelbild</h4>
+        <h4>Informationen &uuml;ber das aktuelle Spiegelbild</h4>
         <hr>
         <b>Aktueller Branch:</b> 
         <a href="https://github.com/nockiro/login-well/tree/<?php echo $head_branch; ?>"><?php echo $head_branch; ?>        </a> 
@@ -79,6 +83,6 @@ $allbranches = split("\n  ", shell_exec("git branch -a"));
     </a> <br/> 
 
     <a href="/index.php?cp=adminpanel&amp;action=forcepull">
-        <input type="button" style="background-color: #f2ee7e !important" value="Force pull again">
+        <input type="button" style="margin-top: 6px; background-color: #f2ee7e !important" value="Force pull again">
     </a>
 </div>

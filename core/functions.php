@@ -10,12 +10,12 @@ include_once 'constants.php';
 /* database handling */
 
 /**
- * Checks the current catabase version and whether a database update is necessary or not
+ * Checks the current catabase version and whether a database update is necessary or not - if yes, notify admin
  * @param mysqli $mysqli
  * @return boolean True if database update should be done.
  */
 function check_for_dbupdate($mysqli) {
-    if (isset($_GET["msg"]) && filter_input(INPUT_GET, 'msg') == "EI001")
+    if ((isset($_GET["msg"]) && filter_input(INPUT_GET, 'msg') == "EI001"))
         return;
 
     $sql = "SELECT `value` FROM `internal_settings` WHERE `setting` = \"version\"";
@@ -27,7 +27,7 @@ function check_for_dbupdate($mysqli) {
     }
 
     if ($version != DATABASE_VER)
-        header('Location: ../index.php?msg=EI001');
+        header('Location: ../?cp=adminpanel&msg=EI001');
 }
 
 /* session handling */
