@@ -60,6 +60,10 @@ div.content{
     overflow: auto;
 }
 
+.content a {
+    font-size: 18px;
+}
+
 div.error {
     background-color: #ec8f8f !important;
     font-weight: bold;

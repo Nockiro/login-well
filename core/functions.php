@@ -185,6 +185,13 @@ function login_check($mysqli) {
     return false;
 }
 
+
+function getAdminPrivs($mysqli) {
+    if (!login_check($mysqli))
+        return false;
+    return $_SESSION['USERrole'] == "2";
+}
+
 /**
  * Stores the current shown user logout card in the db
  * @param mysqli $mysqli connection

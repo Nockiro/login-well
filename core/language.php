@@ -60,6 +60,8 @@ class language {
                 return "Account has been deleted.";
             case "II001":
                 return "Database has been updated successfully!";
+            case "W000":
+                return "This function is not implemented yet.";
         }
     }
 

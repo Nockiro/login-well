@@ -7,6 +7,11 @@
             <a href="/?cp=profile">Profile</a>
             <a href="/?cp=settings">Settings</a>
             <a href="/?cp=about">About</a>
+
+            <?php if (getAdminPrivs($mysqli)) : ?>
+                <hr/>
+                <a href="/?cp=adminpanel">Administration panel</a>
+            <?php endif; ?>
         </span>
         <br/>
         <?php if (login_check($mysqli)) : ?>

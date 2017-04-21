@@ -48,6 +48,8 @@ if (isset($_GET["cp"]) && !empty($_GET["cp"])) {
                             $class = "info";
                         else if (startsWith($message, "E"))
                             $class = "error";
+                        else if (startsWith($message, "W"))
+                            $class = "warn";
 
                         $message = language::get_msg($message);
                         /* if there is actually a message with this error/information code, show it - otherwise, don't */
