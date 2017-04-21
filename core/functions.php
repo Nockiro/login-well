@@ -2,10 +2,16 @@
 
 include_once 'dbconnect.php';
 include_once 'extensions.php';
+include_once 'printFunctions.php';
 include_once 'constants.php';
 
 /* database handling */
 
+/**
+ * Checks the current catabase version and whether a database update is necessary or not
+ * @param mysqli $mysqli
+ * @return boolean True if database update should be done.
+ */
 function check_for_dbupdate($mysqli) {
     if (isset($_GET["msg"]) && filter_input(INPUT_GET, 'msg') == "EI001")
         return;
@@ -24,11 +30,16 @@ function check_for_dbupdate($mysqli) {
 
 /* session handling */
 
+/**
+ * Initiates a secure session and sets session cookies
+ */
 function sec_session_start() {
     $session_name = 'sec_session_id'; // vergib einen Sessionnamen
     $secure = SECURE;
+    
     // Damit wird verhindert, dass JavaScript auf die session id zugreifen kann.
     $httponly = true;
+    
     // Zwingt die Sessions nur Cookies zu benutzen.
     if (ini_set('session.use_only_cookies', 1) === FALSE) {
         header("Location: ../error.php?err=Could not initiate a safe session (ini_set)");
@@ -43,6 +54,13 @@ function sec_session_start() {
     session_regenerate_id(); // Erneuert die Session, löscht die alte. 
 }
 
+/**
+ * Exectes and processes the login of a user with mail and password
+ * @param string $email The email of the user
+ * @param string $password The sha512-hashed password
+ * @param mysqli $mysqli mysqli-connection
+ * @return string Error code or success message
+ */
 function login($email, $password, $mysqli) {
     // Das Benutzen vorbereiteter Statements verhindert SQL-Injektion.
     if ($query = $mysqli->prepare("SELECT id, username, password, salt, email, role, verified, registered FROM members WHERE email = ? LIMIT 1")) {
@@ -103,6 +121,12 @@ function login($email, $password, $mysqli) {
     }
 }
 
+/**
+ * Checks the database for possible bruteforce break-in attempts
+ * @param int $user_id ID of user in the database
+ * @param mysqli $mysqli mysqli-connection
+ * @return boolean True if there were more than 5 failed attempts to log in.
+ */
 function checkbrute($user_id, $mysqli) {
     // Hole den aktuellen Zeitstempel 
     $now = time();
@@ -125,6 +149,11 @@ function checkbrute($user_id, $mysqli) {
     }
 }
 
+/**
+ * Checks if there is currently a user logged in (check for session and if it's safe the same user)
+ * @param mysqli $mysqli mysqli-connection
+ * @return boolean true if user is logged in
+ */
 function login_check($mysqli) {
     // Überprüfe, ob alle Session-Variablen gesetzt sind 
     if (isset($_SESSION['user_id'], $_SESSION['username'], $_SESSION['login_string'])) {
@@ -154,10 +183,20 @@ function login_check($mysqli) {
     return false;
 }
 
+/**
+ * Stores the current shown user logout card in the db
+ * @param mysqli $mysqli connection
+ * @param int $imgnum number of card
+ */
 function save_card($mysqli, $imgnum) {
     $result = $mysqli->query("UPDATE `members` SET `last_card` = '" . $imgnum . "' WHERE `id` = " . $_SESSION['user_id'] . ";");
 }
 
+/**
+ * Gets the last saved user logout card from the database 
+ * @param mysqli $mysqli
+ * @return int number of card
+ */
 function get_lastcard($mysqli) {
     if ($result = $mysqli->query("SELECT last_card FROM members WHERE id =  " . $_SESSION['user_id'] . ";", MYSQLI_USE_RESULT)) {
 

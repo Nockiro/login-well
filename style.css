@@ -57,6 +57,7 @@ div.content{
     padding: 4px; 
     background-color: #a7ec8f;
     margin-top:6px;
+    overflow: auto;
 }
 
 div.error {
