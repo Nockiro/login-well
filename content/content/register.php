@@ -53,7 +53,8 @@ if (!empty($error_msg)) {
                             this.form.username,
                             this.form.email,
                             this.form.password,
-                            this.form.confirm_password);" />
+                            this.form.confirm_password,
+                            true);" />
         </div>
 
         </ul>

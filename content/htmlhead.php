@@ -24,3 +24,14 @@ else if (file_exists(file_build_path("..", "core", "functions.php")))
 <meta name="application-name" content="LoginWell">
 <meta name="msapplication-config" content="/img/bfavico/rowserconfig.xml">
 <meta name="theme-color" content="#ffffff">
+
+
+<?php
+if (file_exists(file_build_path(dirname(__DIR__), "content", "head", strtolower($currentpage) . ".php")))
+    include (file_build_path(dirname(__DIR__), "content", "head", strtolower($currentpage) . ".php"));
+?>
+
+<?php if (!login_check($mysqli)) : ?>
+    <script type="text/JavaScript" src="js/sha512.js"></script> 
+    <script type="text/JavaScript" src="js/forms.js"></script> 
+<?php endif; ?>

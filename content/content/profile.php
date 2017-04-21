@@ -83,12 +83,12 @@ if (!empty($error_msg)) {
             </tr>
         </table>
         <br/>
-        <input type="submit" value="&Auml;nderungen &uuml;bernehmen" onclick="return regformhash(this.form,
+        <input type="submit" value="&Auml;nderungen &uuml;bernehmen" onclick='return regformhash(this.form,
                         this.form.username,
                         this.form.mail,
                         this.form.password,
                         this.form.confirm_password,
-                        false);"  />
+                        this.form.password.value != "");'  />
 
     </form>
     <a href="/index.php?cp=account_deletion">

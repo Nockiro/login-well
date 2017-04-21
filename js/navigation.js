@@ -6,14 +6,14 @@ function initializeNavBar() {
 }
 
 /* Set the width of the side navigation to 250px and the left margin of the page content to 250px */
-function openNav(user = true) {
+function openNav(user) {
     document.getElementById("sidebar").style.width = "200px";
     document.getElementById("main").style.marginLeft = "206px"
     document.getElementById("navaction").innerHTML = "&times;";
     document.getElementById("logo").style.marginTop = "0px";
     document.getElementById("sidebar").classList.remove("smallerLinks");
     document.getElementById('navaction').onclick = function () {
-        closeNav();
+        closeNav(true);
     };
     
     if (user)
@@ -21,14 +21,14 @@ function openNav(user = true) {
 }
 
 /* Set the width of the side navigation to 0 and the left margin of the page content to 0 */
-function closeNav(user = true) {
+function closeNav(user) {
     document.getElementById("sidebar").style.width = "80px";
     document.getElementById("main").style.marginLeft = "86px"
     document.getElementById("sidebar").classList.add("smallerLinks");
     document.getElementById("logo").style.marginTop = "40px";
     document.getElementById("navaction").innerHTML = "►►";
     document.getElementById('navaction').onclick = function () {
-        openNav();
+        openNav(true);
     };
     if (user)
         document.getElementById("sidebar").classList.add("user");

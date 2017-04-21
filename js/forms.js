@@ -1,4 +1,4 @@
-﻿function formhash(form, password) {
+function formhash(form, password) {
 // Erstelle ein neues Feld für das gehashte Passwort. 
     var p = document.createElement("input");
     // Füge es dem Formular hinzu. 
@@ -13,7 +13,7 @@
 }
 
 /* passedpass is only false if the password has not been given and shall not be checked*/
-function regformhash(form, uid, email, password, conf, passedpass = true) {
+function regformhash(form, uid, email, password, conf, passedpass) {
 // Überprüfe, ob jedes Feld einen Wert hat
     if (uid.value == '' || email.value == '' ||
             (passedpass && (password.value == '' || conf.value == ''))) {

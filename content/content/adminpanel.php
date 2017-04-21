@@ -87,7 +87,7 @@ $allbranches = split("\n  ", shell_exec("git branch -a"));
         <p><b>Geschrieben von:</b>  <a href="https://github.com/<?php echo $hc_author; ?>"><?php echo $hc_author; ?></a> (<?php echo $hc_mail; ?>)</p>
         <p><b>Commit-Datum:</b> <?php echo $hc_date; ?></p>
     </div>
-    <form name='switchbranch' method="post" action="/index.php?cp=adminpanel&action=switchbranch">
+    <form name='switchbranch' method="post" action="/index.php?cp=adminpanel&action=switchbranch" style="margin-top: 6px; display: block;">
         <select name='branch'>
             <?php foreach ($allbranches as $option) { ?>
                 <option value="<?php echo $option ?>"><?php echo $option ?></option>
@@ -99,6 +99,6 @@ $allbranches = split("\n  ", shell_exec("git branch -a"));
     <br/> 
 
     <a href="/index.php?cp=adminpanel&action=forcepull">
-        <input type="button" style="margin-top: 6px; background-color: #f2ee7e !important" value="Force pull again">
+        <input type="button" style="background-color: #f2ee7e !important" value="Force pull again">
     </a>
 </div>
