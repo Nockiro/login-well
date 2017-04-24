@@ -140,6 +140,24 @@ CREATE TABLE IF NOT EXISTS `visits` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
+-- Tabellenstruktur für Tabelle `user_pages`
+--
+
+CREATE TABLE `user_pages` (
+  `uid` int(11) NOT NULL,
+  `pid` int(11) NOT NULL,
+  `user` varchar(255) NOT NULL,
+  `pass` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Indizes für die Tabelle `user_pages`
+--
+ALTER TABLE `user_pages`
+  ADD PRIMARY KEY (`uid`,`pid`),
+  ADD KEY `pid` (`pid`);
+
+--
 -- Constraints der exportierten Tabellen
 --
 
@@ -157,6 +175,13 @@ ALTER TABLE `visits`
   ADD CONSTRAINT `visits_ibfk_1` FOREIGN KEY (`uid`) REFERENCES `members` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `visits_ibfk_2` FOREIGN KEY (`pid`) REFERENCES `pages` (`pid`) ON DELETE CASCADE ON UPDATE CASCADE;
 SET FOREIGN_KEY_CHECKS=1;
+--
+-- Constraints der Tabelle user_pages
+--
+ALTER TABLE `user_pages`
+ ADD FOREIGN KEY (`uid`) REFERENCES `members`(`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+ ADD FOREIGN KEY (`pid`) REFERENCES `pages`(`pid`) ON DELETE CASCADE ON UPDATE CASCADE;
+
 --
 -- Tabellenstruktur für Tabelle `internal_settings`
 --

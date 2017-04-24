@@ -58,6 +58,7 @@ function setRequiredEmailForReg($mysqli, $shallon) {
     return $mysqli->query("UPDATE `internal_settings` SET `value` = '" . ($shallon ? "true" : "false") . "' WHERE `setting` = \"require_emailreg\"");
 }
 
+
 /* session handling */
 
 /**
@@ -127,6 +128,7 @@ function login($email, $password, $mysqli) {
                         $_SESSION['USERrole'] = htmlspecialchars($role);
                         $_SESSION['USERverified'] = htmlspecialchars($verified);
                         $_SESSION['USERregdate'] = htmlspecialchars($registered);
+                        $_SESSION['USERsalt'] = htmlspecialchars($salt);
                         // Login erfolgreich.
                         return "Success";
                     } else {

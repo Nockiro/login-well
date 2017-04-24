@@ -9,7 +9,7 @@ function printPageTable($pagelist) {
     foreach ($pagelist as $row) {
         echo "<tr>";
         echo '<td style="float:left; margin-left:20%"><a href="http://' . $row["url"] . '"> ' . $row["url"] . '</a> </td>';
-        echo '<td><a style="font-size: 18px;" href="#" onclick="addPage(' . $row["pid"] . ')">(+)</a></td>';
+        echo '<td><a style="font-size: 18px;" href="#" onclick="addPage(\'' . $row["pid"] . '\', \'' . $row["url"] . '\')">(+)</a></td>';
     }
 }
 
