@@ -77,7 +77,7 @@ $hc_author = $branchinfo[1];
 $hc_mail = $branchinfo[2];
 $hc_date = $branchinfo[3];
 
-$allbranches = split("\n  ", shell_exec("git branch -a"));
+$allbranches = split("\n", shell_exec("git branch -a"));
 ?>
 
 <div class="content info">
