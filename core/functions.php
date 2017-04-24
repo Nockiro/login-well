@@ -18,7 +18,7 @@ include_once 'constants.php';
 function getAllPossiblePages($mysqli) {
     $sql = "SELECT pid, url FROM `pages` WHERE 1";
     if ($result = $mysqli->query($sql)) {
-        return mysqli_fetch_all($result, MYSQLI_ASSOC);
+        return fetch_all($result);
     }
 }
 

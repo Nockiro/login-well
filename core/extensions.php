@@ -1,6 +1,19 @@
 <?php
 
 /**
+ * Tries to get a compromise between the native fetch_all of mysqli and the not-being-there in some systems
+ * @param mysqli_result $result
+ * @return mixed output array
+ */
+function fetch_all($result) {
+    $array = array();
+    while ($row = $result->fetch_assoc())
+        $array[] = $row;
+    
+    return $array;
+}
+
+/**
  * Builds a file path with the appropriate directory separator.
  * @param string $segments,... unlimited number of path segments
  * @return string Path
