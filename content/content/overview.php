@@ -17,7 +17,7 @@ $usercount = get_usercount($mysqli);
             Would you like to <a href="logout.php">logout</a>?</p>
     </div>
     <div class="content">
-        <h3>Your websites</h3>
+        <h3>Your websites <a href="/?cp=addpage"><b>(+)</b></a></h3>
         <hr/>
 
         <table>
@@ -40,7 +40,7 @@ $usercount = get_usercount($mysqli);
             <li>Facebook.com</li>
             <li>Google.com</li>
             <li>YouTube.com</li>
-            <li>Movie4k.org</li>
+            <li>loginwell.rudifamily.de</li>
             <li>Nasa.gov</li>
         </ol>
         <ol class="flippinright" start="6">
