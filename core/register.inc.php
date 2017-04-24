@@ -1,5 +1,5 @@
 <?php
-
+$emailval = getRequiredEmailForReg($mysqli);
 $error_msg = "";
 if (isset($_POST['username'], $_POST['email'], $_POST['p'])) {
     // Bereinige und überprüfe die Daten
@@ -46,8 +46,8 @@ if (isset($_POST['username'], $_POST['email'], $_POST['p'])) {
         $password = hash('sha512', $password . $random_salt);
 
         // Trage den neuen Benutzer in die Datenbank ein 
-        if ($insert_stmt = $mysqli->prepare("INSERT INTO members (username, email, password, registered, salt, verified) VALUES (?, ?, ?, now(), ?, 0)")) {
-            $insert_stmt->bind_param('ssss', $username, $email, $password, $random_salt);
+        if ($insert_stmt = $mysqli->prepare("INSERT INTO members (username, email, password, registered, salt, verified) VALUES (?, ?, ?, now(), ?, ?)")) {
+            $insert_stmt->bind_param('ssss', $username, $email, $password, $random_salt, $emailval ? 0 : 1);
             // Führe die vorbereitete Anfrage aus.
             if (!$insert_stmt->execute())
                 $error_msg .= '<div class="content error">Insertion error.</div>';
@@ -55,7 +55,11 @@ if (isset($_POST['username'], $_POST['email'], $_POST['p'])) {
         $Erstellt = date("Y-m-d H:i:s");
         $Aktivierungscode = rand(1, 99999999);
         $ID = mysqli_insert_id($mysqli);
-        $result = $mysqli->query("INSERT INTO email_ver (user_id, Aktivierungscode, Erstellt, EMail, Aktiviert) VALUES ('$username','$Aktivierungscode', '$Erstellt', '$email', 'Nein')", MYSQLI_USE_RESULT);
+        if (!$emailval){
+            header('Location: /index.php?cp=register_success');
+            return;
+        }
+        $result = $mysqli->query("INSERT INTO email_ver (ID, user_id, Aktivierungscode, Erstellt, EMail, Aktiviert) VALUES ('$ID', $username','$Aktivierungscode', '$Erstellt', '$email', 'Nein')", MYSQLI_USE_RESULT);
         $mailtext = '<html>
 											<head>
 												<title>Aktivierung ihres Accounts</title>
