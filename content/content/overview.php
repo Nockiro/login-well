@@ -31,7 +31,9 @@ $usercount = get_usercount($mysqli);
             </tr>       
             <?php printUserPageTable(constant::getExamplePageValues()); ?>
         </table>
-        
+        <small>Please be aware that the last lines were demo content.</small>
+        <hr/>
+
     </div>
     <div class="content">
         <h3>Ranking (worldwide)</h3>

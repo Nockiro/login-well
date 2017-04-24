@@ -17,26 +17,36 @@ class constant {
     public static function getExamplePageValues() {
         return array
             (
+            array('page' => "loginwell.rudifamily.de",
+                'time' => 156123,
+                'points' => 28098,
+                'multiplicator' => 18,
+                'rate' => 5,
+                'pid' => 2),
             array('page' => "github.com",
                 'time' => 156123,
-                'points' => 18,
-                'multiplicator' => 4,
-                'rate' => 5),
+                'points' => 17171,
+                'multiplicator' => 11,
+                'rate' => 5,
+                'pid' => 3),
             array('page' => "waitinginline3d.de",
                 'time' => 1235635,
-                'points' => 13,
-                'multiplicator' => 2,
-                'rate' => 2),
-            array('page' => "klamm.de",
+                'points' => 12356,
+                'multiplicator' => 1,
+                'rate' => 22,
+                'pid' => 4),
+            array('page' => "www.klamm.de",
                 'time' => 156312,
-                'points' => 2,
-                'multiplicator' => 2,
-                'rate' => 5),
+                'points' => 1563,
+                'multiplicator' => 1,
+                'rate' => 5,
+                'pid' => 1),
             array('page' => "jetztspielen.de",
                 'time' => 1531,
                 'points' => 15,
-                'multiplicator' => 2,
-                'rate' => 0)
+                'multiplicator' => 1,
+                'rate' => 0,
+                'pid' => 5)
         );
     }
 

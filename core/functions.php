@@ -11,6 +11,15 @@ include_once 'constants.php';
 /* database handling / information request */
 
 /**
+ * Gets overview of the users' pages
+ * @param mysqli $mysqli
+ * @return mixed array of pages with data
+ */
+function getShortURLStats($mysqli) {
+    //TODO
+}
+
+/**
  * Gets the list of currently available pages on the possibility list
  * @param type $mysqli database connection
  * @return mixed an array of possible pages to add to personal list
@@ -22,6 +31,23 @@ function getAllPossiblePages($mysqli) {
     }
 }
 
+/**
+ * Gets URL From PID in the database
+ * @param mysqli connection
+ * @param int/string $pid PageID from the database
+ * @return string URL
+ */
+function getURLFromPID($mysqli, $pid) {
+    $sql = "SELECT `url` FROM `pages` WHERE `pid` = \"$pid\"";
+    $url = "http://example.com";
+    if ($query = $mysqli->query($sql)) {
+        // Wenn Version gefunden
+        if ($query->num_rows == 1)
+            $url = $query->fetch_row()[0];
+    }
+    return $url;
+
+}
 /**
  * Checks the current catabase version and whether a database update is necessary or not - if yes, notify admin
  * @param mysqli $mysqli
