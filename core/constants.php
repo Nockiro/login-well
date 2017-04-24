@@ -33,7 +33,7 @@ class constant {
                 'time' => 1235635,
                 'points' => 12356,
                 'multiplicator' => 1,
-                'rate' => 22,
+                'rate' => 3,
                 'pid' => 4),
             array('page' => "www.klamm.de",
                 'time' => 156312,
