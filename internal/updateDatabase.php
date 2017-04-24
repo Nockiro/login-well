@@ -143,6 +143,7 @@ CREATE TABLE IF NOT EXISTS `visits` (
 -- Tabellenstruktur für Tabelle `user_pages`
 --
 
+DROP TABLE IF EXISTS `user_pages`;
 CREATE TABLE `user_pages` (
   `uid` int(11) NOT NULL,
   `pid` int(11) NOT NULL,
@@ -194,9 +195,41 @@ CREATE TABLE IF NOT EXISTS `internal_settings` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Daten für Tabelle `internal_settings`
+-- Daten für Tabelle `pages`
 --
 
+INSERT INTO `pages` (`pid`, `url`) VALUES
+(1, 'www.klamm.de'),
+(2, 'loginwell.rudifamily.de'),
+(3, 'github.com'),
+(4, 'waitinginline3d.de'),
+(5, 'jetztspielen.de'),
+(6, 'facebook.com'),
+(7, 'google.com'),
+(8, 'youtube.com'),
+(9, 'nasa.gov'),
+(10, 'reddit.com'),
+(11, 'python.org'),
+(12, 'wikipedia.org'),
+(13, 'instagram.com'),
+(14, 'xkcd.com'),
+(15, 'adventskalender.net'),
+(16, 'deinemom.com'),
+(17, '127.0.0.1'),
+(18, 'how2usemypc.net'),
+(19, 'shady.org'),
+(20, 'funny.to'),
+(21, '4chan.org'),
+(22, 'random.org'),
+(23, 'keymash.de'),
+(24, 'stackoverflow.com'),
+(25, 'spotify.com');
+
+
+--
+-- Daten für Tabelle `internal_settings`
+--
+INSERT INTO `internal_settings` (`setting`, `value`) VALUES ('require_emailreg', 'true');
 REPLACE INTO `internal_settings` (`setting`, `value`) VALUES
 ('version', '
 EOT;
