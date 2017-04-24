@@ -1,8 +1,7 @@
-
 <script
-    src="http://code.jquery.com/jquery-2.2.4.min.js"
-    integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
-crossorigin="anonymous"></script>
+  src="https://code.jquery.com/jquery-2.2.4.min.js"
+  integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
+  crossorigin="anonymous"></script>
 <div class="content info" id="infobox">
     Suche unten deine gewünschte Seite. Ist sie noch nicht aufgeführt, <a href="/?cp=requestPage">kontaktiere uns und fordere die Seite an!</a>
 </div>
