@@ -13,7 +13,7 @@ if (isset($_POST['submit'])) {
         $random_salt = hash('sha512', uniqid(openssl_random_pseudo_bytes(16), TRUE));
         // Erstelle saltet Passwort 
         $hashed_pw = hash('sha512', $password . $random_salt);
-        if ($mysqli->query("UPDATE members SET 'password' = '$hashed_pw' WHERE 'email' = '$email'") === TRUE){
+        if ($mysqli->query("UPDATE members SET `password` = '$hashed_pw' WHERE `email` = '$email'") === TRUE){
             echo "Record updated successfully";
         }
         $mailtext = '<html>
