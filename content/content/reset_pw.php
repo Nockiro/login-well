@@ -43,6 +43,7 @@ if (isset($_POST['submit'])) {
             }
     }else{
         echo "Lel das hat nicht geklappt...";
+    }
 }
 ?>
 <div class="content">
