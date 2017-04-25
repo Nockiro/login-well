@@ -1,6 +1,5 @@
 <?php
 include_once 'dbconnect.php';
-echo
 if (!empty($error_msg)) {
     echo $error_msg;
 }
