@@ -8,7 +8,7 @@ include_once("language.php");
 
 class constant {
 
-    private static $accessableNotLoggedin = array("about", "overview", "logout", "register", "register_failed", "register_success", "manual_activation");
+    private static $accessableNotLoggedin = array("about", "overview", "logout", "register", "register_failed", "register_success", "manual_activation", "reset_pw");
 
     public static function GetPermittedNotLoggedInPage($key) {
         return in_array($key, @self::$accessableNotLoggedin);
