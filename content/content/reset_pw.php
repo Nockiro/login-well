@@ -45,7 +45,7 @@ if (isset($_POST['submit'])) {
 ?>
 <div class="content">
   Sup, do you <strong>really</strong> wanna reset you password? <br>
-    <form>
+    <form method="post" action="<?php echo esc_url($_SERVER['REQUEST_URI']); ?>">
     <div>
             <label for="email">E-Mail</label>
             <input type="text" name="email" id="email" value="" />
