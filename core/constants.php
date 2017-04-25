@@ -50,6 +50,25 @@ class constant {
         );
     }
 
+    /**
+     * Gets button colors dependant of current night mode usage
+     * @param string $type button type (warn, attention, info)
+     * @return string color code in hex
+     */
+    public static function getButtonColor($type) {
+        $nightmode = $_COOKIE["setting"]["nightmode"];
+        switch ($type) {
+            case "warn":
+                return $nightmode ? "#bbb761" : "#f2ee7e";
+            case "attention":
+                return $nightmode ? "#af6363" : "#ec8f8f";
+            case "info":
+                return $nightmode ? "#578db1" : "#b7e2ff";
+            default:
+                return "initial";
+        }
+    }
+
 }
 
 ?>

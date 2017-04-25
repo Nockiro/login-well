@@ -10,6 +10,7 @@ $url = getURLFromPID($mysqli, $pid);
 
 <a style="font-size: 14px;" href="/">◄ Zurück zu LoginWell </a>
 <div class="content">
+    <!-- TODO: HTTPS -->
     <iframe src="http://<?php echo $url; ?>" width="100%" height="100%">
 
     </iframe>
