@@ -5,8 +5,9 @@ if (!empty($error_msg)) {
 }
 if (isset($_POST['submit'])) {
     $email = htmlentities($_POST['email']);
-    $result = $mysqli->query("SELECT 'id' FROM members WHERE `email` = '$email'");
-    if ($result && mysql_num_rows($result) > 0){
+    echo "SELECT id FROM members WHERE `email` = '$email'";
+    $result = $mysqli->query("SELECT id FROM members WHERE `email` = '$email'");
+    if ($result && mysqli_num_rows($result) > 0){
         $password = rand(10000000,99999999);
         $hashed_pw = hash('sha512',$password,TRUE);
         // Erstelle ein zufälliges Salt
