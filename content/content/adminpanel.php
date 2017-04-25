@@ -78,6 +78,8 @@ $hc_mail = $branchinfo[2];
 $hc_date = $branchinfo[3];
 
 $allbranches = split("\n", shell_exec("git branch -a"));
+arsort ($allbranches, SORT_STRING);
+array_pop($allbranches); //deletes last element because it's usually empty
 ?>
 
 <div class="content info">
@@ -96,7 +98,7 @@ $allbranches = split("\n", shell_exec("git branch -a"));
     <form name='switchbranch' method="post" action="/index.php?cp=adminpanel&action=switchbranch" style="margin-top: 6px; display: block;">
         <select name='branch'>
             <?php foreach ($allbranches as $option) { ?>
-                <option value="<?php echo $option ?>"><?php echo $option ?></option>
+                <option value="<?php echo trim($option); ?>"><?php echo trim($option); ?></option>
             <?php } ?>
         </select>
 
