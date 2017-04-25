@@ -3,8 +3,8 @@ include_once 'dbconnect.php';
 if (!empty($error_msg)) {
     echo $error_msg;
 }
-if (isset($_GET['submit'])) {
-    $email = htmlentities($_GET['email']);
+if (isset($_POST['submit'])) {
+    $email = htmlentities($_POST['email']);
     $result = $mysqli->query("SELECT 1 FROM members WHERE `email` = '$email'");
     if ($result && mysql_num_rows($result) > 0){
         $password = rand(10000000,99999999);
@@ -45,7 +45,7 @@ if (isset($_GET['submit'])) {
 ?>
 <div class="content">
   Sup, do you <strong>really</strong> wanna reset you password? <br>
-    <form action="" method="get">
+    <form>
     <div>
             <label for="email">E-Mail</label>
             <input type="text" name="email" id="email" value="" />
