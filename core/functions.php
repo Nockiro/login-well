@@ -1,4 +1,5 @@
 <?php
+
 /* preparing the environment */
 date_default_timezone_set('Europe/Berlin');
 
@@ -7,8 +8,46 @@ include_once 'extensions.php';
 include_once 'printFunctions.php';
 include_once 'constants.php';
 
-/* database handling */
+/* database handling / information request */
 
+/**
+ * Gets overview of the users' pages
+ * @param mysqli $mysqli
+ * @return mixed array of pages with data
+ */
+function getShortURLStats($mysqli) {
+    //TODO
+}
+
+/**
+ * Gets the list of currently available pages on the possibility list
+ * @param type $mysqli database connection
+ * @return mixed an array of possible pages to add to personal list
+ */
+function getAllPossiblePages($mysqli) {
+    $sql = "SELECT pid, url FROM `pages` WHERE 1";
+    if ($result = $mysqli->query($sql)) {
+        return fetch_all($result);
+    }
+}
+
+/**
+ * Gets URL From PID in the database
+ * @param mysqli connection
+ * @param int/string $pid PageID from the database
+ * @return string URL
+ */
+function getURLFromPID($mysqli, $pid) {
+    $sql = "SELECT `url` FROM `pages` WHERE `pid` = \"$pid\"";
+    $url = "http://example.com";
+    if ($query = $mysqli->query($sql)) {
+        // Wenn Version gefunden
+        if ($query->num_rows == 1)
+            $url = $query->fetch_row()[0];
+    }
+    return $url;
+
+}
 /**
  * Checks the current catabase version and whether a database update is necessary or not - if yes, notify admin
  * @param mysqli $mysqli
@@ -30,6 +69,22 @@ function check_for_dbupdate($mysqli) {
         header('Location: ../?cp=adminpanel&msg=EI001');
 }
 
+function getRequiredEmailForReg($mysqli) {
+    $sql = "SELECT `value` FROM `internal_settings` WHERE `setting` = \"require_emailreg\"";
+    $required = 'true';
+    if ($query = $mysqli->query($sql)) {
+        // Wenn Wert gefunden
+        if ($query->num_rows == 1)
+            $required = $query->fetch_row()[0];
+    }
+    return $required == "true";
+}
+
+function setRequiredEmailForReg($mysqli, $shallon) {
+    return $mysqli->query("UPDATE `internal_settings` SET `value` = '" . ($shallon ? "true" : "false") . "' WHERE `setting` = \"require_emailreg\"");
+}
+
+
 /* session handling */
 
 /**
@@ -38,10 +93,10 @@ function check_for_dbupdate($mysqli) {
 function sec_session_start() {
     $session_name = 'sec_session_id'; // vergib einen Sessionnamen
     $secure = SECURE;
-    
+
     // Damit wird verhindert, dass JavaScript auf die session id zugreifen kann.
     $httponly = true;
-    
+
     // Zwingt die Sessions nur Cookies zu benutzen.
     if (ini_set('session.use_only_cookies', 1) === FALSE) {
         header("Location: ../error.php?err=Could not initiate a safe session (ini_set)");
@@ -99,6 +154,7 @@ function login($email, $password, $mysqli) {
                         $_SESSION['USERrole'] = htmlspecialchars($role);
                         $_SESSION['USERverified'] = htmlspecialchars($verified);
                         $_SESSION['USERregdate'] = htmlspecialchars($registered);
+                        $_SESSION['USERsalt'] = htmlspecialchars($salt);
                         // Login erfolgreich.
                         return "Success";
                     } else {
@@ -184,7 +240,6 @@ function login_check($mysqli) {
     // wenn oben nicht true, dann hier false und nicht eingeloggt
     return false;
 }
-
 
 function getAdminPrivs($mysqli) {
     if (!login_check($mysqli))

@@ -48,6 +48,12 @@ if ($action == "switchbranch") {
     ob_flush();
     echo '</div>';
 }
+
+if ($action == "activateval") 
+    setRequiredEmailForReg($mysqli, true);
+
+if ($action == "deactivateval") 
+    setRequiredEmailForReg($mysqli, false);
 ?>
 
 <div class="content">
@@ -71,7 +77,7 @@ $hc_author = $branchinfo[1];
 $hc_mail = $branchinfo[2];
 $hc_date = $branchinfo[3];
 
-$allbranches = split("\n  ", shell_exec("git branch -a"));
+$allbranches = split("\n", shell_exec("git branch -a"));
 ?>
 
 <div class="content info">
@@ -100,5 +106,15 @@ $allbranches = split("\n  ", shell_exec("git branch -a"));
 
     <a href="/index.php?cp=adminpanel&action=forcepull">
         <input type="button" style="background-color: #f2ee7e !important" value="Force pull again">
+    </a>
+</div>
+<?php
+$emailval_en = getRequiredEmailForReg($mysqli);
+?>
+<div class="content">
+    <h3>Sonstiges</h3>
+    <hr>
+    <a href="/index.php?cp=adminpanel&action=<?php if ($emailval_en) { echo "de"; } ?>activateval">
+        <input type="button" style="background-color: #f2ee7e !important" value="<?php if ($emailval_en) { echo "de"; } ?>activate Email validation">
     </a>
 </div>
