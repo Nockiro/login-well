@@ -5,7 +5,6 @@ if (!empty($error_msg)) {
 }
 if (isset($_POST['submit'])) {
     $email = htmlentities($_POST['email']);
-    echo "SELECT id FROM members WHERE `email` = '$email'";
     $result = $mysqli->query("SELECT id FROM members WHERE `email` = '$email'");
     if ($result && mysqli_num_rows($result) > 0){
         $password = rand(10000000,99999999);
@@ -14,9 +13,13 @@ if (isset($_POST['submit'])) {
         $random_salt = hash('sha512', uniqid(openssl_random_pseudo_bytes(16), TRUE));
         // Erstelle saltet Passwort 
         $hashed_pw = hash('sha512', $password . $random_salt);
-        if ($mysqli->query("UPDATE members SET 'password' = '$hashed_pw' WHERE 'email' = '$email'") === TRUE){
-            echo "Record updated successfully";
-        }
+        
+        if ($mysqli->query("UPDATE members SET `password` = '$hashed_pw' WHERE `email` = '$email'") === TRUE)
+            echo "Pass record updated successfully";
+        if ($mysqli->query("UPDATE members SET `salt` = '$random_salt' WHERE `email` = '$email'") === TRUE)
+            echo "Salt record updated successfully";
+        echo $password;
+        return;
         $mailtext = '<html>
                                                 <head>
                                                     <title>Passwort zurückgesetzt</title>
