@@ -1,0 +1,214 @@
+
+/* body font color and background, also scrollbar color*/
+body {
+    background-color: #141514;
+    color: #afcfff;
+
+
+    /* But IF.. */
+    scrollbar-arrow-color: #585858;
+    scrollbar-base-color: #1e1e1e;
+    scrollbar-highlight-color : #585858;
+    scrollbar-shadow-color : #585858;
+    scrollbar-track-color: #0C0C0C;
+}
+
+h1, h2, h3, h4 {
+    margin: auto;
+}
+
+/* all links */
+a {
+    font-size: 24px
+}
+
+/* unvisited link */
+a:link {
+    color: #ea8ab0;
+    /* no underlined stuff and stuff */
+    text-decoration: none;
+}
+
+/* visited link */
+a:visited {
+    color: #51e6d9;
+}
+
+/* mouse over link */
+a:hover {
+    color: #ba0044;
+    animation: blink 2s;
+}
+
+/* selected link */
+a:active {
+    color: #ba0044;
+}
+
+
+/* main content */
+form > div { 
+    padding: 4px;
+}
+
+div.content{
+    border: 4px solid #445644;
+    border-radius: 8px;
+    padding: 4px;
+    background-color: #4d733f;
+    margin-top:6px;
+    overflow: auto;
+}
+
+.content a {
+    font-size: 18px;
+}
+
+div.error {
+    background-color: #ec8f8f !important;
+    font-weight: bold;
+}
+
+div.info {
+    background-color: #437298 !important;
+}
+
+div.warn {
+	background-color: #656334 !important;
+}
+
+form {
+    display: table-caption;
+}
+
+/* The side navigation menu (See: https://www.w3schools.com/howto/howto_js_sidenav.asp)*/
+.sidenav {
+    min-height: 82%; /* 100% Full-height */
+    width: 200px; /* 200px width - change this with JavaScript */
+    position: fixed; /* Stay in place */
+    /*z-index: 1; /* Stay on top */
+    top: 0;
+    left: 0;
+    background-color: #111; /* Black*/
+    overflow-x: hidden; /* Disable horizontal scroll */
+    padding-top: 8px; /* Place content 60px from the top */
+    transition: 0.5s; /* 0.5 second transition effect to slide in the sidenav */
+    margin-top: 80px;
+    border-radius:10px;
+    border: 2px solid #445644;
+    background-color: #4d733f;
+}
+
+/* The navigation menu links */
+.sidenav a {
+    padding: 8px 8px 8px 8px;
+    text-decoration: none;
+    font-size: 25px;
+    color: #b5abab;
+    display: block;
+    transition: 0.3s;
+}
+
+.smallerLinks a {
+    font-size: 18px;
+}
+
+/* When you mouse over the navigation links, change their color */
+.sidenav a:hover, .offcanvas a:focus{
+    color: #f1f1f1;
+}
+/* Position and style the close button (top right corner) */
+.sidenav .closebtn {
+    position: absolute;
+    top: 0;
+    right: 0px;
+    font-size: 36px;
+    margin-left: 50px;
+}
+
+#logo {
+    transition: 0.5s; /* 0.5 second transition effect to slide out the sidenav */    
+}
+
+#main {
+    margin-top: 80px;
+    margin-left: 206px;
+    transition: 0.5s; /* 0.5 second transition effect to slide out the sidenav */
+}
+
+/* button */
+
+input, select, textarea {
+    background-color: #d6e4b4 !important;
+    color: #025207 !important;
+    border: solid 1px #118702 !important;
+    padding: 4px !important;
+}
+
+/* All tables shall fit the whole screen size to the left */
+table {
+    min-width: 100%;
+    text-align: center;
+}
+
+/* On smaller screens, where height is less than 480px, change the style of the sidenav and header nav. (less padding and a smaller font size)
+   if you are editing this, have also a look on navigation.js */
+@media only screen and (max-device-width: 600px) {
+    #header ul {
+        display: grid !important;
+    }
+    #header li {
+        padding: 3px 16px !important;
+        text-align: left !important;
+        border-bottom: 1px solid #bbb;
+        border-right: none;
+    }
+    
+    .sidenav {padding-top: 15px;}
+    /* important for not getting an overwrite while opening/closing the navbar, see navigation.js */
+    .sidenav a {font-size: 18px !important;}
+
+}
+
+#header {
+    z-index: 100;
+    position: fixed;
+    top: 8px;
+    width: 99%;
+}
+#header ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #264472;
+    border-radius: 11px;
+    color: #A8C6F2;
+}
+
+#header a {
+    color: #A8C6F2;
+}
+#header a:hover {
+    color: #A8C6F2;
+}
+
+
+#header li {
+    font-size: 24px;
+    float: left;
+    border-right: 1px solid #bbb;
+    text-align: center;
+    text-decoration: none;
+    display: block;
+    padding: 14px 16px;
+}
+
+/* say explicitly that the links have to have this padding! */
+#header li a{
+    padding: 14px 16px;
+}
+
+#header li a:hover {
+    background-color: #6fa0d7;
+}

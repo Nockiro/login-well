@@ -100,12 +100,12 @@ $allbranches = split("\n", shell_exec("git branch -a"));
             <?php } ?>
         </select>
 
-        <input type="submit" name="submit" style="background-color: #ec8f8f !important" value="Switch to chosen branch (!)">
+        <input type="submit" name="submit" style="background-color: <?php echo constant::getButtonColor("attention"); ?> !important" value="Switch to chosen branch (!)">
     </form>
     <br/> 
 
     <a href="/index.php?cp=adminpanel&action=forcepull">
-        <input type="button" style="background-color: #f2ee7e !important" value="Force pull again">
+        <input type="button" style="background-color: <?php echo constant::getButtonColor("warn"); ?> !important" value="Force pull again">
     </a>
 </div>
 <?php
@@ -115,6 +115,6 @@ $emailval_en = getRequiredEmailForReg($mysqli);
     <h3>Sonstiges</h3>
     <hr>
     <a href="/index.php?cp=adminpanel&action=<?php if ($emailval_en) { echo "de"; } ?>activateval">
-        <input type="button" style="background-color: #f2ee7e !important" value="<?php if ($emailval_en) { echo "de"; } ?>activate Email validation">
+        <input type="button" value="<?php if ($emailval_en) { echo "de"; } ?>activate Email validation">
     </a>
 </div>
