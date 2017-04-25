@@ -1,5 +1,7 @@
 <?php
 $emailval = getRequiredEmailForReg($mysqli);
+$one = 1;
+$zero = 0;
 $error_msg = "";
 if (isset($_POST['username'], $_POST['email'], $_POST['p'])) {
     // Bereinige und überprüfe die Daten
@@ -47,7 +49,7 @@ if (isset($_POST['username'], $_POST['email'], $_POST['p'])) {
 
         // Trage den neuen Benutzer in die Datenbank ein 
         if ($insert_stmt = $mysqli->prepare("INSERT INTO members (username, email, password, registered, salt, verified) VALUES (?, ?, ?, now(), ?, ?)")) {
-            $insert_stmt->bind_param('ssss', $username, $email, $password, $random_salt, $emailval ? 0 : 1);
+            $insert_stmt->bind_param('sssss', $username, $email, $password, $random_salt, $emailval ? $zero : $one);
             // Führe die vorbereitete Anfrage aus.
             if (!$insert_stmt->execute())
                 $error_msg .= '<div class="content error">Insertion error.</div>';
