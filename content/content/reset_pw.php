@@ -4,7 +4,7 @@ if (!empty($error_msg)) {
     echo $error_msg;
 }
 if (isset($_GET['submit'])) {
-    $email = htmlentities($_GET['email'])
+    $email = htmlentities($_GET['email']);
     $result = $mysqli->query("SELECT 1 FROM members WHERE `email` = '$email'");
     if ($result && mysql_num_rows($result) > 0){
         $password = rand(10000000,99999999);
