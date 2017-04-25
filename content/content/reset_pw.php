@@ -1,6 +1,6 @@
 <?php
 include_once 'dbconnect.php';
-echo 
+echo
 if (!empty($error_msg)) {
     echo $error_msg;
 }
@@ -42,7 +42,7 @@ if (isset($_POST['submit'])) {
                 header('Location: /index.php?cp=register_failed');
             }
     }else{
-        echo Lel das hat nicht geklappt...
+        echo "Lel das hat nicht geklappt...";
 }
 ?>
 <div class="content">
