@@ -46,8 +46,8 @@ function getURLFromPID($mysqli, $pid) {
             $url = $query->fetch_row()[0];
     }
     return $url;
-
 }
+
 /**
  * Checks the current catabase version and whether a database update is necessary or not - if yes, notify admin
  * @param mysqli $mysqli
@@ -83,7 +83,6 @@ function getRequiredEmailForReg($mysqli) {
 function setRequiredEmailForReg($mysqli, $shallon) {
     return $mysqli->query("UPDATE `internal_settings` SET `value` = '" . ($shallon ? "true" : "false") . "' WHERE `setting` = \"require_emailreg\"");
 }
-
 
 /* session handling */
 

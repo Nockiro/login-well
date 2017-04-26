@@ -70,6 +70,8 @@ if (empty($error_msg)) {
 
     // Die zusammengeknüpfte Anfrage ausführen, wenn möglich
     if ($result = $mysqli->query($SQL)) {
+        // wenn alles glatt läuft, den Passwort-Salt mitspeichern
+        $mysqli->query("UPDATE members SET `salt` = '$random_salt' WHERE `id` = '" . $_SESSION["user_id"] . "'");
         $_SESSION['username'] = htmlspecialchars($username);
         $_SESSION['USERemail'] = htmlspecialchars($email);
     } else
