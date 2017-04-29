@@ -9,16 +9,21 @@ if (!empty($error_msg)) {
 	<form method="POST">
 		<?php
 			// fetching the webistes and generating a nice-looking rating grid
-			echo $_SESSION["user_id"];
-			$websites = $mysqli->query("SELECT url FROM `pages`");
-			$siteNames = array();
+			$websites = $mysqli->query("SELECT url, pid FROM `pages`");
+			$ratedSites = $mysqli->query("SELECT uID, pID FROM `ratings`");
+			$rateIDs = array();
 			// just the option 0-5
 			$options = '<option value=0>0</option><option value=1>1</option><option value=2>2</option><option value=3>3</option><option value=4>4</option><option value=5>5</option>';
 			while ($row = mysqli_fetch_array($websites))
 			{
-				echo '<select name="'.$row['url'].'">'.$options.'</select>'.$row['url'].'<br>';
+				echo '<select name="'.$row['pid'].'">'.$options.'</select>'.$row['url'].'<br>';
 				// this array will be used in later functions
-				array_push($siteNames, $row['url']);
+				array_push($rateIDs, $row['pid']);
+			}
+			while ($stuff = mysqli_fetch_array($ratedSites)){
+			//$newPID = stuff[pID]
+			//echo "$newPID <br>";
+			array_push($ratedSitesArr, array($stuff['pID'],$stuff['uID']));
 			}
 			
 		?>
@@ -26,10 +31,26 @@ if (!empty($error_msg)) {
 	</form>
 <?php
 	// checking every site's name to see if it's box has been used
-	foreach ($siteNames as $name) {
-		echo $name;
-		if (isset($_POST[$name])) {
-			echo "hi";
+	foreach ($rateIDs as $pid) {
+		//changing thze database
+		$rating = $_POST[$pid];
+		$uid = $_SESSION["user_id"];
+		$pageUpdated = FALSE;
+		$ratedSitesArr = array();
+		if (in_array(array($pid,$uid),$ratedSitesArr)) {
+			if ($mysqli->query("REPLACE INTO ratings(`uID`,`pID`,`rating`) VALUES ($uid,$pid,$rating);") === TRUE) {
+				echo "<strong>Page ".$pid." updated to ".$rating.".</strong><br>";
+				$pageUpdated = TRUE;
+			} else {
+				echo "Page update failed.";
+			}
+		} else {
+			echo $ratedSitesArr;
+			if ($mysqli->query("INSERT INTO ratings (uID, pID, rating) VALUES ($uid,$pid,$rating);") === TRUE) {
+				echo "<strong>Page ".$pid." set to ".$rating.".</strong><br>";
+			} else {
+				echo "Page set failed.";
+			}
 		}
 	}
 ?>
