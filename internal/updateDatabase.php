@@ -104,24 +104,14 @@ CREATE TABLE IF NOT EXISTS `members` (
 DROP TABLE IF EXISTS `pages`;
 CREATE TABLE IF NOT EXISTS `pages` (
   `pid` int(11) NOT NULL AUTO_INCREMENT,
-  `url` TEXT NOT NULL,
+  `url` text NOT NULL,
+  `rating` int(11) DEFAULT '0',
+  `numOfRatings` int(11) DEFAULT '0',
   PRIMARY KEY (`pid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
---
--- Tabellenstruktur für Tabelle `ratings`
---
-
-DROP TABLE IF EXISTS `ratings`;
-CREATE TABLE IF NOT EXISTS `ratings` (
-  `pid` int(11) NOT NULL,
-  `uid` int(11) NOT NULL,
-  `rating` tinyint(4) NOT NULL,
-  PRIMARY KEY (`pid`,`uid`),
-  KEY `uid` (`uid`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 --
 -- Tabellenstruktur für Tabelle `ratings`
 --
