@@ -16,33 +16,82 @@ include_once 'constants.php';
  * @return mixed array of pages with data
  */
 function getShortURLStats($mysqli) {
-	$returnable = array();
+    $returnable = array();
+    $static_multipl = 1;
     $uid = $_SESSION["user_id"];
-	
-    $sql = "SELECT pid, url FROM `user_pages` WHERE uid = $uid";
+
+    // SQL: Get all pages the user did add together (joined by) their urls
+    $sql = "SELECT user_pages.pid, pages.url, user_pages.uid
+FROM user_pages
+INNER JOIN pages ON user_pages.pid = pages.pid
+WHERE user_pages.uid = $uid";
+
     if ($result = $mysqli->query($sql)) {
         $pages = fetch_all($result);
     }
-	
-	foreach ($pages as $page) {
-		$pid = $page["pid"];
-		$url = $page["url"];
-		
-		 $sql = "SELECT duration FROM `visits` WHERE pid = $pid";
-		 
-		if ($result = $mysqli->query($sql)) {
-			$visits = fetch_all($result);
-		}
-		
-		$duration = 0;
-		foreach ($visits as $visit) {
-			$duration += $visit["duration"];
-		}
-		
-	}
-	
+
+    // loop trough each page
+    foreach ($pages as $page) {
+        // get pid and url of the current page by the previous executed query
+        $pid = $page["pid"];
+        $url = $page["url"];
+
+        // SQL: Get all visits of the current page and add their visit durations
+        $sql = "SELECT duration FROM `visits` WHERE pid = $pid";
+
+        if ($result = $mysqli->query($sql))
+            $visits = fetch_all($result);
+
+        $duration = 0;
+        foreach ($visits as $visit)
+            $duration += $visit["duration"];
+
+        // SQL: Get the rating of the current pages by this one specific user
+        $sql = "SELECT rating FROM `ratings` WHERE uid = $uid AND pid = $pid";
+
+        if ($query = $mysqli->query($sql)) {
+            // Wenn Bewertung gefunden
+            if ($query->num_rows == 1)
+                $rate = $query->fetch_row()[0];
+            else
+                $rate = 0;
+        }
+
+        // SQL: Get the first 20 pages sorted by their highest ranking - so that we can get the multiplicator
+        $sql = "SELECT pid, rating FROM pages ORDER BY rating DESC LIMIT 20";
+
+        if ($result = $mysqli->query($sql))
+            $topPages = fetch_all($result);
+
+        // Check if our page is in the top 20 and figure out on which place
+        // if our page is in the top 20 but the rating is 0 (because less than 20 pages have been rated so far), ignore it and give it the multipl. of 1
+
+        $multiplicator = 20;
+        foreach ($topPages as $page) {
+            if ($page["pid"] == $pid) {
+                if ($page["rating"] == 0) {
+                    $multiplicator = 1;
+                }
+                break;
+            } else
+                $multiplicator--;
+        }
+        
+        // if the multiplicator isn't there, give it one of 1
+        $multiplicator = $multiplicator > 0 ? $multiplicator : 1;
+
+        array_push($returnable, array('page' => $url,
+            'time' => $duration,
+            'points' => ($duration / 10) * $multiplicator,
+            'multiplicator' => $multiplicator,
+            'rate' => $rate,
+            'pid' => $pid)
+        );
+    }
+
+    return $returnable;
 }
-	
+
 /**
  * Gets the list of currently available pages on the possibility list
  * @param type $mysqli database connection
