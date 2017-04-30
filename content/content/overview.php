@@ -48,35 +48,28 @@ $usercount = get_usercount($mysqli);
     <div class="content">
         <h3>Ranking (worldwide)</h3>
         <hr/>
-        <ol class="flippinright">
-            <li>Facebook.com</li>
-            <li>Google.com</li>
-            <li>YouTube.com</li>
-            <li>loginwell.rudifamily.de</li>
-            <li>Nasa.gov</li>
-        </ol>
-        <ol class="flippinright" start="6">
-            <li>Reddit.com</li>
-            <li>Python.org</li>
-            <li>Wikipedia.org</li>
-            <li>Instagram.com</li>
-            <li>XKCD.com</li>
-        </ol>
-        <ol class="flippinright" start="11">
-            <li>Github.com</li>
-            <li>Advnetskalender.net</li>
-            <li>deineMom.com</li>
-            <li>127.0.0.1</li>
-            <li>how2usemypc.net</li>
-        </ol>
 
-        <ol class="flippinright" start="16">
-            <li>shady.org</li>
-            <li>funny.to</li>
-            <li>4chan.org</li>
-            <li>random.rog</li>
-            <li>keymash.de</li>
-        </ol>
+        <ol class="flippinright">
+            
+        <?php
+        // SQL: Get the first 20 pages sorted by their highest ranking
+        $sql = "SELECT url FROM pages ORDER BY rating DESC LIMIT 20";
+
+        if ($result = $mysqli->query($sql))
+            $topPages = fetch_all($result);
+
+        // Check if our page is in the top 20 and figure out on which place
+        $rank = 1;
+        foreach ($topPages as $page) {
+            // after every 5 pages, begin a new list of 5 pages next to the current list
+            if ($rank != 1 && ($rank - 1) % 5 == 0)
+                echo '</ol><ol class="flippinright" start="' . $rank . '">';
+            
+            echo "<li>" . $page["url"] . "</li>\r\n";
+            
+            $rank++;
+        }
+        ?>
     </div>
 <?php else : ?>
     <div class="content">
