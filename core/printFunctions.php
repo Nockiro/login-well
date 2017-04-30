@@ -27,7 +27,23 @@ function printUserPageTable($pageList) {
         echo "<td>" . secondsToTime($row["time"], true) . "</td>";
         echo "<td>" . $row["points"] . "</td>";
         echo "<td>" . $row["multiplicator"] . "</td>";
-        echo '<td><a style="font-size: 18px" href="#">' . ($row["rate"] > 0 ? $row["rate"] : "Keine") . "</a></td>";
+        echo '<td>'
+            . '<div id="rated-' . $row["pid"] . '"><a style="font-size: 18px" id="LinkRated-' . $row["pid"] . '" href="#" onclick="showRate(' . $row["pid"] . ');">' . ($row["rate"] > 0 ? $row["rate"] : "Keine") . "</a></div>"
+            . '<div class="ratingDiv content" id="rate-' . $row["pid"] . '" style="display:none">'
+                    . '<b style="text-align: left;">Bewerte ' . $row["page"] . '</b> '
+                    . '<a style="font-size: 16px; float: right" href="#" onclick="showRate(' . $row["pid"] . ');"> Schließen </a>'
+                    . '<hr/>'
+                    . '<a style="font-size: 24px" href="#" onclick="rate(' . $row["pid"] . ', 1);"> 1 </a>'
+                    . '/'
+                    . '<a style="font-size: 24px" href="#" onclick="rate(' . $row["pid"] . ', 2);"> 2 </a>'
+                    . '/'
+                    . '<a style="font-size: 24px" href="#" onclick="rate(' . $row["pid"] . ', 3);"> 3 </a>'
+                    . '/'
+                    . '<a style="font-size: 24px" href="#" onclick="rate(' . $row["pid"] . ', 4);"> 4 </a>'
+                    . '/'
+                    . '<a style="font-size: 24px" href="#" onclick="rate(' . $row["pid"] . ', 5);"> 5 </a>'
+            . '</div>'
+        . "</td>";
     }
 }
 

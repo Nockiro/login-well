@@ -10,7 +10,48 @@ $usercount = get_usercount($mysqli);
         float:left;
         margin-right: 20px;
     }
+
+    .ratingDiv {
+        transition: 0.5s; /* 0.5 second transition effect to slide in the sidenav */
+    }
+
+    tr {
+        border-bottom: 1px solid #bbb;
+    }
+
+    tr:last-child {
+        border-bottom: none;
+    }
 </style>
+<script>
+    function showRate(pid) {
+        // if the rating dialog isn't visible, show it and hide the current rating
+        if (document.getElementById('rate-' + pid).style.display == 'none') {
+            document.getElementById('rate-' + pid).style.display = 'block';
+            document.getElementById('rated-' + pid).style.display = 'none';
+        } else {
+            document.getElementById('rate-' + pid).style.display = 'none';
+            document.getElementById('rated-' + pid).style.display = 'block';
+        }
+    }
+
+    function rate(pid, rating) {
+
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                document.getElementById('rate-' + pid).style.display = 'none';
+                document.getElementById('rated-' + pid).style.display = 'block';
+                document.getElementById('LinkRated-' + pid).innerHTML = rating;
+            } else if (this.status >= 500) { // if its a server error 5xx (like 500), print the problem
+                document.getElementById('rate-' + pid).innerHTML = "Ein Fehler ist aufgetreten: " + this.responseText;
+            }
+        };
+        xhttp.open("POST", "api/ratePage.php", true);
+        xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        xhttp.send("pid=" + pid + "&rating=" + rating);
+    }
+</script>
 <?php if (login_check($mysqli)) : ?>
     <div class="content">
         <p>Welcome <?php echo htmlentities($_SESSION['username']); ?>! 	
@@ -33,7 +74,7 @@ $usercount = get_usercount($mysqli);
         </table>
         <small>Please be aware that the last lines were demo content.</small>
         <hr/>
-        <table>
+        <table style="border-collapse: collapse;">
             <tr>
                 <th>Seite</th>
                 <th>Login</th>
@@ -50,26 +91,26 @@ $usercount = get_usercount($mysqli);
         <hr/>
 
         <ol class="flippinright">
-            
-        <?php
-        // SQL: Get the first 20 pages sorted by their highest ranking
-        $sql = "SELECT url FROM pages ORDER BY rating DESC LIMIT 20";
 
-        if ($result = $mysqli->query($sql))
-            $topPages = fetch_all($result);
+            <?php
+            // SQL: Get the first 20 pages sorted by their highest ranking
+            $sql = "SELECT url FROM pages ORDER BY rating DESC LIMIT 20";
 
-        // Check if our page is in the top 20 and figure out on which place
-        $rank = 1;
-        foreach ($topPages as $page) {
-            // after every 5 pages, begin a new list of 5 pages next to the current list
-            if ($rank != 1 && ($rank - 1) % 5 == 0)
-                echo '</ol><ol class="flippinright" start="' . $rank . '">';
-            
-            echo "<li>" . $page["url"] . "</li>\r\n";
-            
-            $rank++;
-        }
-        ?>
+            if ($result = $mysqli->query($sql))
+                $topPages = fetch_all($result);
+
+            // Check if our page is in the top 20 and figure out on which place
+            $rank = 1;
+            foreach ($topPages as $page) {
+                // after every 5 pages, begin a new list of 5 pages next to the current list
+                if ($rank != 1 && ($rank - 1) % 5 == 0)
+                    echo '</ol><ol class="flippinright" start="' . $rank . '">';
+
+                echo "<li>" . $page["url"] . "</li>\r\n";
+
+                $rank++;
+            }
+            ?>
     </div>
 <?php else : ?>
     <div class="content">
