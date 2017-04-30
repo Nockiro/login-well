@@ -33,7 +33,17 @@ $usercount = get_usercount($mysqli);
         </table>
         <small>Please be aware that the last lines were demo content.</small>
         <hr/>
-
+        <table>
+            <tr>
+                <th>Seite</th>
+                <th>Login</th>
+                <th>Zeit</th>
+                <th>Punkte</th>
+                <th>Multiplikator</th>
+                <th>Bewertung</th>
+            </tr>       
+            <?php printUserPageTable(getShortURLStats($mysqli)); ?>
+        </table>
     </div>
     <div class="content">
         <h3>Ranking (worldwide)</h3>

@@ -16,9 +16,33 @@ include_once 'constants.php';
  * @return mixed array of pages with data
  */
 function getShortURLStats($mysqli) {
-    //TODO
+	$returnable = array();
+    $uid = $_SESSION["user_id"];
+	
+    $sql = "SELECT pid, url FROM `user_pages` WHERE uid = $uid";
+    if ($result = $mysqli->query($sql)) {
+        $pages = fetch_all($result);
+    }
+	
+	foreach ($pages as $page) {
+		$pid = $page["pid"];
+		$url = $page["url"];
+		
+		 $sql = "SELECT duration FROM `visits` WHERE pid = $pid";
+		 
+		if ($result = $mysqli->query($sql)) {
+			$visits = fetch_all($result);
+		}
+		
+		$duration = 0;
+		foreach ($visits as $visit) {
+			$duration += $visit["duration"];
+		}
+		
+	}
+	
 }
-
+	
 /**
  * Gets the list of currently available pages on the possibility list
  * @param type $mysqli database connection

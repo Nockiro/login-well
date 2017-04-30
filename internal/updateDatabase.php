@@ -122,6 +122,17 @@ CREATE TABLE IF NOT EXISTS `ratings` (
   PRIMARY KEY (`pid`,`uid`),
   KEY `uid` (`uid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+--
+-- Tabellenstruktur für Tabelle `ratings`
+--
+
+DROP TABLE IF EXISTS `ratings`;
+CREATE TABLE IF NOT EXISTS `ratings` (
+  `uID` int(11) NOT NULL,
+  `pID` int(11) NOT NULL,
+  `rating` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
 
 -- --------------------------------------------------------
 
@@ -159,6 +170,14 @@ ALTER TABLE `user_pages`
   ADD KEY `pid` (`pid`);
 
 --
+-- Indizes für die Tabelle `ratings`
+--
+ALTER TABLE `ratings`
+  ADD PRIMARY KEY (`uID`,`pID`),
+  ADD KEY `uID` (`uID`,`pID`),
+  ADD KEY `pID` (`pID`);
+  
+--
 -- Constraints der exportierten Tabellen
 --
 
@@ -166,9 +185,9 @@ ALTER TABLE `user_pages`
 -- Constraints der Tabelle `ratings`
 --
 ALTER TABLE `ratings`
-  ADD CONSTRAINT `ratings_ibfk_2` FOREIGN KEY (`uid`) REFERENCES `members` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `ratings_ibfk_1` FOREIGN KEY (`pid`) REFERENCES `pages` (`pid`) ON DELETE CASCADE ON UPDATE CASCADE;
-
+  ADD CONSTRAINT `ratings_ibfk_1` FOREIGN KEY (`uID`) REFERENCES `members` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `ratings_ibfk_2` FOREIGN KEY (`pID`) REFERENCES `pages` (`pid`) ON DELETE CASCADE ON UPDATE CASCADE;
+  
 --
 -- Constraints der Tabelle `visits`
 --
