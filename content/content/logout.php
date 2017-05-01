@@ -3,7 +3,7 @@
     <hr/>
     <div class="content">
         <div style="font-size: 26px; float: left; margin-right: 12px;">&#x24D8;</div>
-        <p style="float: left;">Bei Logout wird ein Bild gezeigt, das beim Login vom Nutzer geprüft werden kann um zu sehen, ob sich in der Zwischenzeit jemand eingeloggt hat. <br/>
+        <p style="float: left;">Bei Logout wird ein Bild gezeigt, das beim Login vom Nutzer geprüft werden kann, um zu sehen, ob sich in der Zwischenzeit jemand eingeloggt hat. <br/>
             Dies ist der Fall, wenn die Login-Karte nicht der Karte beim Logout entspricht.</p>
     </div> <br/>
     <?php
