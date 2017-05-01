@@ -17,7 +17,6 @@ include_once 'constants.php';
  */
 function getShortURLStats($mysqli) {
     $returnable = array();
-    $static_multipl = 1;
     $uid = $_SESSION["user_id"];
 
     // SQL: Get all pages the user did add together (joined by) their urls
@@ -227,6 +226,7 @@ function login($email, $password, $mysqli) {
                         $_SESSION['USERverified'] = htmlspecialchars($verified);
                         $_SESSION['USERregdate'] = htmlspecialchars($registered);
                         $_SESSION['USERsalt'] = htmlspecialchars($salt);
+                        recalculateTotalPoints($mysqli, true);
                         // Login erfolgreich.
                         return "Success";
                     } else {
@@ -251,6 +251,88 @@ function login($email, $password, $mysqli) {
     }
 }
 
+/**
+ * (Re)calculates the total point balance of the user, based on his added and visited pages and the top ranking multiplier.
+ * @param mysqli $mysqli mysqli conntection
+ * @param boolean $setSessionValue If true, sets the session value of the currently logged in user.
+ * @return double total points of the currently logged in user.
+ */
+function recalculateTotalPoints($mysqli, $setSessionValue) {
+    
+$time_start = microtime_float();
+
+    $totalPoints = 0;
+    $uid = $_SESSION["user_id"];
+
+    // SQL: Get all pages the user did add together (joined by) their urls
+    $sql = "SELECT user_pages.pid, pages.url, user_pages.uid
+FROM user_pages
+INNER JOIN pages ON user_pages.pid = pages.pid
+WHERE user_pages.uid = $uid";
+
+    if ($result = $mysqli->query($sql)) {
+        $pages = fetch_all($result);
+    }
+
+    // loop trough each page
+    foreach ($pages as $page) {
+        // get pid and url of the current page by the previous executed query
+        $pid = $page["pid"];
+        $url = $page["url"];
+
+        // SQL: Get all visits of the current page and add their visit durations
+        $sql = "SELECT duration FROM `visits` WHERE pid = $pid";
+
+        if ($result = $mysqli->query($sql))
+            $visits = fetch_all($result);
+
+        $duration = 0;
+        foreach ($visits as $visit)
+            $duration += $visit["duration"];
+
+        // SQL: Get the first 20 pages sorted by their highest ranking - so that we can get the multiplicator
+        $sql = "SELECT pid, rating FROM pages ORDER BY rating DESC LIMIT 20";
+
+        if ($result = $mysqli->query($sql))
+            $topPages = fetch_all($result);
+
+        // Check if our page is in the top 20 and figure out on which place
+        // if our page is in the top 20 but the rating is 0 (because less than 20 pages have been rated so far), ignore it and give it the multipl. of 1
+
+        $multiplicator = 20;
+        foreach ($topPages as $page) {
+            if ($page["pid"] == $pid) {
+                if ($page["rating"] == 0) {
+                    $multiplicator = 1;
+                }
+                break;
+            } else
+                $multiplicator--;
+        }
+        
+        // if the multiplicator isn't there, give it one of 1
+        $multiplicator = $multiplicator > 0 ? $multiplicator : 1;
+        
+        $totalPoints += ($duration / 10) * $multiplicator;
+    }
+
+    if ($setSessionValue)
+        $_SESSION["USERtotalPoints"] = $totalPoints;
+    
+$time_end = microtime_float();
+$time = $time_end - $time_start;
+
+        $_SESSION["USERtotalPoints"] = $time;
+
+
+    return $totalPoints;
+}
+
+function microtime_float()
+{
+    list($usec, $sec) = explode(" ", microtime());
+    return ((float)$usec + (float)$sec);
+}
 /**
  * Checks the database for possible bruteforce break-in attempts
  * @param int $user_id ID of user in the database
