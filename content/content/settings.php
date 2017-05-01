@@ -1,8 +1,3 @@
-<?php
-/* check for unauthorized access */
-if (!getAdminPrivs($mysqli))
-    header('Location: /index.php?msg=E401');
-?>
 <div class="content">
     <h3>Einstellungen</h3>
     <hr>
@@ -11,10 +6,6 @@ if (!getAdminPrivs($mysqli))
     </p>
 
     <?php
-    /* After warning: Make sure the database is current */
-    check_for_dbupdate($mysqli);
-
-
     /* After warning: Check for actions */
     if (isset($_GET["action"]))
         $action = htmlspecialchars($_GET["action"]);
