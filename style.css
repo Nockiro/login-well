@@ -97,6 +97,7 @@ form {
     border-radius:10px;
     border: 2px solid #a3dca3; 
     background-color: #a7ec8f;
+    word-wrap: break-word;
 }
 
 /* The navigation menu links */

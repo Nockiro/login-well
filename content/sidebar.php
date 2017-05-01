@@ -3,14 +3,14 @@
     <center>
         <img src="img/Logo.png" height="100px" id="logo">
         <span style="font-size:x-large;">
-            <a href="/?cp">Home</a>
-            <a href="/?cp=profile">Profile</a>
-            <a href="/?cp=settings">Settings</a>
-            <a href="/?cp=about">About</a>
+            <a href="/?cp=overview"><?php echo language::GetPageTitle("overview"); ?></a>
+            <a href="/?cp=profile"><?php echo language::GetPageTitle("profile"); ?></a>
+            <a href="/?cp=settings"><?php echo language::GetPageTitle("settings"); ?></a>
+            <a href="/?cp=about"><?php echo language::GetPageTitle("about"); ?></a>
 
             <?php if (getAdminPrivs($mysqli)) : ?>
                 <hr/>
-                <a href="/?cp=adminpanel">Administration panel</a>
+                <a href="/?cp=adminpanel"><?php echo language::GetPageTitle("adminpanel"); ?></a>
             <?php endif; ?>
         </span>
         <br/>
