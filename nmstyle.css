@@ -165,7 +165,20 @@ table {
         border-right: none;
     }
     
-    .sidenav {padding-top: 15px;}
+    #header li a {
+        font-size:16px;
+    }
+    
+    /* turn off the super duper overlapping and responsive stuff in mobile mode */
+    #header {
+        position: relative !important;
+    }
+    
+    #main {
+        margin-top: auto;
+    }
+    
+    .sidenav {padding-top: 15px; margin-top: 0px !important; position: relative !important; float:left !important;}
     /* important for not getting an overwrite while opening/closing the navbar, see navigation.js */
     .sidenav a {font-size: 18px !important;}
 
@@ -212,4 +225,9 @@ table {
 
 #header li a:hover {
     background-color: #6fa0d7;
+}
+
+/* the first item of the right side */
+#header li:nth-child(3) {
+    border-right: none;
 }
