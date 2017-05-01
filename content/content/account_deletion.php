@@ -22,10 +22,10 @@ if (isset($_GET['sure'])) {
             <input type="button" value="Nein" />
         </a>
         <a href="/index.php?cp=account_deletion&sure">
-            <input type="button" style="background-color: <?php echo constant::getButtonColor("attention"); ?> !important" value="Account definitiv l&ouml;schen!!" />
+            <input type="button" style="background-color: <?php echo constant::getPageColor("attention"); ?> !important" value="Account definitiv l&ouml;schen!!" />
         </a>
         <a href="/index.php?cp=E404">
-            <input type="button" style="background-color: <?php echo constant::getButtonColor("info"); ?> !important" value="Wat willscht du??" />
+            <input type="button" style="background-color: <?php echo constant::getPageColor("info"); ?> !important" value="Wat willscht du??" />
         </a>
     </div>
 <?php } ?>

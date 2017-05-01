@@ -5,7 +5,7 @@
         padding: 15px 20px 15px 45px;
         margin: 10px 6px 20px;
         position: relative;
-        background-color: #b0e69e;
+        background-color: <?php echo constant::getPageColor("stdback"); ?>;
 
         /*Borders - (Optional)*/
         border-left: 15px solid  #20c70c;

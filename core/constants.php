@@ -51,11 +51,11 @@ class constant {
     }
 
     /**
-     * Gets button colors dependant of current night mode usage
+     * Gets page (buttons, background) colors dependant of current night mode usage
      * @param string $type button type (warn, attention, info)
      * @return string color code in hex
      */
-    public static function getButtonColor($type) {
+    public static function getPageColor($type) {
         $nightmode = $_COOKIE["setting"]["nightmode"];
         switch ($type) {
             case "warn":
@@ -64,6 +64,8 @@ class constant {
                 return $nightmode ? "#af6363" : "#ec8f8f";
             case "info":
                 return $nightmode ? "#578db1" : "#b7e2ff";
+            case "stdback":
+                return $nightmode ? "#4d733f" : "#b0e69e";
             default:
                 return "initial";
         }

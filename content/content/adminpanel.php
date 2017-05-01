@@ -102,12 +102,12 @@ array_pop($allbranches); //deletes last element because it's usually empty
             <?php } ?>
         </select>
 
-        <input type="submit" name="submit" style="background-color: <?php echo constant::getButtonColor("attention"); ?> !important" value="Switch to chosen branch (!)">
+        <input type="submit" name="submit" style="background-color: <?php echo constant::getPageColor("attention"); ?> !important" value="Switch to chosen branch (!)">
     </form>
     <br/> 
 
     <a href="/index.php?cp=adminpanel&action=forcepull">
-        <input type="button" style="background-color: <?php echo constant::getButtonColor("warn"); ?> !important" value="Force pull again">
+        <input type="button" style="background-color: <?php echo constant::getPageColor("warn"); ?> !important" value="Force pull again">
     </a>
 </div>
 <?php
