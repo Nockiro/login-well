@@ -259,8 +259,6 @@ function login($email, $password, $mysqli) {
  */
 function recalculateTotalPoints($mysqli, $setSessionValue) {
     
-$time_start = microtime_float();
-
     $totalPoints = 0;
     $uid = $_SESSION["user_id"];
 
@@ -319,12 +317,6 @@ WHERE user_pages.uid = $uid";
     if ($setSessionValue)
         $_SESSION["USERtotalPoints"] = $totalPoints;
     
-$time_end = microtime_float();
-$time = $time_end - $time_start;
-
-        $_SESSION["USERtotalPoints"] = $time;
-
-
     return $totalPoints;
 }
 

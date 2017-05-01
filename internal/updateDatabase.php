@@ -134,7 +134,7 @@ DROP TABLE IF EXISTS `visits`;
 CREATE TABLE IF NOT EXISTS `visits` (
   `uid` int(11) NOT NULL,
   `pid` int(11) NOT NULL,
-  `session_begin` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `session_begin` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `duration` int(11) NOT NULL,
   PRIMARY KEY (`uid`,`pid`,`session_begin`),
   KEY `pid` (`pid`)
