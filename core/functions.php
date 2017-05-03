@@ -75,13 +75,13 @@ WHERE user_pages.uid = $uid";
             } else
                 $multiplicator--;
         }
-        
+
         // if the multiplicator isn't there, give it one of 1
         $multiplicator = $multiplicator > 0 ? $multiplicator : 1;
 
         array_push($returnable, array('page' => $url,
             'time' => $duration,
-            'points' => ($duration / 10) * $multiplicator,
+            'points' => ($duration / 100) * $multiplicator,
             'multiplicator' => $multiplicator,
             'rate' => $rate,
             'pid' => $pid)
@@ -258,7 +258,7 @@ function login($email, $password, $mysqli) {
  * @return double total points of the currently logged in user.
  */
 function recalculateTotalPoints($mysqli, $setSessionValue) {
-    
+
     $totalPoints = 0;
     $uid = $_SESSION["user_id"];
 
@@ -307,24 +307,24 @@ WHERE user_pages.uid = $uid";
             } else
                 $multiplicator--;
         }
-        
+
         // if the multiplicator isn't there, give it one of 1
         $multiplicator = $multiplicator > 0 ? $multiplicator : 1;
-        
-        $totalPoints += ($duration / 10) * $multiplicator;
+
+        $totalPoints += ($duration / 100) * $multiplicator;
     }
 
     if ($setSessionValue)
         $_SESSION["USERtotalPoints"] = $totalPoints;
-    
+
     return $totalPoints;
 }
 
-function microtime_float()
-{
+function microtime_float() {
     list($usec, $sec) = explode(" ", microtime());
-    return ((float)$usec + (float)$sec);
+    return ((float) $usec + (float) $sec);
 }
+
 /**
  * Checks the database for possible bruteforce break-in attempts
  * @param int $user_id ID of user in the database
