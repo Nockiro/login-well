@@ -7,7 +7,6 @@
             <a href="/?cp=profile">Profile</a>
             <a href="/?cp=settings">Settings</a>
             <a href="/?cp=about">About</a>
-			<a href="/?cp=rate">Rate</a>
 
             <?php if (getAdminPrivs($mysqli)) : ?>
                 <hr/>
