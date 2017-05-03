@@ -104,7 +104,9 @@ CREATE TABLE IF NOT EXISTS `members` (
 DROP TABLE IF EXISTS `pages`;
 CREATE TABLE IF NOT EXISTS `pages` (
   `pid` int(11) NOT NULL AUTO_INCREMENT,
-  `url` TEXT NOT NULL,
+  `url` text NOT NULL,
+  `rating` int(11) DEFAULT '0',
+  `numOfRatings` int(11) DEFAULT '0',
   PRIMARY KEY (`pid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
@@ -116,12 +118,11 @@ CREATE TABLE IF NOT EXISTS `pages` (
 
 DROP TABLE IF EXISTS `ratings`;
 CREATE TABLE IF NOT EXISTS `ratings` (
-  `pid` int(11) NOT NULL,
-  `uid` int(11) NOT NULL,
-  `rating` tinyint(4) NOT NULL,
-  PRIMARY KEY (`pid`,`uid`),
-  KEY `uid` (`uid`)
+  `uID` int(11) NOT NULL,
+  `pID` int(11) NOT NULL,
+  `rating` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
 
 -- --------------------------------------------------------
 
@@ -133,7 +134,7 @@ DROP TABLE IF EXISTS `visits`;
 CREATE TABLE IF NOT EXISTS `visits` (
   `uid` int(11) NOT NULL,
   `pid` int(11) NOT NULL,
-  `session_begin` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `session_begin` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `duration` int(11) NOT NULL,
   PRIMARY KEY (`uid`,`pid`,`session_begin`),
   KEY `pid` (`pid`)
@@ -159,6 +160,14 @@ ALTER TABLE `user_pages`
   ADD KEY `pid` (`pid`);
 
 --
+-- Indizes für die Tabelle `ratings`
+--
+ALTER TABLE `ratings`
+  ADD PRIMARY KEY (`uID`,`pID`),
+  ADD KEY `uID` (`uID`,`pID`),
+  ADD KEY `pID` (`pID`);
+  
+--
 -- Constraints der exportierten Tabellen
 --
 
@@ -166,9 +175,9 @@ ALTER TABLE `user_pages`
 -- Constraints der Tabelle `ratings`
 --
 ALTER TABLE `ratings`
-  ADD CONSTRAINT `ratings_ibfk_2` FOREIGN KEY (`uid`) REFERENCES `members` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `ratings_ibfk_1` FOREIGN KEY (`pid`) REFERENCES `pages` (`pid`) ON DELETE CASCADE ON UPDATE CASCADE;
-
+  ADD CONSTRAINT `ratings_ibfk_1` FOREIGN KEY (`uID`) REFERENCES `members` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `ratings_ibfk_2` FOREIGN KEY (`pID`) REFERENCES `pages` (`pid`) ON DELETE CASCADE ON UPDATE CASCADE;
+  
 --
 -- Constraints der Tabelle `visits`
 --

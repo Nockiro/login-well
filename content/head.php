@@ -15,7 +15,7 @@ else if (file_exists(file_build_path("..", "core", "functions.php")))
         <?php if (login_check($mysqli)) : ?>
             <li style="float:right;"><a href="/logout.php">Logout</a></li>
             <li style="float:right;"><a href="/index.php?cp=profile"><?php echo htmlentities($_SESSION['username']); ?></a></li>
-            <li style="float:right;"><a href="/index.php?cp=balance">10000 Points</a></li>
+            <li style="float:right;"><a href="/index.php?cp=balance"><?php echo $_SESSION["USERtotalPoints"]; ?> Points</a></li>
         <?php endif; ?>
     </ul>
     <hr/>
