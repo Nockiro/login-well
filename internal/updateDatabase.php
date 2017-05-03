@@ -55,12 +55,12 @@ SET time_zone = "+00:00";
 DROP TABLE IF EXISTS `email_ver`;
 CREATE TABLE IF NOT EXISTS `email_ver` (
   `ID` int(11) NOT NULL AUTO_INCREMENT,
-  `user_id` varchar(255) NOT NULL,
+  `user_id` int(11) NOT NULL,
   `Aktivierungscode` varchar(15) NOT NULL DEFAULT '',
   `Erstellt` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   `EMail` varchar(255) NOT NULL DEFAULT '',
   `Aktiviert` enum('Ja','Nein') NOT NULL DEFAULT 'Ja',
-  PRIMARY KEY (`ID`)
+  PRIMARY KEY (`ID`, `user_id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
 
 -- --------------------------------------------------------
@@ -161,6 +161,18 @@ ALTER TABLE `user_pages`
 --
 -- Constraints der exportierten Tabellen
 --
+
+--
+-- Constraints der Tabelle login_attempts
+--
+ALTER TABLE `login_attempts`
+    ADD  FOREIGN KEY (`user_id`) REFERENCES `members`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+
+--
+-- Constraints der Tabelle email_ver
+--
+ALTER TABLE `email_ver` ADD FOREIGN KEY (`user_id`) REFERENCES `members`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints der Tabelle `ratings`
