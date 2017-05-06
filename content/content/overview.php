@@ -50,6 +50,20 @@ $usercount = get_usercount($mysqli);
         xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
         xhttp.send("pid=" + pid + "&rating=" + rating);
     }
+    
+    function deleteUPage(pid) {
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                document.getElementById('userPageTable').innerHTML = this.responseText;
+            } else if (this.status >= 500) { // if its a server error 5xx (like 500), print the problem
+                document.getElementById('userPageTable').innerHTML = "<div class=\"content error\">There.. was a problem. " + this.responseText + "</div>";
+            }
+        };
+        xhttp.open("POST", "api/deleteUserPage.php", true);
+        xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        xhttp.send("pid=" + pid);
+    }
 </script>
 <?php if (login_check($mysqli)) : ?>
     <div class="content">
@@ -59,17 +73,9 @@ $usercount = get_usercount($mysqli);
     <div class="content">
         <h3>Your websites <a href="/?cp=addpage"><b>(+)</b></a></h3>
         <hr/>
-        <table style="border-collapse: collapse;">
-            <tr>
-                <th>Seite</th>
-                <th>Login</th>
-                <th>Zeit</th>
-                <th>Punkte</th>
-                <th>Multiplikator</th>
-                <th>Bewertung</th>
-            </tr>       
-            <?php printUserPageTable(getShortURLStats($mysqli)); ?>
-        </table>
+            <span id="userPageTable">
+                <?php printUserPageTable(getShortURLStats($mysqli)); ?>
+            </span>
     </div>
     <div class="content">
         <h3>Ranking (worldwide)</h3>
