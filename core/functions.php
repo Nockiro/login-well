@@ -401,7 +401,7 @@ function getAdminPrivs($mysqli) {
  * @param int $imgnum number of card
  */
 function save_card($mysqli, $imgnum) {
-    $result = $mysqli->query("UPDATE `members` SET `last_card` = '" . $imgnum . "' WHERE `id` = " . $_SESSION['user_id'] . ";");
+    $result = $mysqli->query("UPDATE `members` SET `last_card` = '$imgnum' WHERE `id` = " . $_SESSION['user_id'] . ";");
 }
 
 /**
@@ -415,6 +415,24 @@ function get_lastcard($mysqli) {
         $value = $result->fetch_array(MYSQLI_NUM);
         return is_array($value) ? $value[0] : "";
     }
+}
+
+/**
+ * Opens a page session
+ * @param mysqli $mysqli connection
+ * @param int $pid pageID to open session for
+ */
+function openPageSession($mysqli, $pid) {
+    $sessionOpenTime = time();
+    $dbTimestamp = date('Y-m-d G:i:s', $sessionOpenTime);
+    $result = $mysqli->query("INSERT INTO `visits` (`uid`, `pid`, `session_begin`, `duration`) VALUES ('" . $_SESSION['user_id'] . "', '$pid', '$dbTimestamp', '0');");
+    return $sessionOpenTime;
+}
+
+
+function closePageSession($mysqli, $pid, $begin, $duration) {
+    $dbTimestamp = date('Y-m-d G:i:s', $begin);
+    return $mysqli->query("UPDATE `visits` SET `duration` = '$duration' WHERE `session_begin` = '$dbTimestamp' AND uid = '" . $_SESSION['user_id'] . "' AND pid = '$pid';");
 }
 
 /* account handling */
