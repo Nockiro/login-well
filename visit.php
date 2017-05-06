@@ -5,6 +5,9 @@ $url = getURLFromPID($mysqli, $pid);
 
 if (isset($_COOKIE["setting"]))
     $nightmode = $_COOKIE["setting"]["nightmode"]; 
+
+$ssl = checkForSSL($url);
+echo $ssl;
 ?>
 
 <meta charset="UTF-8">
@@ -13,8 +16,7 @@ if (isset($_COOKIE["setting"]))
 
 <a style="font-size: 14px;" href="/">◄ Zurück zu LoginWell </a>
 <div class="content">
-    <!-- TODO: HTTPS -->
-    <iframe src="http://<?php echo $url; ?>" width="100%" height="100%">
+    <iframe src="<?php if ($ssl) {echo "https";} else {echo "http";} ?>://<?php echo $url; ?>" width="100%" height="100%">
 
     </iframe>
 </div>

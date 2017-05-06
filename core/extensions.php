@@ -1,5 +1,25 @@
 <?php
 
+// Ping by website domain name, IP address or Hostname
+function checkForSSL($domain){
+
+    $starttime = microtime(true);
+    $file      = @fsockopen($domain, 443, $errno, $errstr, 2);
+    $stoptime  = microtime(true);
+    $status    = 0;
+
+    if (!$file) { 
+        $status = -1;  // Site is down
+
+    } else {
+
+        fclose($file);
+        $status = ($stoptime - $starttime) * 1000;
+        $status = floor($status);
+    }
+    return $status < 500;
+}
+
 /**
  * Tries to get a compromise between the native fetch_all of mysqli and the not-being-there in some systems
  * @param mysqli_result $result
