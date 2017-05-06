@@ -97,7 +97,9 @@ WHERE user_pages.uid = $uid";
  * @return mixed an array of possible pages to add to personal list
  */
 function getAllPossiblePages($mysqli) {
-    $sql = "SELECT pid, url FROM `pages` WHERE 1";
+    $sql = "SELECT pid, url, pagecats.title AS \"CatTitle\" FROM `pages` 
+            INNER JOIN pagecats ON pages.pagecat = pagecats.catID  
+            ORDER BY  `pagecats`.`catID` ASC, `pages`.`pid` ASC";
     if ($result = $mysqli->query($sql)) {
         return fetch_all($result);
     }

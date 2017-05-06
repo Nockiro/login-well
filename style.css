@@ -231,3 +231,7 @@ table {
 #header li:nth-child(3) {
     border-right: none;
 }
+
+tr.bordered {
+    border-bottom: 1px solid #000;
+}
