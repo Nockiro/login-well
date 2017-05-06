@@ -10,7 +10,9 @@ $nightmode = $_COOKIE["setting"]["nightmode"];
 
 <meta charset="UTF-8">
 <title><?php echo CONST_PROJNAME ?></title>
-<link rel="stylesheet" href="<?php if ($nightmode) { echo "nm"; } ?>style.css" />
+<link rel="stylesheet" href="<?php if ($nightmode) {
+    echo "nm";
+} ?>style.css" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
 <script type="text/JavaScript" src="js/navigation.js"></script> 
 
@@ -35,4 +37,19 @@ if (file_exists(file_build_path(dirname(__DIR__), "content", "head", strtolower(
 <?php if (!login_check($mysqli)) : ?>
     <script type="text/JavaScript" src="js/sha512.js"></script> 
     <script type="text/JavaScript" src="js/forms.js"></script> 
+<?php else: ?>
+    <script>
+        function recalculateTotalPoints() {
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    document.getElementById('balance').innerHTML = this.responseText;
+                } else if (this.status >= 500) { // if its a server error 5xx (like 500), print the problem
+                    alert("Fehler beim Abruf, bitte versuche es in ein paar Minuten erneut! (" + this.responseText + ")");
+                }
+            };
+            xhttp.open("GET", "api/refreshPointCount.php", true);
+            xhttp.send();
+        }
+    </script>
 <?php endif; ?>
