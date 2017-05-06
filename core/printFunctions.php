@@ -5,11 +5,18 @@
  * @param array $pageList
  */
 function printPageTable($pagelist) {
-    // iterate trough each row and get us each page with its data
+    
+    $cat = "";
+    
+    // iterate trough each row and get us each page with its data, set hr for new categories
     foreach ($pagelist as $row) {
+        if ($cat != $row["CatTitle"]) {
+            $cat = $row["CatTitle"];
+            echo '<tr class="bordered"><td><h3>' . $cat . '</h3></td><tr/>';
+        }
         echo "<tr>";
-        echo '<td style="float:left; margin-left:20%"><a href="http://' . $row["url"] . '"> ' . $row["url"] . '</a> </td>';
-        echo '<td><a style="font-size: 18px;" href="#" onclick="addPage(\'' . $row["pid"] . '\', \'' . $row["url"] . '\')">(+)</a></td>';
+        echo '<td style="float:left; margin-left:20%"><a href="http://' . $row["url"] . '"> ' . $row["url"] . '</a> ';
+        echo '<td><a style="font-size: 18px;" href="#" onclick="addPage(\'' . $row["pid"] . '\', \'' . $row["url"] . '\')">(+)</a></td><tr/>';
     }
 }
 

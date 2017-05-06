@@ -98,6 +98,20 @@ CREATE TABLE IF NOT EXISTS `members` (
 -- --------------------------------------------------------
 
 --
+-- Tabellenstruktur für Tabelle `pagecats`
+--
+
+DROP TABLE IF EXISTS `pagecats`;
+CREATE TABLE `pagecats` (
+    `catID` int(11) NOT NULL AUTO_INCREMENT, 
+    `title` VARCHAR(255) NOT NULL , 
+    PRIMARY KEY (`catID`),
+    KEY `catID` (`catID`)
+) ENGINE = InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
 -- Tabellenstruktur für Tabelle `pages`
 --
 
@@ -105,6 +119,7 @@ DROP TABLE IF EXISTS `pages`;
 CREATE TABLE IF NOT EXISTS `pages` (
   `pid` int(11) NOT NULL AUTO_INCREMENT,
   `url` text NOT NULL,
+  `pagecat` INT NOT NULL DEFAULT '5',
   `rating` int(11) DEFAULT '0',
   `numOfRatings` int(11) DEFAULT '0',
   PRIMARY KEY (`pid`)
@@ -177,6 +192,13 @@ ALTER TABLE `ratings`
 ALTER TABLE `login_attempts`
     ADD  FOREIGN KEY (`user_id`) REFERENCES `members`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
+--
+-- Constraints der Tabelle pages
+--
+ALTER TABLE `pages` 
+    ADD FOREIGN KEY (`pagecat`) REFERENCES `pagecats`(`catID`) ON DELETE CASCADE ON UPDATE CASCADE;
+-- ACHTUNG! DURCH DIESE AKTION WIRD JEDE SEITE EINER KATEGORIE MITGELÖSCHT, WENN DIESE GELÖSCHT WIRD!!!! --
+
 
 --
 -- Constraints der Tabelle email_ver
@@ -215,37 +237,42 @@ CREATE TABLE IF NOT EXISTS `internal_settings` (
   UNIQUE KEY `setting` (`setting`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+
+--
+-- Daten für Tabelle `pagecats`
+--
+
+INSERT INTO `pagecats` (`catID`, `title`) VALUES (1, 'Kommunikation'), (2, 'Unterhaltung'), (3, 'Arbeit'), (4, 'News u. Informaion'), (5, 'Sonstiges');
+
 --
 -- Daten für Tabelle `pages`
 --
 
-INSERT INTO `pages` (`pid`, `url`) VALUES
-(1, 'www.klamm.de'),
-(2, 'loginwell.rudifamily.de'),
-(3, 'github.com'),
-(4, 'waitinginline3d.de'),
-(5, 'jetztspielen.de'),
-(6, 'facebook.com'),
-(7, 'google.com'),
-(8, 'youtube.com'),
-(9, 'nasa.gov'),
-(10, 'reddit.com'),
-(11, 'python.org'),
-(12, 'wikipedia.org'),
-(13, 'instagram.com'),
-(14, 'xkcd.com'),
-(15, 'adventskalender.net'),
-(16, 'deinemom.com'),
-(17, '127.0.0.1'),
-(18, 'how2usemypc.net'),
-(19, 'shady.org'),
-(20, 'funny.to'),
-(21, '4chan.org'),
-(22, 'random.org'),
-(23, 'keymash.de'),
-(24, 'stackoverflow.com'),
-(25, 'spotify.com');
-
+INSERT INTO `pages` (`pid`, `url`, `pagecat`) VALUES
+(1, 'www.klamm.de', 5),
+(2, 'loginwell.rudifamily.de', 5),
+(3, 'github.com', 3),
+(4, 'waitinginline3d.de', 2),
+(5, 'jetztspielen.de', 2),
+(6, 'facebook.com', 1),
+(7, 'google.com', 5),
+(8, 'youtube.com', 2),
+(9, 'nasa.gov', 5),
+(10, 'reddit.com', 2),
+(11, 'python.org', 2),
+(12, 'wikipedia.org', 4),
+(13, 'instagram.com', 1),
+(14, 'xkcd.com', 2),
+(15, 'adventskalender.net', 5),
+(16, 'deinemom.com', 5),
+(17, '127.0.0.1', 5),
+(18, 'how2usemypc.net', 5),
+(19, 'shady.org', 5),
+(20, 'funny.to', 2),
+(21, '4chan.org', 2),
+(22, 'random.org', 3),
+(23, 'stackoverflow.com', 3),
+(24, 'spotify.com', 2);
 
 --
 -- Daten für Tabelle `internal_settings`

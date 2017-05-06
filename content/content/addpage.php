@@ -10,7 +10,7 @@
     <h3>Possible websites</h3>
     <hr/>
 
-    <table>
+    <table style="border-collapse: collapse;">
         <tr>
             <th style="width: 60%">Seite</th>
             <th>Hinzufügen</th>
