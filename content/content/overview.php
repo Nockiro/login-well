@@ -59,20 +59,6 @@ $usercount = get_usercount($mysqli);
     <div class="content">
         <h3>Your websites <a href="/?cp=addpage"><b>(+)</b></a></h3>
         <hr/>
-
-        <table>
-            <tr>
-                <th>Seite</th>
-                <th>Login</th>
-                <th>Zeit</th>
-                <th>Punkte</th>
-                <th>Multiplikator</th>
-                <th>Bewertung</th>
-            </tr>       
-            <?php printUserPageTable(constant::getExamplePageValues()); ?>
-        </table>
-        <small>Please be aware that the last lines were demo content.</small>
-        <hr/>
         <table style="border-collapse: collapse;">
             <tr>
                 <th>Seite</th>
