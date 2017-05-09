@@ -1,4 +1,23 @@
 <?php
+/**
+ * Prints the user list of top rankings
+ * @param array $topUsers
+ */
+
+function printUserTopRanking($topUsers) {
+    
+    // Check if our page is in the top 20 and figure out on which place
+    $rank = 1;
+    foreach ($topUsers as $user) {
+        // after every 5 pages, begin a new list of 5 pages next to the current list
+        if ($rank != 1 && ($rank - 1) % 5 == 0)
+            echo '</ol><ol class="flippinright" start="' . $rank . '">';
+
+        echo '<li>' . $user["username"] . " (" . $user["pointcount"] . " Punkte)</li>\r\n";
+
+        $rank++;
+    }
+}
 
 /**
  * Prints the page list of top rankings, dependant of the input array (filtered by category or smth.)
@@ -13,7 +32,7 @@ function printTopRanking($topPages) {
         if ($rank != 1 && ($rank - 1) % 5 == 0)
             echo '</ol><ol class="flippinright" start="' . $rank . '">';
 
-        echo '<li><a href="' . $page["url"] . '"></a>' . $page["url"] . "</li>\r\n";
+        echo '<li><a href=http://' . $page["url"] . '>' . $page["url"] . "</a></li>\r\n";
 
         $rank++;
     }

@@ -81,7 +81,7 @@ function login($email, $password, $mysqli) {
                         $_SESSION['USERverified'] = htmlspecialchars($verified);
                         $_SESSION['USERregdate'] = htmlspecialchars($registered);
                         $_SESSION['USERsalt'] = htmlspecialchars($salt);
-                        recalculateTotalPoints($mysqli, true);
+                        recalculateTotalPoints($mysqli, true, $_SESSION["user_id"]);
                         // Login erfolgreich.
                         return "Success";
                     } else {
@@ -110,12 +110,12 @@ function login($email, $password, $mysqli) {
  * (Re)calculates the total point balance of the user, based on his added and visited pages and the top ranking multiplier.
  * @param mysqli $mysqli mysqli conntection
  * @param boolean $setSessionValue If true, sets the session value of the currently logged in user.
+ * @param int $uid Sets the user id for which the point count shall be calculated
  * @return double total points of the currently logged in user.
  */
-function recalculateTotalPoints($mysqli, $setSessionValue) {
+function recalculateTotalPoints($mysqli, $setSessionValue, $uid) {
 
     $totalPoints = 0;
-    $uid = $_SESSION["user_id"];
 
     // SQL: Get all pages the user did add together (joined by) their urls
     $sql = "SELECT user_pages.pid, pages.url, user_pages.uid

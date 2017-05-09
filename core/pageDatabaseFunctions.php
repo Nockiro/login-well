@@ -2,6 +2,21 @@
 
 /* database handling / information request / page functions */
 
+function getUserTopRankings($mysqli) {
+
+    if ($result = $mysqli->query("SELECT id, username FROM members WHERE verified = 1"))
+        $user_array = fetch_all($result);
+
+    foreach ($user_array as $key => $user)
+        $user_array[$key]["pointcount"] = recalculateTotalPoints($mysqli, false, $user["id"]);
+
+    // sorts array by custom function for sorting it after pointcount of each user    
+    usort($user_array, function($a, $b) {
+        return $b['pointcount'] - $a['pointcount'];
+    });
+    return $user_array;
+}
+
 /**
  * Gets all existing categories from the database
  * @param type $mysqli
@@ -35,7 +50,7 @@ function getTopRankings($mysqli, $cat = 0) {
     if ($result = $mysqli->query($sql))
         $topPages = fetch_all($result);
 
-    
+
     return $topPages;
 }
 

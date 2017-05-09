@@ -93,7 +93,10 @@ $usercount = get_usercount($mysqli);
         <hr/>
 
         <div class="tab">
-            <input type="button" class="tablinks" onclick="openCategory('worldwide')" value="Weltweit">
+            <input type="button" class="tablinks" onclick="openCategory('users')" value="Nutzer">
+        	&#124;
+            <input type="button" class="tablinks" onclick="openCategory('worldwide')" value="Alle Kategorien">
+        	&#124;
             <?php
             $allCategories = getAllCategories($mysqli);
 
@@ -105,11 +108,16 @@ $usercount = get_usercount($mysqli);
             ?>
         </div>
 
+        
         <div id="worldwide" class="cat" style="display: block;">
             <ol class="flippinright">
                 <?php printTopRanking(getTopRankings($mysqli)); ?>
         </div>
         
+        <div id="users" class="cat" style="display: none;">
+            <ol class="flippinright">
+                <?php printUserTopRanking(getUserTopRankings($mysqli)); ?>
+        </div>
         <?php foreach ($allCategories as $category) { ?>
             <div id="<?php echo $category["title"]; ?>" class="cat" style="display: none">
                 <ol class="flippinright">
