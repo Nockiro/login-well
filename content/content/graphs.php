@@ -47,9 +47,9 @@
 						$out = "[new Date('$date'),";
 					} elseif ($key == "duration"){ // while the duration is json-encoded (by hand ;P ) and added in the right place to be displayed on the y-axis of it site's chart.
 						$addition = "";
-						$pIDPos = array_search($data[$pid],$pIDsUnCut);
+						$pIDPos = array_search($data['pid'],$pIDsUnCut);
 						foreach (range(0,$pIDPos) as $num) { // zeros are added in front of the statement to put $var in the right place
-							if (count($pIDsUnCut) > 0){
+							if ($num > 0){
 								$addition = "0,".$addition;
 							}
 						}
