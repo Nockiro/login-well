@@ -76,7 +76,7 @@
 		  var options = {
 			hAxis: {
 			  title: 'Date (in unix timestamp)',
-			  logScale: TRUE
+			  logScale = true
 			},
 			vAxis: {
 			  title: 'Length of Visit (in seconds)'
