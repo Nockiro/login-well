@@ -13,6 +13,7 @@ class language {
         "settings" => "Einstellungen",
         "about" => "Über uns",
         "adminpanel" => "Administrationspanel",
+        "graphs" => "Statistiken"
     );
     private static $roles = array(
         "1" => "User",
