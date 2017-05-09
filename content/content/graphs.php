@@ -78,7 +78,8 @@
 			  title: 'Date (in unix timestamp)'
 			},
 			vAxis: {
-			  title: 'Length of Visit (in seconds)'
+			  title: 'Length of Visit (in seconds)',
+			  scaleType: 'log'
 			},
 			backgroundColor: '#f1f8e9'
 		  };
