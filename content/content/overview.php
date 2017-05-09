@@ -71,10 +71,21 @@ $usercount = get_usercount($mysqli);
         for (i = 0; i < x.length; i++) {
             x[i].style.display = "none";
         }
+
+        var x = document.getElementsByClassName("tablinks");
+        for (i = 0; i < x.length; i++) {
+            x[i].style.fontWeight = "normal";
+        }
         document.getElementById(catName).style.display = "block";
+        document.getElementById("tab" + catName).style.fontWeight = "bold";
 
         document.getElementById("ranktitle").textContent = "Ranking (" + catName + ")";
     }
+
+    // selects tab as soon as the page is loaded
+    window.addEventListener("load", function () {
+        openCategory("worldwide");
+    });
 </script>
 <?php if (login_check($mysqli)) : ?>
     <div class="content">
@@ -85,7 +96,7 @@ $usercount = get_usercount($mysqli);
         <h3>Your websites <a href="/?cp=addpage"><b>(+)</b></a></h3>
         <hr/>
         <span id="userPageTable">
-            <?php printUserPageTable(getShortURLStats($mysqli)); ?>
+    <?php printUserPageTable(getShortURLStats($mysqli)); ?>
         </span>
     </div>
     <div class="content">
@@ -93,37 +104,37 @@ $usercount = get_usercount($mysqli);
         <hr/>
 
         <div class="tab">
-            <input type="button" class="tablinks" onclick="openCategory('users')" value="Nutzer">
-        	&#124;
-            <input type="button" class="tablinks" onclick="openCategory('worldwide')" value="Alle Kategorien">
-        	&#124;
+            <input type="button" class="tablinks" id="tabusers" onclick="openCategory('users')" value="Nutzer">
+            &#124;
+            <input type="button" class="tablinks" id="tabworldwide" onclick="openCategory('worldwide')" value="Alle Kategorien">
+            &#124;
             <?php
             $allCategories = getAllCategories($mysqli);
 
             // loop trough each category and make switch buttons
             foreach ($allCategories as $category) {
                 $title = $category["title"];
-                echo '<input type="button" class="tablinks" onclick="openCategory(\'' . $title . '\')" value="' . $title . '">';
+                echo '<input type="button" class="tablinks" id="tab' . $title . '" onclick="openCategory(\'' . $title . '\')" value="' . $title . '">';
             }
             ?>
         </div>
 
-        
+
         <div id="worldwide" class="cat" style="display: block;">
             <ol class="flippinright">
-                <?php printTopRanking(getTopRankings($mysqli)); ?>
+    <?php printTopRanking(getTopRankings($mysqli)); ?>
         </div>
-        
+
         <div id="users" class="cat" style="display: none;">
             <ol class="flippinright">
-                <?php printUserTopRanking(getUserTopRankings($mysqli)); ?>
+        <?php printUserTopRanking(getUserTopRankings($mysqli)); ?>
         </div>
-        <?php foreach ($allCategories as $category) { ?>
+    <?php foreach ($allCategories as $category) { ?>
             <div id="<?php echo $category["title"]; ?>" class="cat" style="display: none">
                 <ol class="flippinright">
-                    <?php printTopRanking(getTopRankings($mysqli, $category["catID"])); ?>
+            <?php printTopRanking(getTopRankings($mysqli, $category["catID"])); ?>
             </div>
-        <?php } ?>
+    <?php } ?>
 
     </div>
 <?php else : ?>
