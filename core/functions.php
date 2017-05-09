@@ -8,7 +8,25 @@ include_once 'extensions.php';
 include_once 'printFunctions.php';
 include_once 'constants.php';
 
-/* database handling / information request */
+/* database handling / information request / page functions */
+
+function getTopRankings($mysqli, $cat = 0) {
+
+    // SQL: Get the first 20 pages sorted by their highest ranking
+    $sql = "SELECT url FROM pages ORDER BY rating ";
+
+    // if there is a category given, return just that category
+    if ($cat != 0)
+        $sql .= "WHERE pagecat = $cat ";
+
+    // add limit clause to sql
+    $sql .= "DESC LIMIT 20";
+
+    if ($result = $mysqli->query($sql))
+        $topPages = fetch_all($result);
+
+    return $topPages;
+}
 
 /**
  * Gets overview of the users' pages
@@ -158,7 +176,9 @@ function setRequiredEmailForReg($mysqli, $shallon) {
     return $mysqli->query("UPDATE `internal_settings` SET `value` = '" . ($shallon ? "true" : "false") . "' WHERE `setting` = \"require_emailreg\"");
 }
 
-/* session handling */
+/* end page function */
+
+/* begin session handling */
 
 /**
  * Initiates a secure session and sets session cookies
@@ -322,11 +342,6 @@ WHERE user_pages.uid = $uid";
     return $totalPoints;
 }
 
-function microtime_float() {
-    list($usec, $sec) = explode(" ", microtime());
-    return ((float) $usec + (float) $sec);
-}
-
 /**
  * Checks the database for possible bruteforce break-in attempts
  * @param int $user_id ID of user in the database
@@ -429,29 +444,48 @@ function openPageSession($mysqli, $pid) {
     return $sessionOpenTime;
 }
 
-
 function closePageSession($mysqli, $pid, $begin, $duration) {
     $dbTimestamp = date('Y-m-d G:i:s', $begin);
     return $mysqli->query("UPDATE `visits` SET `duration` = '$duration' WHERE `session_begin` = '$dbTimestamp' AND uid = '" . $_SESSION['user_id'] . "' AND pid = '$pid';");
 }
 
-/* account handling */
+/* end session handling */
+/* begin account handling */
 
 // For getting this to work, it's essential!! that the database is build with foreign keys which all reference to the members' user id,
 // so that the rows belonging and containing the members' entries can be deleted!
 
+/**
+ * Deletes an account and all connected data completely from the database
+ * @param mysqli $mysqli connection
+ * @return mixed <b>FALSE</b> on failure. For successful SELECT, SHOW, DESCRIBE or
+ * EXPLAIN queries <b>mysqli_query</b> will return
+ * a <b>mysqli_result</b> object. For other successful queries <b>mysqli_query</b> will
+ * return <b>TRUE</b>.
+ */
 function deleteAccount($mysqli) {
     return $mysqli->query("DELETE FROM `members` WHERE `members`.`id` =" . $_SESSION['user_id'] . ";");
 }
 
 /* html stuff */
 
+/**
+ * Gets the current count of registered users
+ * @param mysqli $mysqli connection
+ * @return int count of registered users
+ */
 function get_usercount($mysqli) {
     if ($result = $mysqli->query("SELECT id FROM members")) {
         return $result->num_rows;
     }
 }
 
+/**
+ * Checks if a user is verified (through email)
+ * @param int $user_id ID of the user to check for
+ * @param mysqli $mysqli connection
+ * @return boolean true if verified
+ */
 function is_validated($user_id, $mysqli) {
     if ($result = $mysqli->query("SELECT verified FROM members WHERE id = $user_id;", MYSQLI_USE_RESULT)) {
         $row = $result->fetch_row();
@@ -459,36 +493,28 @@ function is_validated($user_id, $mysqli) {
     }
 }
 
-function useOwnHeader() {
-    // possibilitz to overwrite the global header setting:
-    ob_clean();
-    // manually include header:
-    include (file_build_path("content", "header.php")); //add head content of page 
-}
-
 /**
- * Is exactly what it looks like... resets Passwords.
-*/
-
+ * Is exactly what it looks like... resets password of the current logged in user.
+ */
 function resetPassword() {
-	if (isset($_POST['submit'])) {
-    $email = htmlentities($_POST['email']);
-    $result = $mysqli->query("SELECT id FROM members WHERE `email` = '$email'");
-    if ($result && mysqli_num_rows($result) > 0) {
-        $password = rand(10000000, 99999999);
-        $newpass = hash('sha512', $password, false);
+    if (isset($_POST['submit'])) {
+        $email = htmlentities($_POST['email']);
+        $result = $mysqli->query("SELECT id FROM members WHERE `email` = '$email'");
+        if ($result && mysqli_num_rows($result) > 0) {
+            $password = rand(10000000, 99999999);
+            $newpass = hash('sha512', $password, false);
 
-        // Erstelle ein zufälliges Salt
-        $random_salt = hash('sha512', uniqid(openssl_random_pseudo_bytes(16), TRUE));
-        // Erstelle saltet Passwort 
-        $hashed_pw = hash('sha512', $newpass . $random_salt);
+            // Erstelle ein zufälliges Salt
+            $random_salt = hash('sha512', uniqid(openssl_random_pseudo_bytes(16), TRUE));
+            // Erstelle saltet Passwort 
+            $hashed_pw = hash('sha512', $newpass . $random_salt);
 
-        if ($mysqli->query("UPDATE members SET `password` = '$hashed_pw' WHERE `email` = '$email'") === TRUE)
-            echo "Pass record updated successfully";
-        if ($mysqli->query("UPDATE members SET `salt` = '$random_salt' WHERE `email` = '$email'") === TRUE)
-            echo "Salt record updated successfully.";
+            if ($mysqli->query("UPDATE members SET `password` = '$hashed_pw' WHERE `email` = '$email'") === TRUE)
+                echo "Pass record updated successfully";
+            if ($mysqli->query("UPDATE members SET `salt` = '$random_salt' WHERE `email` = '$email'") === TRUE)
+                echo "Salt record updated successfully.";
 
-        $mailtext = '<html>
+            $mailtext = '<html>
                                                 <head>
                                                     <title>Passwort zurückgesetzt</title>
                                                 </head>
@@ -501,21 +527,33 @@ function resetPassword() {
                                                 </body>
                                                 </html>
                                                 ';
-        $mailtitle = "Passwortänderung";
-        $header = "MIME-Version: 1.0\r\n";
-        $header .= "Content-Type: text/html; charset=utf-8\r\n";
-        $header .= "From: LoginWell <loginwell@rudifamily.de>\r\n";
-        $header .= "Reply-To: support@rudifamily.de\r\n";
-        $header .= "X-Mailer: PHP " . phpversion();
-        if (mail($email, $mailtitle, $mailtext, $header)) {
-            header('Location: /index.php?cp=register_success');
+            $mailtitle = "Passwortänderung";
+            $header = "MIME-Version: 1.0\r\n";
+            $header .= "Content-Type: text/html; charset=utf-8\r\n";
+            $header .= "From: LoginWell <loginwell@rudifamily.de>\r\n";
+            $header .= "Reply-To: support@rudifamily.de\r\n";
+            $header .= "X-Mailer: PHP " . phpversion();
+            if (mail($email, $mailtitle, $mailtext, $header)) {
+                header('Location: /index.php?cp=register_success');
+            } else {
+                header('Location: /index.php?cp=register_failed');
+            }
         } else {
-            header('Location: /index.php?cp=register_failed');
+            echo "Lel das hat nicht geklappt...";
         }
-    } else {
-        echo "Lel das hat nicht geklappt...";
     }
 }
+
+/* end account handling */
+
+/* start miscellaneous stuff */
+
+function useOwnHeader() {
+    // possibility to overwrite the global header setting:
+    ob_clean();
+    // manually include header:
+    include (file_build_path("content", "header.php")); //add head content of page 
 }
 
+/* end miscellaneous stuff */
 ?>

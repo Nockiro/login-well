@@ -1,6 +1,25 @@
 <?php
 
 /**
+ * Prints the page list of top rankings, dependant of the input array (filtered by category or smth.)
+ * @param array $topPages
+ */
+function printTopRanking($topPages) {
+    
+    // Check if our page is in the top 20 and figure out on which place
+    $rank = 1;
+    foreach ($topPages as $page) {
+        // after every 5 pages, begin a new list of 5 pages next to the current list
+        if ($rank != 1 && ($rank - 1) % 5 == 0)
+            echo '</ol><ol class="flippinright" start="' . $rank . '">';
+
+        echo '<li><a href="' . $page["url"] . '"></a>' . $page["url"] . "</li>\r\n";
+
+        $rank++;
+    }
+}
+
+/**
  * Prints the list of all websites currently stored in the database - only the ones which will work at the end of the day
  * @param array $pageList
  */
