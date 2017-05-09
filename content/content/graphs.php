@@ -49,7 +49,7 @@
 						$addition = "";
 						$pIDPos = array_search($data[$pid],$pIDsUnCut);
 						foreach (range(0,$pIDPos) as $num) { // zeros are added in front of the statement to put $var in the right place
-							if ($num > 0){
+							if (count($pIDsUnCut) > 0){
 								$addition = "0,".$addition;
 							}
 						}
@@ -79,7 +79,7 @@
 			},
 			vAxis: {
 			  title: 'Length of Visit (in seconds)',
-			  //scaleType: 'log'
+			  scaleType: 'log'
 			},
 			backgroundColor: '#f1f8e9'
 		  };
