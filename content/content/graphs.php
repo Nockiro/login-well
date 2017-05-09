@@ -37,7 +37,7 @@
 		  
           data.addRows([		
 		  <?php 
-			$query = "SELECT `session_begin`, `duration`, `pid` FROM visits WHERE `uid` = $uid ORDER BY `session_begin`;";
+			$query = "SELECT `session_begin`, `duration`, `pid` FROM visits WHERE `uid` = $uid ORDER BY `session_begin`";
 			$answer = $mysqli->query($query);
 			$array = fetch_all($answer);
 			foreach ($array as $ind => $data){ //every site we have data from is iterated..
@@ -79,7 +79,7 @@
 			},
 			vAxis: {
 			  title: 'Length of Visit (in seconds)',
-			  scaleType: 'log'
+			  //scaleType: 'log'
 			},
 			backgroundColor: '#f1f8e9'
 		  };
