@@ -23,18 +23,19 @@ function getAllCategories($mysqli) {
 function getTopRankings($mysqli, $cat = 0) {
 
     // SQL: Get the first 20 pages sorted by their highest ranking
-    $sql = "SELECT url FROM pages ORDER BY rating ";
+    $sql = "SELECT url FROM pages ";
 
     // if there is a category given, return just that category
     if ($cat != 0)
         $sql .= "WHERE pagecat = $cat ";
 
     // add limit clause to sql
-    $sql .= "DESC LIMIT 20";
+    $sql .= "ORDER BY rating DESC LIMIT 20";
 
     if ($result = $mysqli->query($sql))
         $topPages = fetch_all($result);
 
+    
     return $topPages;
 }
 
