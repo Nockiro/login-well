@@ -11,7 +11,7 @@
 
 	function drawBackgroundColor() {
 		  var data = new google.visualization.DataTable();
-		  data.addColumn('number', 'Date');
+		  data.addColumn('date', 'Date');
 		  <?php
 			$pIDquery = "SELECT `pid` FROM user_pages WHERE `uid` = $uid";
 			$pIDanswer = $mysqli->query($pIDquery);
@@ -43,11 +43,11 @@
 			foreach ($array as $ind => $data){ //every site we have data from is iterated..
 				foreach ($data as $key => $val){
 					if ($key == "session_begin"){ //and the date stored as x-variable...
-						$timestamp = strtotime($val);
-						$out = "[$timestamp,";
+						$date = substr($val,0,10);
+						$out = "[new Date('$date'),";
 					} elseif ($key == "duration"){ // while the duration is json-encoded (by hand ;P ) and added in the right place to be displayed on the y-axis of it site's chart.
 						$addition = "";
-						$pIDPos = array_search($data[pid],$pIDsUnCut);
+						$pIDPos = array_search($data[$pid],$pIDsUnCut);
 						foreach (range(0,$pIDPos) as $num) { // zeros are added in front of the statement to put $var in the right place
 							if ($num > 0){
 								$addition = "0,".$addition;
