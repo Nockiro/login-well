@@ -82,10 +82,27 @@ $usercount = get_usercount($mysqli);
         document.getElementById("ranktitle").textContent = "Ranking (" + catName + ")";
     }
 
+    function getUserStats()
+    {
+        document.getElementById("users").innerHTML = '<img alt="" height="25" src="/img/ladekreis.gif" width="25">';
+
+        var xmlhttp = new XMLHttpRequest();
+        xmlhttp.onreadystatechange = function () {
+            if (xmlhttp.readyState == 4) {
+                document.getElementById("users").innerHTML = xmlhttp.responseText;
+            }
+        }
+        xmlhttp.open("GET", "/api/getUserRanking.php");
+        xmlhttp.send();
+        return;
+    }
+
     // selects tab as soon as the page is loaded
     window.addEventListener("load", function () {
         openCategory("worldwide");
+        getUserStats();
     });
+    
 </script>
 <?php if (login_check($mysqli)) : ?>
     <div class="content">
@@ -96,7 +113,7 @@ $usercount = get_usercount($mysqli);
         <h3>Your websites <a href="/?cp=addpage"><b>(+)</b></a></h3>
         <hr/>
         <span id="userPageTable">
-    <?php printUserPageTable(getShortURLStats($mysqli)); ?>
+            <?php printUserPageTable(getShortURLStats($mysqli)); ?>
         </span>
     </div>
     <div class="content">
@@ -122,19 +139,17 @@ $usercount = get_usercount($mysqli);
 
         <div id="worldwide" class="cat" style="display: block;">
             <ol class="flippinright">
-    <?php printTopRanking(getTopRankings($mysqli)); ?>
+                <?php printTopRanking(getTopRankings($mysqli)); ?>
         </div>
 
         <div id="users" class="cat" style="display: none;">
-            <ol class="flippinright">
-        <?php printUserTopRanking(getUserTopRankings($mysqli)); ?>
         </div>
-    <?php foreach ($allCategories as $category) { ?>
+        <?php foreach ($allCategories as $category) { ?>
             <div id="<?php echo $category["title"]; ?>" class="cat" style="display: none">
                 <ol class="flippinright">
-            <?php printTopRanking(getTopRankings($mysqli, $category["catID"])); ?>
+                    <?php printTopRanking(getTopRankings($mysqli, $category["catID"])); ?>
             </div>
-    <?php } ?>
+        <?php } ?>
 
     </div>
 <?php else : ?>
