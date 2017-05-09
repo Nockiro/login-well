@@ -79,7 +79,7 @@
 			},
 			vAxis: {
 			  title: 'Length of Visit (in seconds)',
-			  scaleType: 'log'
+			  //scaleType: 'log'
 			},
 			backgroundColor: '#f1f8e9'
 		  };
