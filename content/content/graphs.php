@@ -1,6 +1,4 @@
 <?php
-	include_once 'dbconnect.php';
-	include_once '../core/functions.php';
 	$uid = $_SESSION["user_id"];
 	echo "<h1>A graph of your registered websites:</h1>";
 	//Everything except the php parts can be understood by visiting: https://google-developers.appspot.com/chart/interactive/docs/gallery/linechart
