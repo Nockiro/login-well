@@ -5,6 +5,7 @@
         <span style="font-size:x-large;">
             <a href="/?cp=overview"><?php echo language::GetPageTitle("overview"); ?></a>
             <a href="/?cp=profile"><?php echo language::GetPageTitle("profile"); ?></a>
+            <a href="/?cp=graphs"><?php echo language::GetPageTitle("statistics"); ?></a>
             <a href="/?cp=settings"><?php echo language::GetPageTitle("settings"); ?></a>
             <a href="/?cp=about"><?php echo language::GetPageTitle("about"); ?></a>
 
