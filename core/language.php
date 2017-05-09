@@ -12,7 +12,7 @@ class language {
         "account_deletion" => "Account löschen",
         "settings" => "Einstellungen",
         "about" => "Über uns",
-        "adminpanel" => "Administrationspanel",
+        "adminpanel" => "Administration",
         "graphs" => "Statistiken"
     );
     private static $roles = array(

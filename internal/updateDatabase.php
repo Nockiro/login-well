@@ -242,14 +242,14 @@ CREATE TABLE IF NOT EXISTS `internal_settings` (
 -- Daten für Tabelle `pagecats`
 --
 
-INSERT INTO `pagecats` (`catID`, `title`) VALUES (1, 'Kommunikation'), (2, 'Unterhaltung'), (3, 'Arbeit'), (4, 'News u. Informaion'), (5, 'Sonstiges');
+INSERT INTO `pagecats` (`catID`, `title`) VALUES (1, 'Kommunikation'), (2, 'Unterhaltung'), (3, 'Arbeit'), (4, 'News u. Information'), (5, 'Sonstiges');
 
 --
 -- Daten für Tabelle `pages`
 --
 
 INSERT INTO `pages` (`pid`, `url`, `pagecat`) VALUES
-(1, 'www.klamm.de', 5),
+(1, 'klamm.de', 5),
 (2, 'loginwell.rudifamily.de', 5),
 (3, 'github.com', 3),
 (4, 'waitinginline3d.de', 2),
