@@ -50,7 +50,7 @@ $usercount = get_usercount($mysqli);
         xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
         xhttp.send("pid=" + pid + "&rating=" + rating);
     }
-    
+
     function deleteUPage(pid) {
         var xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function () {
@@ -64,6 +64,17 @@ $usercount = get_usercount($mysqli);
         xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
         xhttp.send("pid=" + pid);
     }
+
+    function openCategory(catName) {
+        var i;
+        var x = document.getElementsByClassName("cat");
+        for (i = 0; i < x.length; i++) {
+            x[i].style.display = "none";
+        }
+        document.getElementById(catName).style.display = "block";
+
+        document.getElementById("ranktitle").textContent = "Ranking (" + catName + ")";
+    }
 </script>
 <?php if (login_check($mysqli)) : ?>
     <div class="content">
@@ -73,35 +84,39 @@ $usercount = get_usercount($mysqli);
     <div class="content">
         <h3>Your websites <a href="/?cp=addpage"><b>(+)</b></a></h3>
         <hr/>
-            <span id="userPageTable">
-                <?php printUserPageTable(getShortURLStats($mysqli)); ?>
-            </span>
+        <span id="userPageTable">
+            <?php printUserPageTable(getShortURLStats($mysqli)); ?>
+        </span>
     </div>
     <div class="content">
-        <h3>Ranking (worldwide)</h3>
+        <h3 id="ranktitle">Ranking (worldwide)</h3>
         <hr/>
 
-        <ol class="flippinright">
-
+        <div class="tab">
+            <input type="button" class="tablinks" onclick="openCategory('worldwide')" value="Weltweit">
             <?php
-            // SQL: Get the first 20 pages sorted by their highest ranking
-            $sql = "SELECT url FROM pages ORDER BY rating DESC LIMIT 20";
+            $allCategories = getAllCategories($mysqli);
 
-            if ($result = $mysqli->query($sql))
-                $topPages = fetch_all($result);
-
-            // Check if our page is in the top 20 and figure out on which place
-            $rank = 1;
-            foreach ($topPages as $page) {
-                // after every 5 pages, begin a new list of 5 pages next to the current list
-                if ($rank != 1 && ($rank - 1) % 5 == 0)
-                    echo '</ol><ol class="flippinright" start="' . $rank . '">';
-
-                echo "<li>" . $page["url"] . "</li>\r\n";
-
-                $rank++;
+            // loop trough each category and make switch buttons
+            foreach ($allCategories as $category) {
+                $title = $category["title"];
+                echo '<input type="button" class="tablinks" onclick="openCategory(\'' . $title . '\')" value="' . $title . '">';
             }
             ?>
+        </div>
+
+        <div id="worldwide" class="cat" style="display: block;">
+            <ol class="flippinright">
+                <?php printTopRanking(getTopRankings($mysqli)); ?>
+        </div>
+        
+        <?php foreach ($allCategories as $category) { ?>
+            <div id="<?php echo $category["title"]; ?>" class="cat" style="display: none">
+                <ol class="flippinright">
+                    <?php printTopRanking(getTopRankings($mysqli, $category["catID"])); ?>
+            </div>
+        <?php } ?>
+
     </div>
 <?php else : ?>
     <div class="content">
