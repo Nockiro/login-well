@@ -329,7 +329,7 @@ function is_validated($user_id, $mysqli) {
 /**
  * Is exactly what it looks like... resets password of the current logged in user.
  */
-function resetPassword() {
+function resetPassword($mysqli) {
     if (isset($_POST['submit'])) {
         $email = htmlentities($_POST['email']);
         $result = $mysqli->query("SELECT id FROM members WHERE `email` = '$email'");
