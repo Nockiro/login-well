@@ -4,7 +4,7 @@ include_once '../core/functions.php';
 if (!empty($error_msg)) {
     echo $error_msg;
 }
-resetPassword();
+resetPassword($mysqli);
 ?>
 <div class="content">
     Sup, do you <strong>really</strong> wanna reset you password? <br>
