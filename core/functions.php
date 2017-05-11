@@ -332,8 +332,9 @@ function is_validated($user_id, $mysqli) {
 function resetPassword($mysqli) {
     if (isset($_POST['submit'])) {
         $email = htmlentities($_POST['email']);
-        $result = $mysqli->query("SELECT id FROM members WHERE `email` = '$email'");
+        $result = $mysqli->query("SELECT id, username FROM members WHERE `email` = '$email'");
         if ($result && mysqli_num_rows($result) > 0) {
+            $username = fetch_all($result)["username"];
             $password = rand(10000000, 99999999);
             $newpass = hash('sha512', $password, false);
 
@@ -354,9 +355,13 @@ function resetPassword($mysqli) {
 
                                                 <body>
                                                 <p>Hallo ' . $username . ',</p>
-                                                <p>Ihr neues Passwort lautet ' . $password . '</p>
+                                                <p>Dein neues Passwort lautet ' . $password . '.</p>
+                                                <p>Du solltest es auf ein sicheres Passwort deiner Wahl ändern, nachdem du dich eingeloggt hast.</ p>
+                                                <br/>
                                                 <p>Mit freundlichen Grüßen,</p>
-                                                <p>Dein Loginer-Team</p>
+                                                <p>Dein LoginWell-Team</p>
+                                                <hr/>
+                                                <small>Dies ist eine automatische E-Mail, wenn du Fragen hast, kannst du gerne auf diese E-Mail antworten, sie wird an uns weitergeleitet.</small>
                                                 </body>
                                                 </html>
                                                 ';
@@ -367,9 +372,9 @@ function resetPassword($mysqli) {
             $header .= "Reply-To: support@rudifamily.de\r\n";
             $header .= "X-Mailer: PHP " . phpversion();
             if (mail($email, $mailtitle, $mailtext, $header)) {
-                header('Location: /index.php?cp=register_success');
+                header('Location: /index.php?cp=reset_success');
             } else {
-                header('Location: /index.php?cp=register_failed');
+                header('Location: /index.php?cp=reset_failed');
             }
         } else {
             echo "Lel das hat nicht geklappt...";

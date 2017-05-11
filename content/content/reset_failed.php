@@ -1,5 +1,5 @@
 <div class="content error">
-    <h2>Registration failed!</h2>
+    <h2>Reset failed!</h2>
 </div>
 <div class="content">
     <h3>Irgendwas ist schief gelaufen. Bitte versuchen Sie es erneut und kontaktieren sie den Webmaster, wenn es weiterhin Probleme gibt.</h3>

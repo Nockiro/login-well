@@ -71,7 +71,7 @@
             } else {
                 echo "http";
             }
-            ?>://<?php echo $url; ?>" width="100%" height="100%">
+            ?>://<?php echo $url; ?>" width="100%" height="96%">
 
             </iframe>
         </div>

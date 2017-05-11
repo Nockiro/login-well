@@ -13,6 +13,7 @@ class language {
         "settings" => "Einstellungen",
         "about" => "Über uns",
         "adminpanel" => "Administration",
+        "addpage" => "Seite hinzufügen",
         "graphs" => "Statistiken"
     );
     private static $roles = array(

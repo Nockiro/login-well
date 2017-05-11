@@ -1,8 +1,11 @@
 <?php
 	$uid = $_SESSION["user_id"];
-	echo "<h1>A graph of your registered websites:</h1>";
+	echo '<div class="content"><h3>Graph: Visit time on your websites</h3><hr/>';
 	//Everything except the php parts can be understood by visiting: https://google-developers.appspot.com/chart/interactive/docs/gallery/linechart
 ?>
+<style>
+    /* hide scrollbars coming from the graph */
+    .content { overflow: hidden !important; }</style>
  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script> 
   <div id="chart_div"></div>
   <script type="text/javascript">
@@ -75,7 +78,7 @@
 		  
 		  var options = {
 			hAxis: {
-			  title: 'Date (in unix timestamp)'
+			  title: 'Date'
 			},
 			vAxis: {
 			  title: 'Length of Visit (in seconds)',
@@ -88,3 +91,5 @@
 		  chart.draw(data, options);
 		}
 	</script>
+
+ </div>

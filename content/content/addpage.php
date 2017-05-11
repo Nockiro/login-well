@@ -28,18 +28,18 @@
     <form id="addpageform" method="post">
 
         <div>
-            <label for="page">Seite</label>
+            <label for="page">Page</label>
             <input type="text" name="url" id="url" value="" readonly />
         </div>
 
         <div>
-            <label for="user">Nutzername</label>
-            <input type="text" name="user" id="user" value="" placeholder="(username)" required/>
+            <label for="user">Username (in case of login)</label>
+            <input type="text" name="user" id="user" value="" placeholder="(username)" />
         </div>
 
         <div>
             <label for="password">Password</label>
-            <input type="password" name="password" id="password" value="" placeholder="(password)" required />
+            <input type="password" name="password" id="password" value="" placeholder="(password)" />
         </div>
         <input type="hidden" name="pid" id="pid" value="" />
 
