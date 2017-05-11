@@ -1,6 +1,10 @@
 <?php
 
-// Ping by website domain name, IP address or Hostname
+/**
+ * Check whether a domain supports ssl or not based on a :443 ping
+ * @param string $domain
+ * @return boolean True if SSL is accepted
+ */
 function checkForSSL($domain){
 
     $starttime = microtime(true);
@@ -80,6 +84,11 @@ function secondsToTime($seconds, $moreThanHours) {
                     . '%h Stunde(n) und %I:%S Minute(n)'); // only show months if seconds are worth it
 }
 
+/**
+ * URL-escapes a string
+ * @param string $url URL to be escaped
+ * @return string escaped url
+ */
 function esc_url($url) {
 
     if ('' == $url) {
@@ -116,6 +125,10 @@ function esc_url($url) {
     }
 }
 
+/**
+ * Returns the current unix timestamp in microseconds as a float
+ * @return float timestamp in microseconds
+ */
 function microtime_float() {
     list($usec, $sec) = explode(" ", microtime());
     return ((float) $usec + (float) $sec);

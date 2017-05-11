@@ -8,6 +8,8 @@ class language {
         "register" => "Registrierung",
         "register_success" => "Registrierung erfolgreich",
         "register_failed" => "Registrierung fehlgeschlagen",
+        "reset_success" => "Passwortreset erfolgreich",
+        "reset_failed" => "Passwortreset fehlgeschlagen",
         "profile" => "Profil",
         "account_deletion" => "Account löschen",
         "settings" => "Einstellungen",

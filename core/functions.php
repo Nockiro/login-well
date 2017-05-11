@@ -328,6 +328,7 @@ function is_validated($user_id, $mysqli) {
 
 /**
  * Is exactly what it looks like... resets password of the current logged in user.
+ * @param mysqli $mysqli connection
  */
 function resetPassword($mysqli) {
     if (isset($_POST['submit'])) {

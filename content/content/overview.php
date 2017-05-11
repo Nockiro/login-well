@@ -2,6 +2,16 @@
 sec_session_start();
 
 $usercount = get_usercount($mysqli);
+
+$widgets = $_COOKIE["widget"];
+$widgetsEnabled = false;
+// loop through 
+foreach ($widgets as $widgetname => $enabled) {
+    if ($enabled == 1) {
+        $widgetsEnabled = true;
+        break;
+    }
+}
 ?>
 
 <style>
@@ -102,7 +112,7 @@ $usercount = get_usercount($mysqli);
         openCategory("worldwide");
         getUserStats();
     });
-    
+
 </script>
 <?php if (login_check($mysqli)) : ?>
     <div class="content">
@@ -116,6 +126,31 @@ $usercount = get_usercount($mysqli);
             <?php printUserPageTable(getShortURLStats($mysqli)); ?>
         </span>
     </div>
+    <?php if ($widgetsEnabled) : ?>
+        <div class="content">
+            <h3>Widgets</h3>
+            <hr/>
+            <?php
+            include_once file_build_path("content", "widgets", "widgets.php");
+            $allwidgets = \loginwell_widgets\widgetCategories::getClasses();
+
+            // loop through each cookie of us for getting
+            foreach ($widgets as $widgetname => $enabled) {
+                if ($enabled) {
+                    ?>
+
+                    <div class="content" style="display: table !important;">
+                        <span id="<?php echo $widgetname; ?>">
+                            <?php \loginwell_widgets\widgetCategories::getWidgetCode($widgetname); ?>
+                        </span>
+                    </div>
+                    <?php
+                }
+            }
+            ?>
+
+        </div>
+    <?php endif; ?>
     <div class="content">
         <h3 id="ranktitle">Ranking (worldwide)</h3>
         <hr/>

@@ -2,6 +2,11 @@
 
 /* database handling / information request / page functions */
 
+/**
+ * Gets the user array with all top-ranked users
+ * @param mysqli $mysqli database connection
+ * @return mixed $user_array array of users
+ */
 function getUserTopRankings($mysqli) {
 
     if ($result = $mysqli->query("SELECT id, username FROM members WHERE verified = 1"))

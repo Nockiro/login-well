@@ -38,7 +38,6 @@ if (isset($_GET["cp"]) && !empty($_GET["cp"])) {
                 }
 
                 foreach ($messages as $message) {
-
                     $message = htmlspecialchars($message);
                     
                     if ($message !== "Success") {

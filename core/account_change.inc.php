@@ -11,6 +11,7 @@ if (isset($_POST['username'])) {
 }
 
 if (isset($_POST['mail'])) {
+    /* filter mail input so that there is no possibility for a xss attack or smth similar */
     $email = filter_input(INPUT_POST, 'mail', FILTER_SANITIZE_EMAIL);
     $email = filter_var($email, FILTER_VALIDATE_EMAIL);
 

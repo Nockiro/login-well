@@ -1,4 +1,5 @@
 <?php
+/* include main function file (if not included yet) - includes database connections, extension methods, page-database-interbase functions and so on */
 if (file_exists(file_build_path("core", "functions.php")))
     include_once(file_build_path("core", "functions.php"));
 else if (file_exists(file_build_path("..", "core", "functions.php")))
