@@ -1,5 +1,5 @@
 # Log in well
-This project is a simple school project. Not supposed to work in any way.  
+This project was a simple school demo project. Not supposed to work in any way.  
 Goal: Login to several pages with one management page.  
 Note: Login well is just a working title.  
 
@@ -14,7 +14,7 @@ Please add explaining labels to all issues.
 
 ----
 # Log in well
-Dieses Projekt ist ein einfaches Schulprojekt. Es muss nicht unbedingt funktionieren.  
+Dieses Projekt war ein einfaches Schulprojekt zur Demonstration. Es muss und wird nicht unbedingt funktionieren.  
 Ziel: In vielen Seiten über eine Verwaltungsseite einloggen können
 
 ## Branches
